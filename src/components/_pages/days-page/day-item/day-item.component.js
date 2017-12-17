@@ -10,8 +10,6 @@ const DayListItem = (props)=>{
     const day = props.day;
     return (
         <SelectableListItem 
-        selected={props.selected}
-        handleSelect={props.handleSelect}
         itemId={day.id}
         handleEdit={props.handleEdit}
         bgColorClassName={bgColor}
@@ -23,8 +21,6 @@ const DayListItem = (props)=>{
 
 DayListItem.propTypes={
     day: PropTypes.object.isRequired,
-    selected: PropTypes.bool.isRequired,
-    handleSelect: PropTypes.func.isRequired,
     handleEdit: PropTypes.func.isRequired
 }
 

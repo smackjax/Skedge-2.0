@@ -22,20 +22,24 @@ const SelectableListItem = (props)=>{
                 {vDots}
                 {props.children}
             </label>
-            <SelectItemCheckbox
-            value={props.itemId}
-            checked={props.selected}
-            onChange={props.handleSelect}
-            />
+            { // Only need a checkbox if there is a handler
+                props.handleSelect && (
+                <SelectItemCheckbox
+                value={props.itemId}
+                checked={props.selected}
+                onChange={props.handleSelect}
+                />
+            )}
+            
         </ListItem>
     )
 }
 
 SelectableListItem.proptypes = {
-    itemId: PropTypes.string.isRequired,
-    selected: PropTypes.bool.isRequired,
     bgColorClassName: PropTypes.string.isRequired,
-    handleSelect: PropTypes.func.isRequired,
+    itemId: PropTypes.string.isRequired,
+    handleSelect: PropTypes.func,
+    selected: PropTypes.bool,
     handleEdit: PropTypes.func.isRequired
 }
 

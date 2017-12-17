@@ -79,7 +79,7 @@ class TaskItemEditModal extends React.Component{
                     </ModalContent>
 
                     <ModalFooterBtns
-                    bgColorClassName="bg-task"
+                    bgClassName="bg-task"
                     handleSave={this.handleSave.bind(this)}
                     handleCancel={this.props.handleClearEdit}
                     />
@@ -92,7 +92,6 @@ class TaskItemEditModal extends React.Component{
 
 TaskItemEditModal.propTypes ={
     open: PropTypes.bool.isRequired,
-    bgColorClassName: PropTypes.string,
     // Either an object or false
     item: PropTypes.oneOfType([
         PropTypes.object,

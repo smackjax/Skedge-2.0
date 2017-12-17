@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { WithItemArrayControls } from '../../_HOCIndex';
+import { 
+    WithBulkModalControls,
+    WithItemArrayControls
+} from '../../_HOCIndex';
 import {
     ListPage,
     ListPageHeader,
@@ -10,37 +13,51 @@ import {
     BulkAddToBtn, 
     BulkRemoveFromBtn, 
     AddNewItemBtn } from '../../list-page-generics/index';
-import {
-    TaskItemEditModal as ItemEditModal
+
+import { 
+    TaskItemEditModal as ItemEditModal,
+    TaskBulkModal as BulkSelectModal
 } from '../../_modals/';
 
 import * as icons from '../../_icons';
-import TaskItem from './task-item/task-item.component';
-import {TASK} from '../../_DATATYPES';
+import ItemToList from './task-item/task-item.component';
 
+import { TASK as DATATYPE } from '../../_DATATYPES';
 
-const TasksPage = (props)=>{
+const pageClass = 'tasks';
+const bgColor = 'bg-task';
+const primaryIcon = icons.task;
+const bulkIcon = icons.day;
+const bulkBgClass = 'bg-day';
 
+const DayPage = (props)=>{
     const handleNew=()=>{
-        props.handleSetEdit(TASK({}));
+        props.handleSetEdit(DATATYPE({}));
+    }
+    const handleAddTo=(idsToAdd)=>{
+        console.log("Ids to add from modal: ")
+        console.log(idsToAdd);
+    }
+    const handleRemoveFrom=(idsToRemove)=>{
+        console.log("Ids to remove from modal: ")
+        console.log(idsToRemove);
     }
 
-    const handleAddTo=()=>{
-        // props.selectedIds
-    }
-    const handleRemoveFrom=()=>{
-        // props.selectedIds
+    const handleOpenAddTo=()=>{ 
+        props.handleOpenAddTo(handleAddTo);   
     }
 
-    const bgColor = "bg-task";
+    const handleOpenRemoveFrom=()=>{
+        props.handleOpenRemoveFrom(handleRemoveFrom);
+    }
 
     return (
-        <ListPage className="tasks">
+        <ListPage className={pageClass}>
 
             <ListPageHeader 
             bgColorClassName={bgColor}
             >
-                {icons.task}&nbsp;
+                {primaryIcon}&nbsp;
                 <span>Tasks</span>
             </ListPageHeader>            
 
@@ -49,8 +66,8 @@ const TasksPage = (props)=>{
                     (task, index)=>{
                     const selected=
                         props.selectedIds.includes(task.id);
-                    return <TaskItem 
-                        key={"task"+index}
+                    return <ItemToList
+                        key={"item"+index}
                         task={task}
                         selected={selected}
                         handleEdit={props.handleSetEdit}
@@ -60,29 +77,27 @@ const TasksPage = (props)=>{
                 )}
             </ListItemsWrapper>
 
-            <ListControlsWrapper>
-                
+            <ListControlsWrapper>         
                 <BulkRemoveFromBtn
-                className={"bg-day"}
-                onClick={handleRemoveFrom}
+                className={bulkBgClass}
+                onClick={handleOpenRemoveFrom}
                 >   
                     {icons.minus}
-                    {icons.task}
+                    {bulkIcon}
                 </BulkRemoveFromBtn>
 
                 <BulkAddToBtn
-                className={"bg-day"}
-                onClick={handleAddTo}
+                className={bulkBgClass}
+                onClick={handleOpenAddTo}
                 >
                     {icons.plus}
-                    {icons.day}
+                    {bulkIcon}
                 </BulkAddToBtn>
                 
                 <AddNewItemBtn 
                 className={bgColor}
                 onClick={handleNew}
                 />
-            
             </ListControlsWrapper>
 
             <ItemEditModal
@@ -91,21 +106,33 @@ const TasksPage = (props)=>{
                 item={props.editingItem}
                 handleClearEdit={props.handleClearEdit}
             />
+            
+            <BulkSelectModal
+                open={props.bulkModalOpen}
+                actionIcon={props.bulkActionIcon}
+                numOfItems={props.selectedIds.length}
+                handleConfirm={props.handleBulkConfirm}
+                handleCancel={props.handleCloseBulkModal}
+            />
 
         </ListPage>
-        
     )
 } 
 
 
-TasksPage.propTypes = {
-    // Array of objects
+DayPage.propTypes = {
+    // From WithBulkModalControls
+    bulkModalOpen: PropTypes.bool.isRequired,
+    bulkActionIcon: PropTypes.object,
+    handleOpenAddTo: PropTypes.func,
+    handleOpenRemoveFrom: PropTypes.func,
+    handleBulkConfirm: PropTypes.func,
+    handleCloseBulkModal: PropTypes.func,
+
+    // From WithItemArrayControls
     itemArray: PropTypes.array.isRequired,
-    // Array of strings
     selectedIds: PropTypes.array.isRequired,
-    // Either an item object, or a falsey value
-    editingItem: PropTypes.any,
-    
+    editingItem: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
     handleSelect: PropTypes.func.isRequired,
     handleSelectAll: PropTypes.func.isRequired,
     handleSetEdit: PropTypes.func.isRequired,
@@ -114,6 +141,5 @@ TasksPage.propTypes = {
 
 export default connect(
     store=>({
-        itemsById: store.tasks
-    }))( WithItemArrayControls(TasksPage));
-    
+        itemsById: store.groups
+    }))( WithItemArrayControls(WithBulkModalControls(DayPage)));

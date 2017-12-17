@@ -9,7 +9,6 @@ import {
     ModalFooterBtns,
     ModalHeaderBadge as Badge
 } from '../../_generic-modal-components';
-
 import {
     BulkModalHeader
 } from '../../_generic-bulk-modal-components/';

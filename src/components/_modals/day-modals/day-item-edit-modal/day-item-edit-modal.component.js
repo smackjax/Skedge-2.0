@@ -75,7 +75,7 @@ class DayItemEditModal extends React.Component{
                     </ModalContent>
 
                     <ModalFooterBtns
-                    bgColorClassName="bg-day"
+                    bgClassName="bg-day"
                     handleSave={this.handleSave.bind(this)}
                     handleCancel={this.props.handleClearEdit}
                     />
@@ -88,7 +88,6 @@ class DayItemEditModal extends React.Component{
 
 DayItemEditModal.propTypes ={
     open: PropTypes.bool.isRequired,
-    bgColorClassName: PropTypes.string,
     // Either an object or false
     item: PropTypes.oneOfType([
         PropTypes.object,

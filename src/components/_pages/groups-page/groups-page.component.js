@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { WithItemArrayControls } from '../../_HOCIndex';
+import { 
+    WithBulkModalControls,
+    WithItemArrayControls
+} from '../../_HOCIndex';
 import {
     ListPage,
     ListPageHeader,
@@ -10,36 +13,51 @@ import {
     BulkAddToBtn, 
     BulkRemoveFromBtn, 
     AddNewItemBtn } from '../../list-page-generics/index';
-import {
-    GroupItemEditModal as ItemEditModal
-} from '../../_modals/';
-import * as icons from '../../_icons';
-import GroupItem from './group-item/group-item.component';
-import {GROUP} from '../../_DATATYPES';
 
+import { 
+    GroupItemEditModal as ItemEditModal,
+    GroupBulkModal as BulkSelectModal
+} from '../../_modals/';
+
+import * as icons from '../../_icons';
+import ItemToList from './group-item/group-item.component';
+
+import { GROUP as DATATYPE } from '../../_DATATYPES';
+
+const pageClass = 'groups';
+const bgColor = 'bg-group';
+const primaryIcon = icons.group;
+const bulkIcon = icons.task;
+const bulkBgClass = 'bg-task';
 
 const GroupPage = (props)=>{
-
     const handleNew=()=>{
-        props.handleSetEdit(GROUP({}));
+        props.handleSetEdit(DATATYPE({}));
+    }
+    const handleAddTo=(idsToAdd)=>{
+        console.log("Ids to add from modal: ")
+        console.log(idsToAdd);
+    }
+    const handleRemoveFrom=(idsToRemove)=>{
+        console.log("Ids to remove from modal: ")
+        console.log(idsToRemove);
     }
 
-    const handleAddTo=()=>{
-        // props.selectedIds
-    }
-    const handleRemoveFrom=()=>{
-        // props.selectedIds
+    const handleOpenAddTo=()=>{ 
+        props.handleOpenAddTo(handleAddTo);   
     }
 
-    const bgColor = "bg-group";
+    const handleOpenRemoveFrom=()=>{
+        props.handleOpenRemoveFrom(handleRemoveFrom);
+    }
 
     return (
-        <ListPage className="groups">
+        <ListPage className={pageClass}>
 
             <ListPageHeader 
             bgColorClassName={bgColor}
             >
-                {icons.group}&nbsp;
+                {primaryIcon}&nbsp;
                 <span>Groups</span>
             </ListPageHeader>            
 
@@ -48,8 +66,8 @@ const GroupPage = (props)=>{
                     (group, index)=>{
                     const selected=
                         props.selectedIds.includes(group.id);
-                    return <GroupItem 
-                        key={"group"+index}
+                    return <ItemToList
+                        key={"item"+index}
                         group={group}
                         selected={selected}
                         handleEdit={props.handleSetEdit}
@@ -59,29 +77,27 @@ const GroupPage = (props)=>{
                 )}
             </ListItemsWrapper>
 
-            <ListControlsWrapper>
-                
+            <ListControlsWrapper>         
                 <BulkRemoveFromBtn
-                className={"bg-task"}
-                onClick={handleRemoveFrom}
+                className={bulkBgClass}
+                onClick={handleOpenRemoveFrom}
                 >   
                     {icons.minus}
-                    {icons.task}
+                    {bulkIcon}
                 </BulkRemoveFromBtn>
 
                 <BulkAddToBtn
-                className={"bg-task"}
-                onClick={handleAddTo}
+                className={bulkBgClass}
+                onClick={handleOpenAddTo}
                 >
                     {icons.plus}
-                    {icons.task}
+                    {bulkIcon}
                 </BulkAddToBtn>
                 
                 <AddNewItemBtn 
                 className={bgColor}
                 onClick={handleNew}
                 />
-            
             </ListControlsWrapper>
 
             <ItemEditModal
@@ -90,21 +106,33 @@ const GroupPage = (props)=>{
                 item={props.editingItem}
                 handleClearEdit={props.handleClearEdit}
             />
+            
+            <BulkSelectModal
+                open={props.bulkModalOpen}
+                actionIcon={props.bulkActionIcon}
+                numOfItems={props.selectedIds.length}
+                handleConfirm={props.handleBulkConfirm}
+                handleCancel={props.handleCloseBulkModal}
+            />
 
         </ListPage>
-        
     )
 } 
 
 
 GroupPage.propTypes = {
-    // Array of objects
+    // From WithBulkModalControls
+    bulkModalOpen: PropTypes.bool.isRequired,
+    bulkActionIcon: PropTypes.object,
+    handleOpenAddTo: PropTypes.func,
+    handleOpenRemoveFrom: PropTypes.func,
+    handleBulkConfirm: PropTypes.func,
+    handleCloseBulkModal: PropTypes.func,
+
+    // From WithItemArrayControls
     itemArray: PropTypes.array.isRequired,
-    // Array of strings
     selectedIds: PropTypes.array.isRequired,
-    // Either an item object, or a falsey value
-    editingItem: PropTypes.any,
-    
+    editingItem: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
     handleSelect: PropTypes.func.isRequired,
     handleSelectAll: PropTypes.func.isRequired,
     handleSetEdit: PropTypes.func.isRequired,
@@ -114,5 +142,4 @@ GroupPage.propTypes = {
 export default connect(
     store=>({
         itemsById: store.groups
-    }))( WithItemArrayControls(GroupPage));
-    
+    }))( WithItemArrayControls(WithBulkModalControls(GroupPage)));

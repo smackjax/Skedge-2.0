@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    SimpleArrayControls 
-} from '../../../_HOCIndex';
+import { SimpleArrayControls } from '../../../_HOCIndex';
 import Modal from '../../../../_modal/modal.component';
-
 import {
     ModalBody,
     ModalHeader,
@@ -12,7 +9,6 @@ import {
     ModalFooterBtns,
     ModalHeaderBadge as Badge
 } from '../../_generic-modal-components';
-
 import {
     BulkModalHeader
 } from '../../_generic-bulk-modal-components/';
@@ -31,13 +27,18 @@ const bulkIcon = icons.task;
 const GroupsBulkModal = (props)=>{
     const handleConfirm=()=>{
         props.handleConfirm(props.currentArray)
+        props.handleNewArray([]);
+    }
+    const handleCancel=()=>{
+        props.handleCancel();
+        props.handleNewArray([]);
     }
     return (
-        <Modal>
+        <Modal open={props.open}>
             <ModalBody>
-                <BulkModalHeader 
+                <BulkModalHeader
                     bgClassName={primaryBgColor}
-                    actionIcon={icons.plus}
+                    actionIcon={props.actionIcon}
                     primaryCount={props.numOfItems}
                     primaryTextClass={primaryTextColor}
                     primaryIcon={primaryIcon}
@@ -54,21 +55,21 @@ const GroupsBulkModal = (props)=>{
 
                 <ModalFooterBtns
                 bgClassName={primaryBgColor}
-                handleConfirm={handleConfirm}
-                handleCancel={props.handleCancel}
+                handleSave={handleConfirm}
+                handleCancel={handleCancel}
                 />
             </ModalBody>
         </Modal>
     )
-}
+} 
 
 GroupsBulkModal.propTypes = {
-    actionIcon: PropTypes.instanceOf(React.Component).isRequired,
+    open: PropTypes.bool.isRequired,
+    actionIcon: PropTypes.object,
     numOfItems: PropTypes.number.isRequired,
-    handleConfirm: PropTypes.func.isRequired,
     handleCancel: PropTypes.func.isRequired,
-
-    // From SimpleArrayControls. Keeps track of bulk ids selected.
+    handleConfirm: PropTypes.func.isRequired,
+    // From SimpleArrayControls. Stores array of ids selected.
     handleNewArray: PropTypes.func.isRequired,
     currentArray: PropTypes.array.isRequired
 }

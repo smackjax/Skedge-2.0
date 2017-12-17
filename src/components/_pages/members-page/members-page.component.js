@@ -52,7 +52,7 @@ const MemberPage = (props)=>{
     }
 
     return (
-        <ListPage className="members">
+        <ListPage className={pageClass}>
 
             <ListPageHeader 
             bgColorClassName={bgColor}
@@ -143,4 +143,3 @@ export default connect(
     store=>({
         itemsById: store.members
     }))( WithItemArrayControls(WithBulkModalControls(MemberPage)));
-    

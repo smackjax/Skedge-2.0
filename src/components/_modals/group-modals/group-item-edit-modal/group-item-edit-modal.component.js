@@ -82,7 +82,7 @@ class GroupItemEditModal extends React.Component{
                     </ModalContent>
 
                     <ModalFooterBtns
-                    bgColorClassName="bg-group"
+                    bgClassName="bg-group"
                     handleSave={this.handleSave.bind(this)}
                     handleCancel={this.props.handleClearEdit}
                     />
@@ -96,7 +96,6 @@ class GroupItemEditModal extends React.Component{
 
 GroupItemEditModal.propTypes ={
     open: PropTypes.bool.isRequired,
-    bgColorClassName: PropTypes.string,
     // Either an object or false
     item: PropTypes.oneOfType([
         PropTypes.object,
