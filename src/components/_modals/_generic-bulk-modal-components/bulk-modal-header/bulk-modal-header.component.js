@@ -26,14 +26,15 @@ const BulkModalHeader = (props)=>{
 
 BulkModalHeader.propTypes={
     bgClassName: PropTypes.string.isRequired,
-    actionIcon: PropTypes.instanceOf(React.Component),
+    actionIcon: PropTypes.object,
 
     primaryCount: PropTypes.number.isRequired,
     primaryTextClass: PropTypes.string.isRequired,
-    primaryIcon: PropTypes.instanceOf(React.Component),
+    primaryIcon: PropTypes.object,
 
     bulkCount: PropTypes.number.isRequired,
     bulkTextClass: PropTypes.string.isRequired,
-    bulkIcon: PropTypes.instanceOf(React.Component),
+    bulkIcon: PropTypes.object,
 }
 
+export default BulkModalHeader;

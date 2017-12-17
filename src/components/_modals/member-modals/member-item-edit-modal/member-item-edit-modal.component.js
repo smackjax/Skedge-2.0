@@ -83,7 +83,7 @@ class MemberItemEditModal extends React.Component{
                     </ModalContent>
 
                     <ModalFooterBtns
-                    bgColorClassName="bg-member"
+                    bgClassName="bg-member"
                     handleSave={this.handleSave.bind(this)}
                     handleCancel={this.props.handleClearEdit}
                     />

@@ -11,11 +11,11 @@ export default (WrappedComponent)=>{
         }
         render(){
             return (
-            <WrappedComponent
-            {...this.props}
-            handleNewArray={this.handleNewArray}
-            currentArray={this.currentArray}
-            />
+                <WrappedComponent
+                {...this.props}
+                handleNewArray={this.handleNewArray.bind(this)}
+                currentArray={this.state.currentArray}
+                />
             )
         }
         

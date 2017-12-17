@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    SimpleArrayControls,
-    WithBulkModalControls
-} from '../../../_HOCIndex';
+import { SimpleArrayControls } from '../../../_HOCIndex';
 import Modal from '../../../../_modal/modal.component';
 import {
     ModalBody,
@@ -31,11 +28,16 @@ const bulkIcon = icons.group;
 const MembersBulkModal = (props)=>{
     const handleConfirm=()=>{
         props.handleConfirm(props.currentArray)
+        props.handleNewArray([]);
+    }
+    const handleCancel=()=>{
+        props.handleCancel();
+        props.handleNewArray([]);
     }
     return (
         <Modal open={props.open}>
             <ModalBody>
-                <BulkModalHeader 
+                <BulkModalHeader
                     bgClassName={primaryBgColor}
                     actionIcon={props.actionIcon}
                     primaryCount={props.numOfItems}
@@ -54,21 +56,23 @@ const MembersBulkModal = (props)=>{
 
                 <ModalFooterBtns
                 bgClassName={primaryBgColor}
-                handleConfirm={handleConfirm}
-                handleCancel={props.handleCancel}
+                handleSave={handleConfirm}
+                handleCancel={handleCancel}
                 />
             </ModalBody>
         </Modal>
     )
-}
+} 
 
 MembersBulkModal.propTypes = {
+    open: PropTypes.bool.isRequired,
+    actionIcon: PropTypes.object,
     numOfItems: PropTypes.number.isRequired,
+    handleCancel: PropTypes.func.isRequired,
+    handleConfirm: PropTypes.func.isRequired,
     // From SimpleArrayControls. Stores array of ids selected.
     handleNewArray: PropTypes.func.isRequired,
     currentArray: PropTypes.array.isRequired
 }
 
-export default WithBulkModalControls(
-    SimpleArrayControls(MembersBulkModal)
-);
+export default SimpleArrayControls(MembersBulkModal);

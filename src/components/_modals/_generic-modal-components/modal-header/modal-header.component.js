@@ -6,11 +6,11 @@ const ModalContentHeader = (props)=>{
 
     const className = 
         "modal-header " + 
-            this.props.className;
+            props.className;
 
     return (
         <div className={className}>
-            {this.props.children}          
+            {props.children}          
         </div>
     )
 }

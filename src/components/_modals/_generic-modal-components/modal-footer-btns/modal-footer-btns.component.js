@@ -4,9 +4,15 @@ import {check, times} from '../../../_icons';
 import './modal-footer-btns.style.css';
 
 const ModalFooterBtns= (props)=>{
+    const handleSave = ()=>{
+        // Saves whatever needs to be saved
+        props.handleSave();
+        // Closes Modal
+        props.handleCancel();
+    }
     return (
         <div
-        className="modal-footer-btns-wrapper"
+        className="modal-footer-btns"
         >
             <button
             className="cancel-item-btn"
@@ -15,7 +21,7 @@ const ModalFooterBtns= (props)=>{
                 {times} Cancel
             </button>
             <button
-            onClick={props.handleSave}
+            onClick={handleSave}
             className={"save-item-btn " + (props.bgClassName || "")}
             >
                 {check}  Save

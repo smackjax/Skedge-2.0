@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { WithItemArrayControls } from '../../_HOCIndex';
+import { 
+    WithBulkModalControls,
+    WithItemArrayControls
+} from '../../_HOCIndex';
 import {
     ListPage,
     ListPageHeader,
@@ -22,7 +25,7 @@ import ItemToList from './member-item/member-item.component';
 import { MEMBER as DATATYPE } from '../../_DATATYPES';
 
 const pageClass = 'members';
-const bgColor = 'bg-members';
+const bgColor = 'bg-member';
 const primaryIcon = icons.member;
 const bulkIcon = icons.group;
 const bulkBgClass = 'bg-group';
@@ -108,8 +111,8 @@ const MemberPage = (props)=>{
                 open={props.bulkModalOpen}
                 actionIcon={props.bulkActionIcon}
                 numOfItems={props.selectedIds.length}
-                handleConfirm={props.handleConfirm}
-                handleCancel={props.handleBulkModalClose}
+                handleConfirm={props.handleBulkConfirm}
+                handleCancel={props.handleCloseBulkModal}
             />
 
         </ListPage>
@@ -120,16 +123,16 @@ const MemberPage = (props)=>{
 MemberPage.propTypes = {
     // From WithBulkModalControls
     bulkModalOpen: PropTypes.bool.isRequired,
-    bulkActionIcon: PropTypes.instanceOf(React.Component),
+    bulkActionIcon: PropTypes.object,
     handleOpenAddTo: PropTypes.func,
     handleOpenRemoveFrom: PropTypes.func,
     handleBulkConfirm: PropTypes.func,
-    handleBulkModalClose: PropTypes.func,
+    handleCloseBulkModal: PropTypes.func,
 
     // From WithItemArrayControls
     itemArray: PropTypes.array.isRequired,
     selectedIds: PropTypes.array.isRequired,
-    editingItem: PropTypes.oneOfType([PropTypes.object, false]),
+    editingItem: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
     handleSelect: PropTypes.func.isRequired,
     handleSelectAll: PropTypes.func.isRequired,
     handleSetEdit: PropTypes.func.isRequired,
@@ -139,5 +142,5 @@ MemberPage.propTypes = {
 export default connect(
     store=>({
         itemsById: store.members
-    }))( WithItemArrayControls(MemberPage));
+    }))( WithItemArrayControls(WithBulkModalControls(MemberPage)));
     
