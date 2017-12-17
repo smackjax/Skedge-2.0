@@ -1,0 +1,9 @@
+.delete-item-btn{
+    display: block;
+    width:100px;
+    margin: 10px auto 20px; 
+    padding: 5px;
+    box-shadow: 0px 2px 4px -1px #111;
+    font-size: 16px;
+    border-radius: 2px;
+}
