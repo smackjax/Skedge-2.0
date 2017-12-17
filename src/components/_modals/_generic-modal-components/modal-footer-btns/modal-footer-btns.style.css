@@ -1,0 +1,9 @@
+.modal-footer-btns button{
+    margin-top:20px;
+    width:50%;
+    padding: 5px;
+
+}
+.modal-footer-btns .cancel-item-btn{
+    background-color: #d63f3f;
+}

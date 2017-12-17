@@ -1,0 +1,9 @@
+.selectable-sublist-item {
+    padding: 3px ;
+    padding-right: 0px;
+    margin-top:3px;
+    cursor: pointer;
+}
+.selectable-sublist-item input{
+    margin-right: 5px;
+}

@@ -1,0 +1,5 @@
+.selectable-sublist-items-wrapper{
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}

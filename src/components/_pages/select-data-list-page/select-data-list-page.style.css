@@ -1,0 +1,6 @@
+.select-data-list-page{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}

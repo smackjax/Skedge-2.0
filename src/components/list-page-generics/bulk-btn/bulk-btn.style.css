@@ -1,0 +1,11 @@
+.bulk-selected-btn {
+    padding: 10px;
+    color: #ddd;
+    display: flex; 
+    justify-content: space-around;
+    width: 30%;
+    max-width: 80px;
+    border-radius: 2px;
+    box-shadow: 0px 1px 4px -1px #111;
+    
+}

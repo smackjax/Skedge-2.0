@@ -1,0 +1,9 @@
+.select-data-list-card-block{
+    width: 95%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: space-around;
+}

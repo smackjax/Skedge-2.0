@@ -1,0 +1,12 @@
+body{
+    font-size: 18px;
+    background-color: #eee;
+}
+
+button, .btn{
+    transition: background-color 200ms ease-out;
+    border: 0px;
+    background-color: #eee;
+    color: #ededed;
+    cursor: pointer;
+}

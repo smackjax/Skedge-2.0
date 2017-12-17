@@ -1,0 +1,22 @@
+
+/* APP-WIDE COLORS */
+
+/* Member ( #1E90DA ) */
+.border-member{border-color: #1E90DA }
+.text-member{color: #1E90DA }
+.bg-member{background-color: #1E90DA }
+
+/* Group ( #A839BA ) */
+.border-group{border-color: #A839BA }
+.text-group{color: #A839BA }
+.bg-group{background-color: #A839BA }
+
+/* Task ( #B0613B ) */
+.border-task{border-color: #B0613B }
+.text-task{color: #B0613B }
+.bg-task{background-color: #B0613B }
+
+/* Day ( #B70046 ) */
+.border-day{border-color: #B70046 }
+.text-day{color: #B70046 }
+.bg-day{background-color: #B70046 }
