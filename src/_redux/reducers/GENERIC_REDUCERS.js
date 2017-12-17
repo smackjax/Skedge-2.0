@@ -89,14 +89,19 @@ export const removeIdsFromAllSublists=(state, idsToRemove, sublistKey)=>{
 export const syncStateWithNewSave= (state, savedItemId, sublistKey, savedSublist)=>{
     const newState = {...state};
     const stateIds = Object.keys(newState);
+
     for(const id of stateIds){
-        const newSublist = savedSublist.includes(id) ? 
+
+        const newSublist = savedSublist.includes(id) ?
+
                 // If item id is on saved sublist
-            noDupes(state[id][sublistKey], [id]) : 
+            noDupes(state[id][sublistKey], [savedItemId]) : 
+                
                 // Item is not on new list
             state[id][sublistKey].filter(
                 currentId=>currentId !== savedItemId
             );
+
         newState[id][sublistKey] = newSublist;
     }
     return newState;
@@ -105,9 +110,9 @@ export const syncStateWithNewSave= (state, savedItemId, sublistKey, savedSublist
 
 
 
-// Basic CRUD actions
+// Save and delete actions
 export const mainItems = {
-    addNew: (state, newItem)=>{
+    saveItem: (state, newItem)=>{
         return {
             ...state, 
             [newItem.id] :{
@@ -115,21 +120,9 @@ export const mainItems = {
             }
         }
     },
-    editName: (state, itemId, newName)=>{
-        return {
-            ...state, 
-            [itemId]: {
-                ...state[itemId], 
-                name: newName
-            }
-        }
-    },
-    delete: (state, idsToDelete)=>{
-        let newList = {...state};
-        for(let q = 0; q < idsToDelete.length; q++){
-            delete newList[idsToDelete[q]];
-        }
-        return newList;
+    deleteById: (state, idToDelete)=>{
+        let newState = {...state};
+        delete newState[idToDelete];
+        return newState;
     }
-
 }

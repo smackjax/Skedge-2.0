@@ -1,10 +1,19 @@
-.editable-name-input{
-    margin-top: 10px;
-    margin-bottom: 3px;
-    border: 0px solid #aaa;
-    border-bottom-width: 1px;
+.editable-name-wrapper{
+    display: block;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-
+    margin-top: 10px;
+    margin-bottom: 3px;
+    padding: 3px 0px;
+}
+.editable-name-wrapper i{
+    margin-right: 6px;
+    font-size: 15px;
+    color: #777;
+}
+.editable-name-wrapper input{
+    border: 0px solid #888;
+    border-bottom-width: 1px;
+    padding-left: 5px;
 }

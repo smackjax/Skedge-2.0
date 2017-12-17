@@ -8,7 +8,7 @@ import {
     ModalContent,
     ModalFooterBtns
 } from '../../_generic-modal-components/';
-import { EditItemName } from '../../_generic-item-edit-components';
+import { EditItemName, DeleteItemBtn } from '../../_generic-item-edit-components';
 import { GroupsSelectableSublist } from '../../../selectable-sublists/';
 import * as icons from '../../../_icons';
 
@@ -25,15 +25,17 @@ class MemberItemEditModal extends React.Component{
             linkedTo: ""
         };
         
-        this.setState({member});
+        this.setState({
+            member,
+            originalName: member.name
+        });
     }
 
     handleSave=()=>{
-        console.log("TODO save member: ");
-        console.log(this.state.member);
+        this.props.handleSave(this.state.member);
     }
     handleDelete=()=>{ 
-        console.log("TODO delete member id: " + this.state.member.id);
+        this.props.handleDelete(this.state.member.id);
     }
 
     handleNewVal=(propName, newValue)=>{
@@ -57,19 +59,25 @@ class MemberItemEditModal extends React.Component{
     }
     
     render(){
-    
+        
         const member = this.state.member || {};
+        const headerText = this.state.originalName || "New Member";
         return (
             <Modal open={this.props.open}>
                 <ModalBody>
                     <ModalHeader
                     className="bg-member text-light"
-                    text={member.name || "NEW"}
+                    
                     >
                         {icons.member}
+                        {headerText}
                     </ModalHeader>
                     
                     <ModalContent>
+                        <DeleteItemBtn 
+                        onClick={this.handleDelete.bind(this)}
+                        />
+
                         <EditItemName
                         placeholder={"Member name"}
                         value={member.name}
@@ -102,8 +110,10 @@ MemberItemEditModal.propTypes ={
         PropTypes.object,
         PropTypes.bool
     ]),
-    // Clears selected item
+    // Clears selected item, closing modal
     handleClearEdit: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired,
+    handleSave: PropTypes.func.isRequired
 }
 
 export default MemberItemEditModal;

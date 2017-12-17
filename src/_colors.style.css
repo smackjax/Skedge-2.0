@@ -1,5 +1,9 @@
-
 /* APP-WIDE COLORS */
+
+/* Danger ( #D63F3F )  */
+.bg-danger{ background-color: #D63F3F; }
+.text-danger{ color: #D63F3F; }
+.border-danger{ border-color: #D63F3F; }
 
 /* Member ( #1E90DA ) */
 .border-member{border-color: #1E90DA }
@@ -20,3 +24,4 @@
 .border-day{border-color: #B70046 }
 .text-day{color: #B70046 }
 .bg-day{background-color: #B70046 }
+

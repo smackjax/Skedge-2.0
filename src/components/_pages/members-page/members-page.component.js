@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { 
     WithBulkModalControls,
     WithItemArrayControls
@@ -23,8 +23,9 @@ import {
 
 import * as icons from '../../_icons';
 import ItemToList from './member-item/member-item.component';
-
+import MEMBER_ACTIONS from '../../../_redux/actions/member.actions';
 import { MEMBER as DATATYPE } from '../../_DATATYPES';
+
 
 const pageClass = 'members';
 const bgColor = 'bg-member';
@@ -33,16 +34,32 @@ const bulkIcon = icons.group;
 const bulkBgClass = 'bg-group';
 
 const MemberPage = (props)=>{
+    const BoundActs = bindActionCreators(MEMBER_ACTIONS, props.dispatch);
+    
     const handleNew=()=>{
-        props.handleSetEdit(DATATYPE({}));
+        props.handleSetEdit(DATATYPE({}));  
     }
-    const handleAddTo=(idsToAdd)=>{
-        console.log("Ids to add from modal: ")
-        console.log(idsToAdd);
+    const handleSave=(saveItem)=>{
+        const cleanedItem = DATATYPE(saveItem);
+        BoundActs.saveMember(cleanedItem);
     }
-    const handleRemoveFrom=(idsToRemove)=>{
-        console.log("Ids to remove from modal: ")
-        console.log(idsToRemove);
+    const handleDelete=(itemId)=>{
+        // Todo
+        // this works, but I'd like something less hacky
+        BoundActs.deleteMember(itemId);
+        props.handleClearEdit();
+    }
+    const handleAddTo=(groupIds)=>{
+        BoundActs.addMembersToGroups(
+            props.selectedIds,
+            groupIds
+        );
+    }
+    const handleRemoveFrom=(groupIds)=>{
+        BoundActs.removeMembersFromGroups(
+            props.selectedIds,
+            groupIds
+        );
     }
 
     const handleOpenAddTo=()=>{ 
@@ -106,6 +123,8 @@ const MemberPage = (props)=>{
                 open={(props.editingItem ? true : false)}
                 bgColorClassName={bgColor}
                 item={props.editingItem}
+                handleSave={handleSave}
+                handleDelete={handleDelete}
                 handleClearEdit={props.handleClearEdit}
             />
             
