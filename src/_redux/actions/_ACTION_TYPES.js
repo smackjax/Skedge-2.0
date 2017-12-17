@@ -25,7 +25,7 @@ export const TASK_ACT_TYPES ={
 };
 
 export const DAYS_ACT_TYPES={
-    SAVE_TASKS_ON_DAYS: 'save_task_ids_to_days'
+    SAVE_DAY: 'save_day'
 }
 
 export const SCHED_ACT_TYPES={

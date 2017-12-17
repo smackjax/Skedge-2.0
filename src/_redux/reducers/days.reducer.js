@@ -1,8 +1,13 @@
-import { DAYS_ACT_TYPES,
+import { 
+    DAYS_ACT_TYPES,
     TASK_ACT_TYPES,
     DATA_ACT_TYPES
 } from '../actions/_ACTION_TYPES';
-import {updateSublist} from './GENERIC_REDUCERS';
+import {
+    bulkAddToSublist,
+    bulkRemoveFromSublist, 
+    mainItems
+} from './GENERIC_REDUCERS';
 
 export default (state={
 
@@ -45,6 +50,7 @@ export default (state={
 
 
 }, action)=>{
+    const payload = action.payload;
     switch(action.type){
         case DATA_ACT_TYPES.LOAD: {
             return {
@@ -52,30 +58,36 @@ export default (state={
             }
         }
 
-        // action.taskIds
-        // action.dayIds
-        case DAYS_ACT_TYPES.UPDATE_TASKS_ON_DAYS: {
-            const newState = {...state};
-            for(let dayId of action.dayIds){
-                newState[dayId].tasks = [...action.taskIds];
-            }
-            return {...newState};
+        case DAYS_ACT_TYPES.SAVE_DAY: {
+            return mainItems.addNew(state, payload)
         }
 
-        // action.taskIdList
-        // action.dayIdList
-        case DAYS_ACT_TYPES.ADD_TASKS_TO_DAYS: 
-            return updateSublist.addIds(state, action.dayIdList, 'tasks', action.taskIdList);
-
-        // action.taskIdList
-        // action.dayIdList
-        case DAYS_ACT_TYPES.DELETE_TASKS_FROM_DAYS: 
-            return updateSublist.deleteIds(state, action.dayIdList, 'tasks', action.taskIdList);
+        case TASK_ACT_TYPES.ADD_TASK_IDS_TO_DAYS: {
+            return bulkAddToSublist(
+                state,
+                payload.bulkIds,
+                'tasks',
+                payload.primaryIds
+            )
+        }
+        case TASK_ACT_TYPES.REMOVE_TASK_IDS_FROM_DAYS: {
+            return bulkRemoveFromSublist(
+                state,
+                payload.bulkIds,
+                'tasks',
+                payload.primaryIds
+            )
+        }
         
         // action.taskIdList
-        case TASK_ACT_TYPES.DELETE_TASKS: {
+        case TASK_ACT_TYPES.DELETE_TASK_BY_ID: {
             const allIds = Object.keys(state);
-            return updateSublist.deleteIds(state, allIds, 'tasks', action.taskIdList);
+            return bulkRemoveFromSublist(
+                state,
+                allIds,
+                'tasks',
+                [payload]
+            )
         }
         default: return state;
     }

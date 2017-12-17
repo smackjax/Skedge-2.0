@@ -10,7 +10,6 @@ import {
   DaysPage
 } from './components/_pages/index';
 
-import SANDBOX from './sandbox';
 
 // App-wide styles 
 import 'sanitize.css/sanitize.css';

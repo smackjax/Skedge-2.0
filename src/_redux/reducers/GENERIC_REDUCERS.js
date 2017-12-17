@@ -1,3 +1,12 @@
+// Filters out duplicate values from arrays before combining
+const noDupes=(primaryArray, arrayToAdd)=>{
+    const noDupeArray = primaryArray.filter(
+        arrayVal=>!arrayToAdd.includes(arrayVal)
+    )
+    return [...noDupeArray, ...arrayToAdd]
+}
+
+
 // Function for listening to changes in other state slices; 
 // IE if a member is removed from a group, 
 // then update that member sublist
@@ -34,15 +43,23 @@ export const updateSublist = (state, propIdsSavedUnder, savedItemId, savedItemNe
     return newState;
 }
 
+// Bulk (addTo, removeFrom) actions
 const genericBulkAction=(state, selectedIds, sublistKey, bulkIds, addToSublist)=>{
     const newState = {...state};
+    // For each item of state in array
     for(const id of selectedIds){
+        // Create a new array from the sublist Key
         let newSublist = newState[id][sublistKey].filter(
+            // Filter out any ids in bulkIds
             subId=>!bulkIds.includes(subId)
         );
+        // If this is an addition, add all bulkIds to filtered,
+        // removing duplicates
         if(addToSublist){ newSublist = [...newSublist, ...bulkIds]}
+        // Assign new sublist array to item under it's original key
         newState[id][sublistKey] = newSublist;
     }
+    // Return new state with updated items
     return newState;
 }
 
@@ -51,13 +68,39 @@ export const bulkRemoveFromSublist=(state, selectedIds, sublistKey, bulkIds)=>{
     return genericBulkAction(state, selectedIds, sublistKey, bulkIds, false);
 }
 
-// Sets to 'true' to add bulk ids back after filtering(removing duplicates)
+// Adds all bulk ids back after filtering(removing duplicates)
 export const bulkAddToSublist=(state, selectedIds, sublistKey, bulkIds)=>{
     return genericBulkAction(state, selectedIds, sublistKey, bulkIds, true);
 }
 
+export const removeIdsFromAllSublists=(state, idsToRemove, sublistKey)=>{
+    const newState = {...state};
+    const stateIds = Object.keys(newState);
 
+    for(const id of stateIds){
+        const newSublist = newState[id][sublistKey].filter(
+            listId=>!idsToRemove.includes(listId)
+        );
+        newState[id][sublistKey] = newSublist;
+    }
+    return newState;
+}
 
+export const syncStateWithNewSave= (state, savedItemId, sublistKey, savedSublist)=>{
+    const newState = {...state};
+    const stateIds = Object.keys(newState);
+    for(const id of stateIds){
+        const newSublist = savedSublist.includes(id) ? 
+                // If item id is on saved sublist
+            noDupes(state[id][sublistKey], [id]) : 
+                // Item is not on new list
+            state[id][sublistKey].filter(
+                currentId=>currentId !== savedItemId
+            );
+        newState[id][sublistKey] = newSublist;
+    }
+    return newState;
+}
 
 
 

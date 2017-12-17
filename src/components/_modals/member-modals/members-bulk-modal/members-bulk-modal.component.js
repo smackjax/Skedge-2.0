@@ -4,10 +4,8 @@ import { SimpleArrayControls } from '../../../_HOCIndex';
 import Modal from '../../../../_modal/modal.component';
 import {
     ModalBody,
-    ModalHeader,
     ModalContent,
-    ModalFooterBtns,
-    ModalHeaderBadge as Badge
+    ModalFooterBtns
 } from '../../_generic-modal-components';
 import {
     BulkModalHeader

@@ -1,17 +1,14 @@
 import { DAYS_ACT_TYPES } from './_ACTION_TYPES';
-import {addItem, deleteItem, editItem, updateItem} from './_GENERIC.actions';
+import {addItem} from './_GENERIC.actions';
 
 export default {
-    updateTasksOnDays: (taskIds, dayIds)=>{
+    saveDay: (dayObj)=>{
         return (dispatch)=>{
             const action = {
-                type: DAYS_ACT_TYPES.SAVE_TASKS_ON_DAYS,
-                payload: {
-                    taskIds,
-                    dayIds
-                }
+                type: DAYS_ACT_TYPES.SAVE_DAY,
+                payload: dayObj
             }
-            updateItem(dispatch, action);
+            addItem(dispatch, action);
         }
     },
 

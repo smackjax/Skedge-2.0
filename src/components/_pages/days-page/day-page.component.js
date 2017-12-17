@@ -5,11 +5,7 @@ import { WithItemArrayControls } from '../../_HOCIndex';
 import {
     ListPage,
     ListPageHeader,
-    ListItemsWrapper,
-    ListControlsWrapper, 
-    BulkAddToBtn, 
-    BulkRemoveFromBtn, 
-    AddNewItemBtn } from '../../list-page-generics/index';
+    ListItemsWrapper } from '../../list-page-generics/index';
 
 import {
     DayItemEditModal as ItemEditModal

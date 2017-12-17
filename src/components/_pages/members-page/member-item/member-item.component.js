@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SelectableListItem } from '../../../list-page-generics/index';
-import * as icons from '../../../_icons';
 
 const MemberListItem = (props)=>{
     const bgColor = "bg-member";

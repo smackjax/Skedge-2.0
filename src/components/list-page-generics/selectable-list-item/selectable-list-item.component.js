@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ListItem, EditItemBtn, SelectItemCheckbox} from '../index';
+import {ListItem, SelectItemCheckbox} from '../index';
 import {vDots} from '../../_icons';
 
 import './selectable-list-item.style.css';

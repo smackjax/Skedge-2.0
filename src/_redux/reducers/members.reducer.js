@@ -4,7 +4,13 @@ import {MEMBER_ACT_TYPES as TYPES,
     DATA_ACT_TYPES} from '../actions/_ACTION_TYPES';
 
 // Generic reducer functions 
-import {updateSublist, mainItems } from './GENERIC_REDUCERS';
+import {
+ 
+    mainItems, 
+    bulkAddToSublist, 
+    bulkRemoveFromSublist,
+    syncStateWithNewSave
+} from './GENERIC_REDUCERS';
 
 export default function(state={
     membId1: {
@@ -52,34 +58,58 @@ export default function(state={
         case TYPES.DELETE_MEMBER_BY_ID: 
             return mainItems.deleteById(state, payload);
 
+        // payload {
+        //  primaryIds<[]membIds>,
+        //  bulkIds<[]groupIds>
+        //}
+        case TYPES.ADD_MEMB_IDS_TO_GROUPS: {
+            return bulkAddToSublist(
+                state,
+                payload.primaryIds,
+                'groups',
+                payload.bulkIds
+            );
+        }
+
+        case TYPES.REMOVE_MEMB_IDS_FROM_GROUPS: {
+            return bulkRemoveFromSublist(
+                state,
+                payload.primaryIds,
+                'groups',
+                payload.bulkIds
+            );
+        }
+
 
         // - - GROUP SUBLIST FUNCTIONS
         // Listens for groups saved,
         // updating each member.groups array
         case GROUP_TYPES.SAVE_GROUP: {
-           return updateSublist(
-                state, 
-                'groups', 
-                action.savedGroup.id,
-                action.savedGroup.members
+            // Removes from/adds to member sublists
+            return syncStateWithNewSave(
+                state,
+                payload.id,
+                'groups',
+                payload.members
             )
         }
 
-        // Removes group id from all members if deleted
-        case GROUP_TYPES.DELETE_GROUPS: {
-            return updateSublist(
-                state, 
-                'groups',
-                action.groupIds,
-                [] // Id's to add groups to. Left blank because we only want ids removed.
-            );
+        // payload: <groupId>
+        case GROUP_TYPES.DELETE_GROUP_BY_ID: {
+            // Removes deleted id from all state sublists
+            const allIds = Object.keys(state);
+            return bulkRemoveFromSublist(
+                state,
+                allIds,
+                "groups",
+                [payload]
+            )
         }
 
         // Takes updated member timesAssigned values
         case SCHED_TYPES.SAVE_SCHED: {
-            return {
-                ...action.newMembVals
-            }
+            throw Error("TODO in member reducer");
+
         }
 
         default: return state

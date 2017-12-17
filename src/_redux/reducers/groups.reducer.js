@@ -1,8 +1,13 @@
-import {GROUP_ACT_TYPES as TYPES, 
+import {
+    GROUP_ACT_TYPES as GROUP_TYPES, 
     MEMBER_ACT_TYPES as MEMB_TYPES,
-    TASK_ACT_TYPES as TASK_TYPES,
     DATA_ACT_TYPES} from '../actions/_ACTION_TYPES';
-import { updateSublist, mainItems} from './GENERIC_REDUCERS';
+import { 
+    bulkAddToSublist,
+    bulkRemoveFromSublist,
+    syncStateWithNewSave,
+    mainItems
+} from './GENERIC_REDUCERS';
 
 export default function(state={
     groupId1: {
@@ -30,72 +35,58 @@ export default function(state={
             }
         }
 
-        // payload = {...group}
-        case TYPES.ADD_GROUP: 
-            return mainItems.addNew(state, action.newGroup);
+        // payload: {...group}
+        case GROUP_TYPES.ADD_GROUP: 
+            return mainItems.addNew(state, payload);
 
-        // payload = "groupId"
-        case TYPES.DELETE_GROUPS:
-            return mainItems.delete(state, action.groupIdList);
+        // payload: <groupId>
+        case GROUP_TYPES.DELETE_GROUP_BY_ID:
+            return mainItems.delete(state, payload);
 
 
-        
-        case TYPES.UPDATE_MEMBERS_IN_GROUPS: {
-            const newState = {...state};
-            // If group id in list
-            // overwrite it's members with new
-            for(let gId of action.groupIds){
-                newState[gId].members = [...action.membIds];
-            }
-            return {...newState};
+        // payload {
+        //  primaryIds(membIds),
+        //  bulkIds(groupIds)
+        //}
+        case MEMB_TYPES.ADD_MEMB_IDS_TO_GROUPS: {
+            return bulkAddToSublist(
+                state,
+                payload.bulkIds,
+                'members',
+                payload.primaryIds
+            );
+        }
+        case MEMB_TYPES.REMOVE_MEMB_IDS_FROM_GROUPS: {
+            return bulkRemoveFromSublist(
+                state,
+                payload.bulkIds,
+                'members',
+                payload.primaryIds
+            );
         }
 
 
-        //action.membIds,
-        // action.groupIds,
-        case TYPES.ADD_MEMBERS_TO_GROUPS: 
-        return updateSublist.addIds(state, action.groupIds, 'members', action.membIds);
-
-
-            // ** LISTENERS
-        // Listens for group sublist updates on members and tasks
-        
-        // action.membIds
-        // action.groupIds
-        case MEMB_TYPES.UPDATE_GROUP_SUBLIST:{
-            // Compare group list to total,
-            // Remove ids that aren't on groupIds list 
-            // Add ids to groups that are on the list
-            const newState = {...state};
-            const allGroupIds =  Object.keys(state);
-            for(let gId of allGroupIds){
-                // If the member belongs to groupId(is checked in list)
-                if(action.groupIds.includes(gId)){ 
-                    const noDupeIds = action.membIds.filter( 
-                        mId=>!newState[gId].members.includes(mId)
-                    );
-                    newState[gId].members = [...newState[gId].members, ...noDupeIds];
-                }
-                else {
-                    const newMembers = newState[gId].members.filter(
-                        mId=>!action.membIds.includes(mId) 
-                    );
-                    newState[gId].members = newMembers;
-                }
-            }
-            return {...newState};
+        // payload: {<memb>}
+        case MEMB_TYPES.SAVE_MEMBER: {
+            return syncStateWithNewSave(
+                state,
+                payload.id,
+                'members',
+                payload.groups
+            );
         }
-        
-        // action.membIds,
-        // action.groupIds,
-        case TYPES.DELETE_MEMBERS_FROM_GROUPS: 
-            return updateSublist.deleteIds(state, action.groupIds, 'members', action.membIds);
 
-        case MEMB_TYPES.DELETE_MEMBERS: {
+        // payload: <membId>
+        case MEMB_TYPES.DELETE_MEMBER_BY_ID: {
             const allIds = Object.keys(state);
-            return updateSublist.deleteIds(state, allIds, 'members', action.membIdList);
+            return bulkRemoveFromSublist(
+                state,
+                allIds,
+                'members',
+                [payload]
+            )
         }
 
         default: return state
-    }//end switch
+    }
 }

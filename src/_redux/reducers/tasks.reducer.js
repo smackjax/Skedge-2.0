@@ -2,7 +2,11 @@ import {TASK_ACT_TYPES as TYPES,
     GROUP_ACT_TYPES as GROUP_TYPES,
     SCHED_ACT_TYPES as SCHED_TYPES,
     DATA_ACT_TYPES } from '../actions/_ACTION_TYPES';
-import {mainItems, updateSublist} from './GENERIC_REDUCERS';
+import {
+    mainItems,
+    bulkAddToSublist,
+    bulkRemoveFromSublist
+} from './GENERIC_REDUCERS';
 
 export default function(state={
     taskId1: {
@@ -53,6 +57,7 @@ export default function(state={
         }
     }
 }, action){
+    const payload = action.payload;
     switch(action.type){
         case DATA_ACT_TYPES.LOAD: {
             // Check for & return local data OR
@@ -63,63 +68,39 @@ export default function(state={
         }
 
         // action.newTask
-        case TYPES.ADD_TASK:
+        case TYPES.SAVE_TASK:
             return mainItems.addNew(state, action.newTask);
 
-        // action.taskId
-        // action.newName
-        case TYPES.EDIT_TASK_NAME:
-            return mainItems.editName(state, action.taskId, action.newName);
-
         // action.taskIdList
-        case TYPES.DELETE_TASKS: 
+        case TYPES.DELETE_TASK_BY_ID: 
             return mainItems.delete(state, action.taskIdList);
 
-        case TYPES.SET_IS_EXCLUSIVE:{
-            const newState = {...state};
-            newState[action.taskId].isExclusive = action.isExclusive;
-            return newState;
-        }
-        case TYPES.SET_NUM_NEEDED: {
-            const newState = {...state};
-            newState[action.taskId].numNeeded = action.numNeeded;
-            return newState;
-        }
-        // action.groupIds,
-        // action.taskIds,
-        case TYPES.UPDATE_GROUPS_ON_TASKS: {
-            const newState = {...state};
-            // If group id in list
-            // overwrite it's members with new
-            for(let tId of action.taskIds){
-                newState[tId].groups = [...action.groupIds];
-            }
-            return {...newState};
-        }
 
-        // action.groupIds,
-        // action.taskIds,
-        case TYPES.ADD_GROUPS_TO_TASKS: 
-            return updateSublist.addIds(
+        // GROUP Listeners
+        case GROUP_TYPES.ADD_GROUP_IDS_TO_TASKS:{
+            return bulkAddToSublist(
                 state,
-                action.taskIds,
+                payload.bulkIds,
                 'groups',
-                action.groupIds
+                payload.primaryIds
             );
-
-        // action.groupIds,
-        // action.taskIds,
-        case TYPES.DELETE_GROUPS_FROM_TASKS: 
-            return updateSublist.deleteIds(
-                state, 
-                action.taskIds,
+        }
+        case GROUP_TYPES.REMOVE_GROUP_IDS_FROM_TASKS:{
+            return bulkRemoveFromSublist(
+                state,
+                payload.bulkIds,
                 'groups',
-                action.groupIds
+                payload.primaryIds
             );
-        
-        case GROUP_TYPES.DELETE_GROUPS:{
+        }
+        case GROUP_TYPES.DELETE_GROUP_BY_ID:{
             const allIds = Object.keys(state);
-            return updateSublist.deleteIds(state, allIds, 'groups', action.groupIdList);
+            return bulkRemoveFromSublist(
+                state,
+                allIds,
+                'groups',
+                [payload]
+            )
         }
         
 
