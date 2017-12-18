@@ -1,0 +1,41 @@
+.sched-view-header {
+    color: #333;
+    text-align: center;
+    font-size: 1.6em; 
+    font-weight: bold;
+}
+
+.sched-view-main-item{
+    font-size: 1.4em;   
+    border-bottom: 3px solid #333;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.sched-view .sublist-header{
+    font-size: 1.2rem; 
+    border-bottom: 1px solid #888;
+    width:95%;
+    margin: auto;
+    padding: 10px 0 5px; 
+}
+.sched-view .sublist-item{
+    margin-top: 10px;
+    width:90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn.sched-view-toggle{
+    float: right;
+    border-radius: .25rem .25rem 0 0;
+}
+
+
+.sched-view.collapsed .add-info-dropdown,
+.sched-view.members .add-info-dropdown{
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height .7s;
+}

@@ -1,0 +1,14 @@
+#sched-main-controls{
+    max-height: 300px;
+}
+
+.main-sched-control-btn{
+    margin: 10px auto;
+    width: 46%;
+
+}
+.dropdown-div{
+    overflow: hidden;
+    max-height: 0px;
+    transition: max-height .3s;
+}
