@@ -1,5 +1,6 @@
-import {SCHED_ACT_TYPES,
-DATA_ACT_TYPES
+import {
+    SCHED_ACT_TYPES,
+    DATA_ACT_TYPES
 } from '../actions/_ACTION_TYPES';
 
 export default (state={

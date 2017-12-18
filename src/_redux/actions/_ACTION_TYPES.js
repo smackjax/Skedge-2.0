@@ -33,3 +33,8 @@ export const SCHED_ACT_TYPES={
     DELETE_SCHED: 'delete_schedule',
     CHANGE_ACTIVE_SCHED: 'change_active_sched_id',
 }
+
+export const META_DATA_ACT_TYPES={
+    UPDATE_ACTIVE_SCHED_ID: '', 
+    LINK_USERNAME_TO_ID: ''
+}

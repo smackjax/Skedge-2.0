@@ -34,6 +34,7 @@ const bulkIcon = icons.group;
 const bulkBgClass = 'bg-group';
 
 const MemberPage = (props)=>{
+    console.log("Members page props: ", props);
     const BoundActs = bindActionCreators(MEMBER_ACTIONS, props.dispatch);
     
     const handleNew=()=>{

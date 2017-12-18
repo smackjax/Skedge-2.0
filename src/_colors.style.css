@@ -25,3 +25,12 @@
 .text-day{color: #B70046 }
 .bg-day{background-color: #B70046 }
 
+/*Schedule ( #DA5700 ) */
+.border-sched{border-color: #DA5700}
+.text-sched{color: #DA5700 }
+.bg-sched{background-color: #DA5700 }
+
+/*Data ( #A839BA ) */
+.border-data{border-color: #A839BA }
+.text-data{color: #A839BA }
+.bg-data{background-color: #A839BA }
