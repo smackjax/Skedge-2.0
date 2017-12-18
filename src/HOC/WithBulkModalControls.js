@@ -1,5 +1,5 @@
 import React from 'react';
-import * as icons from '../components/_icons';
+import * as icons from '../data-page-components/_icons';
 
 const initialState={
     bulkModalOpen: false,
