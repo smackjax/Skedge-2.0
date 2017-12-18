@@ -63,18 +63,17 @@ export default function(state={
             // Check for & return local data OR
                 // if none, an empty object 
             return {
-                ...action.data.tasksById
+                ...payload.tasks
             }
         }
 
         // action.newTask
         case TYPES.SAVE_TASK:
-            return mainItems.addNew(state, action.newTask);
+            return mainItems.saveItem(state, payload);
 
         // action.taskIdList
         case TYPES.DELETE_TASK_BY_ID: 
-            return mainItems.delete(state, action.taskIdList);
-
+            return mainItems.deleteById(state, payload);
 
         // GROUP Listeners
         case GROUP_TYPES.ADD_GROUP_IDS_TO_TASKS:{

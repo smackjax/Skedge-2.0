@@ -9,7 +9,8 @@ import {
 } from '../../_generic-modal-components';
 
 import {
-    EditItemName
+    EditItemName,
+    DeleteItemBtn
 } from '../../_generic-item-edit-components/';
 
 import { 
@@ -28,15 +29,17 @@ class GroupItemEditModal extends React.Component{
             name: "",
             members: [],
         };
-        this.setState({group});
+        this.setState({
+            group,
+            originalName: group.name
+        });
     }
 
     handleSave=()=>{
-        console.log("TODO save member: ");
-        console.log(this.state.group);
+        this.props.handleSave(this.state.group);
     }
     handleDelete=()=>{ 
-        console.log("TODO delete member id: " + this.state.group.id);
+        this.props.handleDelete(this.state.group.id);
     }
 
     handleNewVal=(propName, newValue)=>{
@@ -58,17 +61,21 @@ class GroupItemEditModal extends React.Component{
     render(){
     
         const group = this.state.group || {};
+        const headerText = this.state.originalName || "New group";
         return (
             <Modal open={this.props.open}>
                 <ModalBody>
                     <ModalHeader
                     className="bg-group text-light"
-                    text={group.name || "NEW"}
                     >
                         {icons.group}
+                        {headerText}
                     </ModalHeader>
                     
                     <ModalContent>
+                        <DeleteItemBtn 
+                        onClick={this.handleDelete.bind(this)}
+                        />
                         <EditItemName
                         placeholder={"Group name"}
                         value={group.name}
@@ -103,6 +110,8 @@ GroupItemEditModal.propTypes ={
     ]),
     // Clears selected item
     handleClearEdit: PropTypes.func.isRequired,
+    handleSave: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired
 }
 
 export default GroupItemEditModal;

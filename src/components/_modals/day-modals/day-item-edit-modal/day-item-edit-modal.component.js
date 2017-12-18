@@ -31,11 +31,7 @@ class DayItemEditModal extends React.Component{
     }
 
     handleSave=()=>{
-        console.log("TODO save day: ");
-        console.log(this.state.day);
-    }
-    handleDelete=()=>{ 
-        console.log("TODO delete day id: " + this.state.day.id);
+        this.props.handleSave(this.state.day);
     }
 
     handleNewVal=(propName, newValue)=>{
@@ -95,6 +91,7 @@ DayItemEditModal.propTypes ={
     ]),
     // Clears selected item
     handleClearEdit: PropTypes.func.isRequired,
+    handleSave: PropTypes.func.isRequired
 }
 
 export default DayItemEditModal;

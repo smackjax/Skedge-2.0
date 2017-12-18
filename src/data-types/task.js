@@ -18,7 +18,7 @@ export default (taskObj)=>{
     } = taskObj;
     
     const cleanedTaskObj ={
-        id: (id || uniqid('m-')),
+        id: (id || uniqid('t-')),
         name: (name || "" ),
         groups: (groups || []),
         isExclusive: (isExclusive || false), 

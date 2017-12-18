@@ -36,12 +36,12 @@ export default function(state={
         }
 
         // payload: {...group}
-        case GROUP_TYPES.ADD_GROUP: 
-            return mainItems.addNew(state, payload);
+        case GROUP_TYPES.SAVE_GROUP: 
+            return mainItems.saveItem(state, payload);
 
         // payload: <groupId>
         case GROUP_TYPES.DELETE_GROUP_BY_ID:
-            return mainItems.delete(state, payload);
+            return mainItems.deleteById(state, payload);
 
 
         // payload {

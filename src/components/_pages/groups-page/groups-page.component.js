@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import { 
     WithBulkModalControls,
@@ -13,15 +14,15 @@ import {
     BulkAddToBtn, 
     BulkRemoveFromBtn, 
     AddNewItemBtn } from '../../list-page-generics/index';
+import * as icons from '../../_icons';
 
+// Page unique vars
 import { 
     GroupItemEditModal as ItemEditModal,
     GroupBulkModal as BulkSelectModal
 } from '../../_modals/';
-
-import * as icons from '../../_icons';
+import GROUP_ACTIONS from '../../../_redux/actions/group.actions';
 import ItemToList from './group-item/group-item.component';
-
 import { GROUP as DATATYPE } from '../../_DATATYPES';
 
 const pageClass = 'groups';
@@ -30,18 +31,33 @@ const primaryIcon = icons.group;
 const bulkIcon = icons.task;
 const bulkBgClass = 'bg-task';
 
-const GroupPage = (props)=>{
+const GroupsPage = (props)=>{
+    const BoundActs = bindActionCreators(GROUP_ACTIONS, props.dispatch);
+    
     const handleNew=()=>{
-        props.handleSetEdit(DATATYPE({}));
+        props.handleSetEdit(DATATYPE({}));  
     }
-    const handleAddTo=(idsToAdd)=>{
-        console.log("Ids to add from modal: ")
-        console.log(idsToAdd);
+    const handleSave=(saveItem)=>{
+        const cleanedItem = DATATYPE(saveItem);
+        BoundActs.saveGroup(cleanedItem);
     }
-    const handleRemoveFrom=(idsToRemove)=>{
-        console.log("Ids to remove from modal: ")
-        console.log(idsToRemove);
+    const handleDelete=(itemId)=>{
+        BoundActs.deleteGroup(itemId);
+        props.handleClearEdit();
     }
+    const handleAddTo=(taskIds)=>{
+        BoundActs.addGroupsToTasks(
+            props.selectedIds,
+            taskIds
+        );
+    }
+    const handleRemoveFrom=(taskIds)=>{
+        BoundActs.removeGroupsFromTasks(
+            props.selectedIds,
+            taskIds
+        );
+    }
+
 
     const handleOpenAddTo=()=>{ 
         props.handleOpenAddTo(handleAddTo);   
@@ -50,6 +66,7 @@ const GroupPage = (props)=>{
     const handleOpenRemoveFrom=()=>{
         props.handleOpenRemoveFrom(handleRemoveFrom);
     }
+
 
     return (
         <ListPage className={pageClass}>
@@ -104,6 +121,8 @@ const GroupPage = (props)=>{
                 open={(props.editingItem ? true : false)}
                 bgColorClassName={bgColor}
                 item={props.editingItem}
+                handleSave={handleSave}
+                handleDelete={handleDelete}
                 handleClearEdit={props.handleClearEdit}
             />
             
@@ -120,7 +139,7 @@ const GroupPage = (props)=>{
 } 
 
 
-GroupPage.propTypes = {
+GroupsPage.propTypes = {
     // From WithBulkModalControls
     bulkModalOpen: PropTypes.bool.isRequired,
     bulkActionIcon: PropTypes.object,
@@ -142,4 +161,4 @@ GroupPage.propTypes = {
 export default connect(
     store=>({
         itemsById: store.groups
-    }))( WithItemArrayControls(WithBulkModalControls(GroupPage)));
+    }))( WithItemArrayControls(WithBulkModalControls(GroupsPage)));

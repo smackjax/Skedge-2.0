@@ -54,12 +54,12 @@ export default (state={
     switch(action.type){
         case DATA_ACT_TYPES.LOAD: {
             return {
-                ...action.data.daysOfWeek 
+                ...payload.days
             }
         }
 
         case DAYS_ACT_TYPES.SAVE_DAY: {
-            return mainItems.addNew(state, payload)
+            return mainItems.saveItem(state, payload)
         }
 
         case TASK_ACT_TYPES.ADD_TASK_IDS_TO_DAYS: {

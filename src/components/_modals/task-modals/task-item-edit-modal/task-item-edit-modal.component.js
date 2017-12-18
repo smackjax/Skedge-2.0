@@ -7,8 +7,11 @@ import {
     ModalContent,
     ModalFooterBtns
 } from '../../_generic-modal-components';
-import { EditItemName } from '../../_generic-item-edit-components/';
-import { TasksSelectableSublist } from '../../../selectable-sublists/';
+import { 
+    EditItemName,
+    DeleteItemBtn
+} from '../../_generic-item-edit-components/';
+import { GroupsSelectableSublist } from '../../../selectable-sublists/';
 import * as icons from '../../../_icons';
 
 class TaskItemEditModal extends React.Component{
@@ -29,11 +32,10 @@ class TaskItemEditModal extends React.Component{
     }
 
     handleSave=()=>{
-        console.log("TODO save task: ");
-        console.log(this.state.task);
+        this.props.handleSave(this.state.task);
     }
     handleDelete=()=>{ 
-        console.log("TODO delete task id: " + this.state.task.id);
+        this.props.handleDelete(this.state.task.id);
     }
 
     handleNewVal=(propName, newValue)=>{
@@ -66,13 +68,17 @@ class TaskItemEditModal extends React.Component{
                     </ModalHeader>
                     
                     <ModalContent>
+                        <DeleteItemBtn 
+                        onClick={this.handleDelete.bind(this)}
+                        />
+
                         <EditItemName
                         placeholder={"Task name"}
                         value={task.name}
                         onChange={this.handleNameChange.bind(this)}
                         />
 
-                        <TasksSelectableSublist 
+                        <GroupsSelectableSublist 
                         selectedIds={task.groups}
                         handleNewList={this.handleGroupsList.bind(this)}
                         />
@@ -99,6 +105,8 @@ TaskItemEditModal.propTypes ={
     ]),
     // Clears selected item
     handleClearEdit: PropTypes.func.isRequired,
+    handleSave: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired
 }
 
 export default TaskItemEditModal;

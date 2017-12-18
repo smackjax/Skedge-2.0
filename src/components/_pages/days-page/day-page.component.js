@@ -10,13 +10,15 @@ import {
 import {
     DayItemEditModal as ItemEditModal
 } from '../../_modals/';
-
+import DAY_ACTIONS from '../../../_redux/actions/daysOfWeek.actions';
 import * as icons from '../../_icons';
 import DayItem from './day-item/day-item.component';
 
 
 const DaysPage = (props)=>{
-
+    const handleSave=(saveItem)=>{
+        props.dispatch(DAY_ACTIONS.saveDay(saveItem));
+    }
 
     const bgColor = "bg-day";
 
@@ -51,6 +53,7 @@ const DaysPage = (props)=>{
                 bgColorClassName={bgColor}
                 item={props.editingItem}
                 handleClearEdit={props.handleClearEdit}
+                handleSave={handleSave}
             />
 
         </ListPage>

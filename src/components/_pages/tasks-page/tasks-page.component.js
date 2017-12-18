@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import { 
     WithBulkModalControls,
@@ -13,15 +14,13 @@ import {
     BulkAddToBtn, 
     BulkRemoveFromBtn, 
     AddNewItemBtn } from '../../list-page-generics/index';
-
+import * as icons from '../../_icons';
 import { 
     TaskItemEditModal as ItemEditModal,
     TaskBulkModal as BulkSelectModal
 } from '../../_modals/';
-
-import * as icons from '../../_icons';
+import TASK_ACTIONS from '../../../_redux/actions/task.actions';
 import ItemToList from './task-item/task-item.component';
-
 import { TASK as DATATYPE } from '../../_DATATYPES';
 
 const pageClass = 'tasks';
@@ -30,17 +29,31 @@ const primaryIcon = icons.task;
 const bulkIcon = icons.day;
 const bulkBgClass = 'bg-day';
 
-const DayPage = (props)=>{
+const TasksPage = (props)=>{
+    const BoundActs = bindActionCreators(TASK_ACTIONS, props.dispatch);
+    
     const handleNew=()=>{
-        props.handleSetEdit(DATATYPE({}));
+        props.handleSetEdit(DATATYPE({}));  
     }
-    const handleAddTo=(idsToAdd)=>{
-        console.log("Ids to add from modal: ")
-        console.log(idsToAdd);
+    const handleSave=(saveItem)=>{
+        const cleanedItem = DATATYPE(saveItem);
+        BoundActs.saveTask(cleanedItem);
     }
-    const handleRemoveFrom=(idsToRemove)=>{
-        console.log("Ids to remove from modal: ")
-        console.log(idsToRemove);
+    const handleDelete=(itemId)=>{
+        BoundActs.deleteTask(itemId);
+        props.handleClearEdit();
+    }
+    const handleAddTo=(dayIds)=>{
+        BoundActs.addTasksToDays(
+            props.selectedIds,
+            dayIds
+        );
+    }
+    const handleRemoveFrom=(dayIds)=>{
+        BoundActs.removeTasksFromDays(
+            props.selectedIds,
+            dayIds
+        )
     }
 
     const handleOpenAddTo=()=>{ 
@@ -105,6 +118,8 @@ const DayPage = (props)=>{
                 bgColorClassName={bgColor}
                 item={props.editingItem}
                 handleClearEdit={props.handleClearEdit}
+                handleDelete={handleDelete}
+                handleSave={handleSave}
             />
             
             <BulkSelectModal
@@ -120,7 +135,7 @@ const DayPage = (props)=>{
 } 
 
 
-DayPage.propTypes = {
+TasksPage.propTypes = {
     // From WithBulkModalControls
     bulkModalOpen: PropTypes.bool.isRequired,
     bulkActionIcon: PropTypes.object,
@@ -141,5 +156,5 @@ DayPage.propTypes = {
 
 export default connect(
     store=>({
-        itemsById: store.groups
-    }))( WithItemArrayControls(WithBulkModalControls(DayPage)));
+        itemsById: store.tasks
+    }))( WithItemArrayControls(WithBulkModalControls(TasksPage)));
