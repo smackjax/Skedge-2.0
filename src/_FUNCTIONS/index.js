@@ -1,4 +1,4 @@
-import objToArray from './objToArr';
+import objToArr from './objToArr';
 import arrToObj from './arrToObj';
 import * as dateFunctions from './dateFunctions';
 

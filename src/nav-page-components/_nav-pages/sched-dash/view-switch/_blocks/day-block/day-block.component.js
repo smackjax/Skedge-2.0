@@ -1,32 +1,37 @@
 import React from 'react';
 
 // Functions
-import objToArray from '../../../../../_FUNCTIONS/objToArr';
-import {hydrateDate} from '../../../../../_FUNCTIONS/dateFunctions';
-import { expand, collapse, toggleByBtn} from '../../../../../_FUNCTIONS/dropdown';
+import {
+    objToArr,
+    hydrateDate
+} from '../../../../../_functions';
+import { 
+    expand, 
+    collapse, 
+    toggleByBtn
+} from '../../../../../../_FUNCTIONS/dropdown';
 
 // Components
 import TaskBlock from '../task-block/task-block.component';
 
 // Style
-import colors from '../../../../../_RESOURCES/colors';
 import './day-block.style.css';
 
 
 export default (props)=>{
     // props.dateTitle
     // props.tasks
-    const tasks = objToArray(props.tasks);
+    const tasks = objToArr(props.tasks);
 
     const dateStr = hydrateDate(props.dateStr).format('ddd, MMM DD');
     return (
         tasks.length > 0 ?
-        <div style={{color: colors.sched, borderColor: colors.sched}}  className="day-block-item  sched-view-main-item">
+        <div  className="day-block-item sched-view-main-item border-sched text-sched">
             <div className="sched-item-header">
                 {dateStr} 
                 { props.collapsed ? <button id={'task-drop-btn-' + props.indx}
-                className='btn sched-view-toggle' 
-                style={{backgroundColor: colors.sched, color: '#f4f4f4'}}
+                className='btn sched-view-toggle bg-sched' 
+                style={{color: '#f4f4f4'}}
                 value={'task-dropdown-'+props.indx}
                 onClick={toggleByBtn('task-drop-btn-' + props.indx)}>
                     <i className="fa fa-chevron-down"></i>

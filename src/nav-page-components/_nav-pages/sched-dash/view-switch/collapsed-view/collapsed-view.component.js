@@ -2,8 +2,11 @@ import React from 'react';
 
 
 //Functions
-import objToArray from '../../../../_FUNCTIONS/objToArr';
-import { hydrateDate} from '../../../../_FUNCTIONS/dateFunctions';
+import {
+    hydrateDate,
+    objToArr
+} from '../../../../_functions';
+
 
 //Components
 import DayBlock from '../_blocks/day-block/day-block.component';
@@ -14,7 +17,7 @@ import './collapsed-view.style.css';
 
 export default (props)=>{
     const schedData = props.activeSched;
-    const days = objToArray(schedData.sched);
+    const days = objToArr(schedData.sched);
 
     const startMoment = hydrateDate(schedData.startDate);
     const endMoment = hydrateDate(schedData.endDate);

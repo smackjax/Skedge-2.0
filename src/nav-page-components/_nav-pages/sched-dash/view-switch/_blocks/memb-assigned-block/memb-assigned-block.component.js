@@ -1,12 +1,17 @@
 import React from 'react';
-
-import colors from '../../../../../_RESOURCES/colors';
+import PropTypes from 'prop-types';
 import './memb-assigned-block.style.css';
-export default (props)=>{
-    // props.membName
+
+const MembAssignedBlock = (props)=>{
     return (
-        <div style={{color: colors.member}} className="sublist-item">
+        <div className="sublist-item text-member">
             {props.membName}
         </div>
     )
 }
+
+MembAssignedBlock.propTypes={
+    membName: PropTypes.string.isRequired
+}
+
+export default MembAssignedBlock;

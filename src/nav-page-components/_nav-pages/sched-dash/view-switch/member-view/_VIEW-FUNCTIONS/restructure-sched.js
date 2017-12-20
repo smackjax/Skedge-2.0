@@ -1,8 +1,4 @@
-import FAKESCHED from '../../../../../../sched-engine/FAKESCHEDDATA';
-
-import objToArray from '../../../../../_FUNCTIONS/objToArr';
-import arrayToObject from '../../../../../_FUNCTIONS/arrToObj';
-
+import { objToArr, arrToObj } from '../../../../../_functions';
 
 /*
 returns {
@@ -23,13 +19,13 @@ returns {
 
 export const restructureFunc = (vanillaSched)=>{
     
-    const datesArray = objToArray(vanillaSched.sched);
+    const datesArray = objToArr(vanillaSched.sched);
     const memberSched = {};
     // Adds each date under the member ids that are assigned then
     datesArray.forEach((dateObj)=>{
-        const tasksArray = objToArray(dateObj.tasks);
+        const tasksArray = objToArr(dateObj.tasks);
         tasksArray.forEach((task)=>{
-            const memberArray = objToArray(task.assigned);
+            const memberArray = objToArr(task.assigned);
             memberArray.map((member)=>{
                 // Initialize name, 'workDates', and 'tasksOnDate' if not on list yet
                 if(!memberSched[member.id]){ 

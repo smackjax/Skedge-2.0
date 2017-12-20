@@ -1,10 +1,13 @@
-// Date Stuff
 import moment from 'moment';
-import {dehydrateDate, hydrateDate} from '../components/_FUNCTIONS/dateFunctions';
 
 // General functions
-import objToArr from '../components/_FUNCTIONS/objToArr'; 
-import arrToObj from '../components/_FUNCTIONS/arrToObj'; 
+import {
+    dehydrateDate,
+    hydrateDate,
+    objToArr,
+    arrToObj
+} from '../_FUNCTIONS/';
+
 import idGen from 'uniqid';
 
 

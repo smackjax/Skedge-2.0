@@ -1,11 +1,11 @@
 import React from 'react';
 
 // functions
-import { dehydrateDate, hydrateDate} from '../../../../../../_FUNCTIONS/dateFunctions';
-import objToArr from '../../../../../../_FUNCTIONS/objToArr';
-
-// Style 
-import colors from '../../../../../../_RESOURCES/colors';
+import {
+    hydrateDate,
+    dehydrateDate,
+    objToArr
+} from '../../../../../../_functions';
 
 export default (props)=>{
 
@@ -14,13 +14,12 @@ export default (props)=>{
     
     return(
         <div className="memb-view-date-item">
-            <div style={{color: colors.sched}} className="sublist-header">{dateStr}</div>
+            <div  className="sublist-header text-sched">{dateStr}</div>
             <div className="memb-view-task-block">
                 {
                     tasksOnDate.map((task, tId)=>{
                         return <div 
-                        style={{color: colors.task}}
-                        className="sublist-item"
+                        className="sublist-item text-sched"
                             key={tId}
                         >{task.name}</div>
                     })

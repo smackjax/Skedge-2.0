@@ -35,6 +35,6 @@ export const SCHED_ACT_TYPES={
 }
 
 export const META_DATA_ACT_TYPES={
-    UPDATE_ACTIVE_SCHED_ID: '', 
-    LINK_USERNAME_TO_ID: ''
+    UPDATE_ACTIVE_SCHED_ID: 'update_active_schedule_id', 
+    LINK_USERNAME_TO_ID: 'link_username_to_member_id'
 }

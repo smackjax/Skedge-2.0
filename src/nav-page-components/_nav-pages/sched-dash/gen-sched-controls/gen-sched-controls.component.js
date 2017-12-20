@@ -1,17 +1,15 @@
 import React from 'react';
 
-import {hydrateDate, dehydrateDate} from '../../../_FUNCTIONS/dateFunctions';
-import {expand, collapse} from '../../../_FUNCTIONS/dropdown';
-import { genNewSched } from '../../../../sched-engine/sched-api';
+import { expand, collapse  } from '../../../../_FUNCTIONS/dropdown';
+import { hydrateDate, dehydrateDate } from '../../../_functions';
+import { genNewSched } from '../../../../brains/sched-api';
 
 // Components
-import SelectDate from '../../../_INPUTS/select-date/select-date.component';
-
+import SelectDate from '../../../../_inputs/select-date/select-date.component';
 
 //Styles
-import colors from '../../../_RESOURCES/colors';
 import './gen-sched-controls.style.css';
-const newBtnStyle = { backgroundColor: colors.sched, color: '#efefef'};
+const newBtnStyle = { color: '#efefef'};
 
 export default class GenSchedControls extends React.Component{
     constructor(props){
@@ -86,11 +84,11 @@ export default class GenSchedControls extends React.Component{
     render(props){
         return(
         <div id={this.initProps.id} className="gen-sched-controls dropdown-div container">
-            <div className="gen-sched-controls-header row" style={{color:colors.sched}}>
-                <div className=" col-9 col-sm-7"><h5>New schedule</h5></div>
+            <div className="gen-sched-controls-header text-sched" >
+                <div className=""><h5>New schedule</h5></div>
                 <button disabled={false} 
                 onClick={this.initProps.closeDrop} 
-                className="btn btn-danger cancel-btn col-3 col-sm-5">
+                className="btn btn-danger cancel-btn bg-danger text-light">
                     <i className="fa fa-times"></i> 
                     <span className="hidden-xs-down"> &nbsp; CANCEL</span>
                 </button>
@@ -113,13 +111,13 @@ export default class GenSchedControls extends React.Component{
                 </div>
             </div>
             
-            <div className="row gen-sched-controls-footer">
+            <div className=" gen-sched-controls-footer">
                 
                 <button id='gen-new-sched-btn' 
                 disabled={!this.datesValid()} 
                 onClick={this.handleSubmit}
                 style={newBtnStyle} 
-                className="btn offset-sm-3 col-sm-6 offset-md-4 col-md-4 gen-sched-btn">
+                className="btn gen-sched-btn bg-sched">
                     <i className="fa fa-check"></i> GENERATE
                 </button>
             </div>

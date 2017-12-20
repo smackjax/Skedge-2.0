@@ -2,16 +2,15 @@ import React from 'react';
 
 import {Link} from 'react-router-dom';
 
-import { expand, collapse} from '../../../_FUNCTIONS/dropdown';
-import colors from '../../../_RESOURCES/colors';
+import { expand, collapse} from '../../../../_FUNCTIONS/dropdown';
 
 // Components
 import GenSchedControls from '../gen-sched-controls/gen-sched-controls.component';
 
 // Styles
 import './sched-header.style.css';
-const newBtnStyle = { backgroundColor: colors.sched, color: '#efefef'};
-const prevBtnStyle = { borderColor: colors.sched, color: colors.sched};
+const newBtnStyle = { color: '#efefef'};
+
 
 
 
@@ -53,11 +52,11 @@ export default class SchedHeader extends React.Component{
                     <Link 
                     to='/all-schedules'
                     onClick={this.closeControls} 
-                    style={prevBtnStyle} 
-                    className="col-5 btn main-sched-control-btn">
+                    
+                    className="btn main-sched-control-btn border-sched text-sched">
                         <i className="fa fa-arrow-left"></i> OLD
                     </Link>
-                    <button onClick={this.openControls} style={newBtnStyle} className="offset-1 col-6 btn main-sched-control-btn">
+                    <button onClick={this.openControls} style={newBtnStyle} className="btn main-sched-control-btn text-sched">
                         <i className="fa fa-plus"></i> NEW
                     </button>
                 </div>

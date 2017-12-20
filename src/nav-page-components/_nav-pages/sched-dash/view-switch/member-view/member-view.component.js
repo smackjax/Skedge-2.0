@@ -3,15 +3,14 @@ import React from 'react';
 // Functions 
 import moment from 'moment';
 import { restructureFunc } from './_VIEW-FUNCTIONS/restructure-sched';
-import objToArr from '../../../../_FUNCTIONS/objToArr';
-
+import {objToArr} from '../../../../_functions';
 
 // Components 
 import MembBlock from './member-view-blocks/memb-block/memb-block.component';
 
 // Style
 import './member-view.style.css';
-import colors from '../../../../_RESOURCES/colors';
+
 
 export default (props)=>{
     
@@ -55,7 +54,8 @@ export default (props)=>{
     
     
     return (
-        <div style={{borderColor: colors.member}} className="container sched-view members">
+        <div 
+        className="container sched-view members border-member">
             <div className="sched-view-header">
                 {startMoment.format('MMM DD YYYY')} - {endMoment.format('MMM DD YYYY')}
             </div>

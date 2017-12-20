@@ -6,11 +6,11 @@ import reduxStore from '../_redux/redux-store';
 import GenSched from './gen-new-sched';
 
 export function getOneSched(schedId){
-    const schedList = {...reduxStore.getState().schedsById};
-    return schedList[schedId] 
+    const schedsById = {...reduxStore.getState().schedules};
+    return schedsById[schedId] 
 }
 export function genNewSched(startDateStr, endDateStr){
-    /* Returns {
+    /* Returns: {
         newSched, 
         newMembVals,
         newTaskVals
@@ -20,4 +20,3 @@ export function genNewSched(startDateStr, endDateStr){
 }
 
 
-// TODO feature, edit sched
