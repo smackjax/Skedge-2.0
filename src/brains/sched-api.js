@@ -7,7 +7,7 @@ import GenSched from './gen-new-sched';
 
 export function getOneSched(schedId){
     const schedsById = {...reduxStore.getState().schedules};
-    return schedsById[schedId] 
+    return schedsById["schedId1"] 
 }
 export function genNewSched(startDateStr, endDateStr){
     /* Returns: {

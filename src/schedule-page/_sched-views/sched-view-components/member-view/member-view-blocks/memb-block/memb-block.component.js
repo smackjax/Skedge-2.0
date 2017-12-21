@@ -1,13 +1,13 @@
 import React from 'react';
 
 // Functions 
-import { objToArr } from '../../../../../../_functions'
+import { objToArr } from '../../../_functions';
 import { restructureFunc } from '../../_VIEW-FUNCTIONS/restructure-sched';
+
 
 // Components
 import DayBlock from '../date-block/date-block.component';
-import * as icons from '../../../../../../_icons';
-
+import * as icons from '../../../_icons';
 
 // Style
 import './memb-block.style.css';
@@ -24,7 +24,7 @@ export default (props)=>{
                 className="btn sched-view-toggle bg-member"
                 style={{color: '#ededed'}}
                 value={"sched-date-dropdown-" + props.indx}
-                onClick={()=>{console.log("TODO")}}
+                onClick={()=>{console.log("Todo")}}
                 >
                     {icons.chevDown}
                 </button>

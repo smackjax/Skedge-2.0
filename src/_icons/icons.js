@@ -9,6 +9,8 @@ export const settings = <i className="fa fa-gear"></i>
 
 export const pencil = <i className="fa fa-pencil"></i>
 export const chevLeft = <i className="fa fa-angle-left"></i>
+export const chevUp = <i className="fa fa-angle-up"></i>
+export const chevDown = <i className="fa fa-angle-down"></i>
 export const vDots = <i className="fa fa-ellipsis-v"></i>
 
 export const plus = <i className="fa fa-plus"></i>

@@ -1,0 +1,10 @@
+.view-list-item-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 15px;
+}
+
+.view-list-item-header span i{
+    margin-right: 6px;
+}

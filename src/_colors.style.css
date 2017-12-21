@@ -1,5 +1,10 @@
 /* APP-WIDE COLORS */
 
+/* Light ( #FAFAFA )*/
+.bg-light{ background-color: #FAFAFA; }
+.text-light{ color: #FAFAFA; }
+.border-light{ border-color: #FAFAFA; }
+
 /* Danger ( #D63F3F )  */
 .bg-danger{ background-color: #D63F3F; }
 .text-danger{ color: #D63F3F; }

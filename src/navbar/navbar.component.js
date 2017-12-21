@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import * as icons from '../_icons';
+import './navbar.style.css';
 
 export default (props)=>{
     return (

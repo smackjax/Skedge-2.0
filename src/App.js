@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 // Pages with navbar
-import {
-  SchedDashPage,
-  SettingsPage
-} from './nav-page-components/_nav-pages/';
+import SchedPage from './schedule-page/schedule-page.component'
 
 // Data Pages
 import {
@@ -16,7 +13,6 @@ import {
   DaysPage
 } from './data-page-components/_data-pages/';
 
-import SelectDate from './_inputs/select-date/select-date.component';
 
 
 // App-wide styles 
@@ -29,10 +25,15 @@ const dateChange=(newVal)=>{
 }
 
 class App extends Component {
+  state={
+    test: false
+  }
+
   render() {
     return (
       <div className="App">
         <Switch>
+          <Route path="/schedule" component={SchedPage}/>
           <Route path="/members" component={MembersPage}/>
           <Route path="/groups" component={GroupsPage}/>
           <Route path="/tasks" component={TasksPage}/>
