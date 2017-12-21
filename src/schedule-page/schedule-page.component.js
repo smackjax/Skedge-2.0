@@ -5,7 +5,10 @@ import SchedControls from './sched-controls/sched-controls.component';
 import NewScheduleDropdown from './new-sched-dropdown/new-sched-dropdown.component';
 import ViewSwitch from './_sched-views/view-switch/view-switch.component';
 
-import MemberViewTest from './_sched-views/_view-list-generics/view-list-revamp/members-list/members-list.component';
+import {
+    ViewByMember as MemberViewTest,
+    ViewByDate as DateViewTest
+} from './_sched-views/views-by-data';
 
 
 class SchedulePage extends React.Component{
@@ -43,6 +46,7 @@ class SchedulePage extends React.Component{
                 />
 
                 <MemberViewTest />
+                <DateViewTest />
                 {false && <ViewSwitch
                 schedule={this.props.sched}
                 currentView={this.state.currentView}

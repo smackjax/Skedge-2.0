@@ -1,43 +1,26 @@
 import React from 'react';
-import ListItem from '../../view-list-item/view-list-item.component';
-import ExpandableItem from '../../expandable-view-list-item/expandable-view-list-item.component';
-import * as icons from '../../../../../_icons/icons';
+import {
+    ExpandableViewListItem as ExpandableItem,
+    ViewListItem as ListItem
+} from '../../_view-list-generics';
+import * as icons from '../../../icons';
+import { formatSchedByMember } from '../restructure-functions';
+import { hydrateDate } from '../../../functions';
 
-import {v2, dataToArrays} from '../restructure-functions';
-import { getOneSched } from '../../../../../brains/sched-api';
-import { hydrateDate } from '../../../sched-view-components/_functions';
+import { getOneSched } from '../../../../brains/sched-api';
 
-const MembersSchedView = (props)=>{
-
-/*
-returns {
-    id: schedId,
-    startDate,
-    endDate,
-    sched: {
-        membId:{
-            workDates: {
-                taskId :{
-                    assigned: {}
-                }
-            }
-        }
-    }
-}   
-*/  
-    
+const MembersSchedView = (props)=>{ 
     const schedData = getOneSched();
-    const schedFormatted = v2(schedData);
-    console.log("formatted: ", schedFormatted);
-    const arrayData = dataToArrays(schedFormatted.sched);
-    console.log(arrayData);
+    const arrayData = formatSchedByMember(schedData);
+    
     return (
-        <div>
+        <div> 
             {// member items
             
-            arrayData.map(
-                member=>(
+            arrayData.sched.map(
+                (member, mIndex)=>(
                     <ExpandableItem
+                    key={"m"+mIndex}
                     className="members-view-list border-member"
                     headerClassName="bg-member text-light"
                     itemText={member.name}
@@ -45,9 +28,10 @@ returns {
                     >
                         {// Day items
                             member.dates.map(
-                                day=>{
+                                (day, dIndex)=>{
                                 const dayText = hydrateDate(day.id).format("ddd, MMM DD");
                                 return <ListItem
+                                    key={"d"+dIndex}
                                     className="border-day"
                                     headerClassName="text-day"
                                     itemText={dayText}
@@ -55,8 +39,9 @@ returns {
                                     >
                                         { // Task items
                                             day.tasks.map(
-                                                task=>(
+                                                (task, tIndex)=>(
                                                     <ListItem
+                                                    key={"t"+tIndex}
                                                     itemText={task.name}
                                                     itemIcon={icons.task}
                                                     headerClassName="text-task"

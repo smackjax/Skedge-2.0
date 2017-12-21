@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DateSelectInput from '../date-select-input/date-select-input.component';
+import './from-to-date-block.style.css';
 
 class DateSelectBlock extends React.Component{
     state={
@@ -42,13 +43,7 @@ class DateSelectBlock extends React.Component{
         const endDate = moment(endDateStr, "YYYY-MM-DD");
 
         const newVals = 
-            (   // If either date isn't valid
-                !startValid || 
-                !endValid 
-            ) ? {
-                currentOutput: "Invalid date",
-                datesAreValid: false
-            } :
+
             // If start date is later than end
             (startDate >= endDate) ? 
             {
@@ -87,6 +82,8 @@ class DateSelectBlock extends React.Component{
                 <DateSelectInput 
                 id="startDateInput"
                 onChange={this.handleStartDate}
+                minYear={2000}
+                maxYear={2001}
                 />
                 <DateSelectInput 
                 id="endDateInput"
