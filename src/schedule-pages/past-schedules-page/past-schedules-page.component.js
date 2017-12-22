@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import * as icons from '../icons';
 import { connect } from 'react-redux';
+import Navbar from '../../navbar/navbar.component';
 import PastSchedControls from './past-sched-control-btns/past-sched-control-btns.component';
 import {
     ListPageHeader,
@@ -44,12 +45,7 @@ class PastSchedulesPage extends React.Component{
         const schedIds = Object.keys(this.props.schedules);
         return (
             <div className="page past-schedules">
-                <ListPageHeader 
-                bgColorClassName="bg-dark-gray"
-                history={this.props.history}
-                >
-                {icons.sched}&nbsp; <span>Past schedules</span>
-                </ListPageHeader>
+                <Navbar />
                 <div className="past-schedules-list">
                     {   schedIds.map(
                         (id, sIndex)=>{
@@ -60,11 +56,16 @@ class PastSchedulesPage extends React.Component{
                                 moment(sched.endDate).format("MMM DD");
                             const headerText = 
                                `${start} - ${end}`;
+                            const isActive = id === this.props.activeSchedId;
+                            const bgColor = isActive ?
+                                    "bg-sched" : "bg-dark-gray";
+                            const borderColor = isActive ?
+                                "border-sched" : "border-dark-gray";
                             return( 
                             <ExpandableItem
                             key={"s"+sIndex}
-                            className="dates-view-list border-sched"
-                            headerClassName="bg-sched text-light"
+                            className={"dates-view-list border-sched " + borderColor}
+                            headerClassName={"bg-sched text-light " + bgColor}
                             itemText={headerText}
                             itemIcon={icons.day}
                             >
@@ -92,6 +93,7 @@ PastSchedulesPage.propTypes={
 
 export default connect(
     store=>({
-        schedules: store.schedules
+        schedules: store.schedules,
+        activeSchedId: store.meta.activeSchedId
     })
 )(PastSchedulesPage);

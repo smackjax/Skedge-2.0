@@ -1,4 +1,4 @@
 .max-height-dropdown{
-    transition: max-height 400ms ease-out;
+    transition: max-height 300ms ease-out;
     overflow: hidden;
 }

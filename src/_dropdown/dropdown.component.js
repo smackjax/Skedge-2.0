@@ -4,7 +4,7 @@ import shortid from 'shortid';
 import { CSSTransition } from 'react-transition-group';
 import './dropdown.style.css';
 
-const duration = 400;
+const duration = 300;
 const closeDropdown = (htmlNode)=>{
     const newHeight = "0px";
     htmlNode.style.maxHeight = newHeight;

@@ -12,10 +12,7 @@ import {
   TasksPage,
   DataSelectPage,
   DaysPage
-} from './data-page-components/_data-pages/';
-
-
-
+} from './data-page-components/pages/';
 
 // App-wide styles 
 import 'sanitize.css/sanitize.css';
