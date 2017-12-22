@@ -1,9 +1,9 @@
 .date-select-wrapper{
     display: flex; 
     flex-direction: row;
-    max-width: 320px;
-    width: 80%;
-    margin: 10px 0;
+    max-width: 230px;
+    width: 95%;
+    margin: 10px auto;
 }
 .date-input{
     padding: 4px 5px;

@@ -1,0 +1,12 @@
+.view-switch-option{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    max-width: 130px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px auto;
+    padding: 3px 10px;
+    background-color: #fafafa;
+    box-shadow: 0 1px 4px -2px #111;
+}

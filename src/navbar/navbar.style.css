@@ -1,0 +1,29 @@
+.main-navbar{
+    width: 100%;
+    background-color: #999;
+    box-shadow:  0 0 4px 0px #111;
+    z-index: 200;
+    margin-bottom: 14px;
+}
+.nav-btns-wrapper{
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-around;
+    width: 90%;
+    margin: 0 auto;
+    max-width: 300px;
+    padding: 3px 0;
+}
+
+.main-nav-btn{
+    font-size: 20px;
+    color: #efefef;
+    padding: 7px;
+    min-width: 20%;
+    text-align: center;
+    border-radius: 2px;
+}
+.main-nav-btn.active{
+    background-color: #efefef;
+    color: #777;
+}

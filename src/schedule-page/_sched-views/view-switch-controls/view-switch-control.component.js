@@ -1,25 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './view-switch-control.style.css';
 
-const ViewSwitchControls=(props)=>{
+const ViewSwitchRadios=(props)=>{
     return (
         <div className="view-switch-controls">
-            <label 
-            htmlFor="defaultView"
-            className="view-switch-option">
-                <input type="radio" 
-                onClick={props.handleViewChange}
-                checked={props.currentView === ""}
-                value=""
-                id="defaultView"
-                /> Date
-            </label>
-
             <label 
             htmlFor="collapsedView"
             className="view-switch-option">
                 <input type="radio" 
                 onClick={props.handleViewChange}
+                onChange={props.handleViewChange}
                 checked={props.currentView === "collapsed"}
                 value="collapsed"
                 id="collapsedView"
@@ -31,6 +22,7 @@ const ViewSwitchControls=(props)=>{
             className="view-switch-option">
                 <input type="radio"
                 onClick={props.handleViewChange}
+                onChange={props.handleViewChange}
                 checked={props.currentView === "members"}
                 value="members"
                 id="membersView"
@@ -41,9 +33,9 @@ const ViewSwitchControls=(props)=>{
     )
 }
 
-ViewSwitchControls.propTypes = {
+ViewSwitchRadios.propTypes = {
     handleViewChange: PropTypes.func.isRequired,
     currentView: PropTypes.string.isRequired
 }
 
-export default ViewSwitchControls;
+export default ViewSwitchRadios;

@@ -1,0 +1,14 @@
+.new-sched-dropdown{
+    background-color:  #fafafa;
+    border-width: 1px;
+    border-style: solid;
+    width: 95%;
+    max-width: 350px;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px -1px #222;
+    margin: 0 auto;
+}
+
+.new-sched-dropdown > * {
+    padding: 10px;
+}

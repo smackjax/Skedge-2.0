@@ -1,0 +1,12 @@
+.modal-header-badge{
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(240,240,240,.8);
+    margin: 2px 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
+
+}

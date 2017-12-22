@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from '../../../navbar/navbar.component';
 import * as icons from '../../_icons';
 import CardBlock from './select-data-list-card-block/select-data-list-card-block.component';
 import SelectDataListCard from './select-data-list-card/select-data-list-card.component';
@@ -6,7 +7,11 @@ import './select-data-list-page.style.css';
 
 const SelectDataListPage = ()=>{
     return (
+        <div>
+            <NavBar />
+            
         <div className="select-data-list-page">
+            
             <CardBlock>
                 <SelectDataListCard 
                 path="/members"
@@ -43,7 +48,7 @@ const SelectDataListPage = ()=>{
                 </SelectDataListCard>
             </CardBlock>
             
-
+            </div>
         </div>
     )
 }

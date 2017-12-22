@@ -1,14 +1,15 @@
 import React from 'react';
 
-
+import NavBar from '../navbar/navbar.component';
 import SchedControls from './sched-controls/sched-controls.component';
-import NewScheduleDropdown from './new-sched-dropdown/new-sched-dropdown.component';
+import NewScheduleModal from './new-sched-modal/new-sched-modal.component';
 import ViewSwitch from './_sched-views/view-switch/view-switch.component';
 
 import {
     ViewByMember as MemberViewTest,
     ViewByDate as DateViewTest
 } from './_sched-views/views-by-data';
+import { getOneSched } from '../brains/sched-api';
 
 
 class SchedulePage extends React.Component{
@@ -32,26 +33,27 @@ class SchedulePage extends React.Component{
         console.log("TODO handle generate");
     }
     render(){
+        const sched = getOneSched();
         return(
             <div className="schedule page"> 
+                <NavBar />
                 <SchedControls 
-                dropdownOpen={this.state.schedControlsOpen}
+                dropdownOpen={false}
                 handleDropdownToggle={this.handleDropdown}
                 />
                 <hr />
-                <NewScheduleDropdown
-                open={this.state.schedControlsOpen}
-                handleClose={this.handleDropdown}
-                handleGenerate={this.handleGenerate}
-                />
 
-                <MemberViewTest />
-                <DateViewTest />
-                {false && <ViewSwitch
-                schedule={this.props.sched}
+                <ViewSwitch
+                schedule={sched}
                 currentView={this.state.currentView}
                 handleViewSwitch={this.handleViewSwitch}
-                />}
+                />
+
+                <NewScheduleModal
+                open={this.state.schedControlsOpen}
+                handleCancel={this.handleDropdown}
+                handleGenerate={this.handleGenerate}
+                />
             </div>
         )
     }

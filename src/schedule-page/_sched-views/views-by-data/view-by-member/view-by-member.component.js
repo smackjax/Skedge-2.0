@@ -12,11 +12,9 @@ import { getOneSched } from '../../../../brains/sched-api';
 const MembersSchedView = (props)=>{ 
     const schedData = getOneSched();
     const arrayData = formatSchedByMember(schedData);
-    
     return (
         <div> 
             {// member items
-            
             arrayData.sched.map(
                 (member, mIndex)=>(
                     <ExpandableItem
@@ -27,31 +25,31 @@ const MembersSchedView = (props)=>{
                     itemIcon={icons.member}
                     >
                         {// Day items
-                            member.dates.map(
-                                (day, dIndex)=>{
-                                const dayText = hydrateDate(day.id).format("ddd, MMM DD");
-                                return <ListItem
-                                    key={"d"+dIndex}
-                                    className="border-day"
-                                    headerClassName="text-day"
-                                    itemText={dayText}
-                                    itemIcon={icons.day}
-                                    >
-                                        { // Task items
-                                            day.tasks.map(
-                                                (task, tIndex)=>(
-                                                    <ListItem
-                                                    key={"t"+tIndex}
-                                                    itemText={task.name}
-                                                    itemIcon={icons.task}
-                                                    headerClassName="text-task"
-                                                    />
-                                                )
-                                            )
-                                        }
-                                    </ListItem>
-                                }
-                            )
+                        member.dates.map(
+                            (day, dIndex)=>{
+                            const dayText = hydrateDate(day.id).format("ddd, MMM DD");
+                            return <ListItem
+                                key={"d"+dIndex}
+                                className="border-day"
+                                headerClassName="text-day"
+                                itemText={dayText}
+                                itemIcon={icons.day}
+                                >
+                                    { // Task items
+                                    day.tasks.map(
+                                        (task, tIndex)=>(
+                                            <ListItem
+                                            key={"t"+tIndex}
+                                            itemText={task.name}
+                                            itemIcon={icons.task}
+                                            headerClassName="text-task"
+                                            />
+                                        )
+                                    )
+                                    }
+                                </ListItem>
+                            }
+                        )
                         }
                     </ExpandableItem>
                 )

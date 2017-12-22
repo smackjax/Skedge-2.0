@@ -23,10 +23,10 @@ export default (startDateString, endDateString, currentState)=>{
     const state = currentState;
     
     // Initialize data for sched
-    const daysOfWeek = {...state.daysOfWeek};
-    const groupsById = {...state.groupsById};
-    const membersById = {...state.membersById};
-    const tasksById = {...state.tasksById};
+    const daysOfWeek = {...state.days};
+    const groupsById = {...state.groups};
+    const membersById = {...state.members};
+    const tasksById = {...state.tasks};
 
     // Needed. Stop second guessing.
     const membsAsArray = objToArr(membersById);

@@ -1,19 +1,28 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import * as icons from '../_icons';
+import * as icons from '../_icons/icons';
 import './navbar.style.css';
 
 export default (props)=>{
     return (
-        <nav>
-            <div>
-                <NavLink>
+        <nav className="main-navbar">
+            <div className="nav-btns-wrapper">
+                <NavLink
+                className="main-nav-btn"
+                to="/select-data"
+                >
                     {icons.data}
                 </NavLink>
-                <NavLink>
+                <NavLink
+                className="main-nav-btn"
+                to="/schedule"
+                >
                     {icons.sched}
                 </NavLink>
-                <NavLink>
+                <NavLink
+                className="main-nav-btn"
+                to="settings"
+                >
                     {icons.settings}
                 </NavLink>
             </div>

@@ -11,9 +11,8 @@ import { hydrateDate } from '../../../functions';
 import { getOneSched } from '../../../../brains/sched-api';
 
 const ViewSchedByDate = (props)=>{
-
-    const schedData = getOneSched();
-    const arrayData = formatSchedByDate(schedData);
+    const arrayData = 
+        formatSchedByDate(props.schedule);
 
     return (
         <div>
@@ -60,7 +59,7 @@ const ViewSchedByDate = (props)=>{
         </div>
     )
 }
-// ViewSchedByDate.propTypes= {
-//     schedule: PropTypes.object.isRequired
-// }
+ViewSchedByDate.propTypes= {
+    schedule: PropTypes.object.isRequired
+}
 export default ViewSchedByDate;

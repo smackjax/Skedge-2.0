@@ -2,21 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dropdown from '../../_dropdown/dropdown.component';
 import * as icons from '../../_icons/icons';
+import './sched-controls.style.css';
+
 
 const SchedControls = (props)=>{
     return (
         <Dropdown 
         open={!props.dropdownOpen}
-        className="sched-page-controls">
-            <button 
-            className="border-sched text-sched">
-                {icons.chevLeft} Old
-            </button>
-            <button
-            onClick={props.handleDropdownToggle}
-            className="bg-sched text-light">
-                {icons.plus} New
-            </button>
+        >
+            <div className="sched-page-controls-wrapper">
+                <button 
+                className="border-sched text-sched sched-control">
+                    {icons.chevLeft} Old
+                </button>
+                <button
+                onClick={props.handleDropdownToggle}
+                className="bg-sched text-light sched-control">
+                    {icons.plus} New
+                </button>
+            </div>
         </Dropdown>
     )
 }

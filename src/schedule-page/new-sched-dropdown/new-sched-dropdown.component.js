@@ -37,7 +37,8 @@ class NewSchedDropdown extends React.Component{
     return (
         <Dropdown
         open={this.props.open}
-        className="new-sched-dropdown">
+        >
+        <div className="new-sched-dropdown border-sched">
             <FromToDateInput
             onChange={this.handleDateChange}
             />
@@ -48,6 +49,7 @@ class NewSchedDropdown extends React.Component{
             handleConfirm={this.handleGenerate}
             handleCancel={this.props.handleClose}
             />
+        </div>
         </Dropdown>
     )
 }
