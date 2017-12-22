@@ -15,7 +15,7 @@ export default (props)=>{
                 </NavLink>
                 <NavLink
                 className="main-nav-btn"
-                to="/schedule"
+                to="/schedule-dash"
                 >
                     {icons.sched}
                 </NavLink>

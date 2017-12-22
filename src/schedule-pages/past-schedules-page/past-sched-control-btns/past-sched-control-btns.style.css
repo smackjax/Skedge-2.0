@@ -1,0 +1,10 @@
+.past-sched-btns-wrapper{
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-around;
+    width: 95%;
+
+}
+.past-sched-btns-wrapper button{
+    padding: 5px;
+}

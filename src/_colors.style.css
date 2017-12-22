@@ -39,3 +39,8 @@
 .border-data{border-color: #A839BA }
 .text-data{color: #A839BA }
 .bg-data{background-color: #A839BA }
+
+/* Dark gray  ( #555 )*/
+.border-dark-gray{border-color: #555 }
+.text-dark-gray{color: #555 }
+.bg-dark-gray{background-color: #555 }

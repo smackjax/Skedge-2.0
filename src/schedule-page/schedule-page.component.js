@@ -5,10 +5,6 @@ import SchedControls from './sched-controls/sched-controls.component';
 import NewScheduleModal from './new-sched-modal/new-sched-modal.component';
 import ViewSwitch from './_sched-views/view-switch/view-switch.component';
 
-import {
-    ViewByMember as MemberViewTest,
-    ViewByDate as DateViewTest
-} from './_sched-views/views-by-data';
 import { getOneSched } from '../brains/sched-api';
 
 

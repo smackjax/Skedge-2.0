@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 // Pages with navbar
 import SchedPage from './schedule-page/schedule-page.component'
+import PastSchedDash from './schedule-pages/past-schedules-page/past-schedules-page.component';
 
 // Data Pages
 import {
@@ -34,7 +35,8 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route path="/schedule" component={SchedPage}/>
+          <Route path="/schedule-dash" component={SchedPage}/>
+          <Route path="/schedules" component={PastSchedDash}/>
           <Route path="/members" component={MembersPage}/>
           <Route path="/groups" component={GroupsPage}/>
           <Route path="/tasks" component={TasksPage}/>

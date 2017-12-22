@@ -13,8 +13,10 @@ button, .btn{
     transition: background-color 200ms ease-out;
     border: 0px;
     background-color: #eee;
-    color: #ededed;
+    color: #efefef;
     cursor: pointer;
+    padding: 5px; 
+    border-radius: 2px;
 }
 
 button:disabled, .btn:disabled{
