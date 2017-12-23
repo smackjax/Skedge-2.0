@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^4.8.1",
     "font-awesome": "^4.7.0",
     "install": "^0.10.2",
     "localforage": "^1.5.5",

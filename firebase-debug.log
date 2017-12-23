@@ -1,0 +1,50 @@
+[debug] [2017-12-23T19:50:22.192Z] ----------------------------------------------------------------------
+[debug] [2017-12-23T19:50:22.194Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Smackjax\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase init
+[debug] [2017-12-23T19:50:22.195Z] CLI Version:   3.16.0
+[debug] [2017-12-23T19:50:22.195Z] Platform:      win32
+[debug] [2017-12-23T19:50:22.195Z] Node Version:  v8.7.0
+[debug] [2017-12-23T19:50:22.195Z] Time:          Sat Dec 23 2017 14:50:22 GMT-0500 (Eastern Standard Time)
+[debug] [2017-12-23T19:50:22.195Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-12-23T19:50:22.201Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2017-12-23T19:50:22.201Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\#_Projects\#_Personal\Skedge Master\skedge-two-point-oh
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
+[debug] [2017-12-23T19:51:14.026Z] ----------------------------------------------------------------------
+[debug] [2017-12-23T19:51:14.028Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Smackjax\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase init
+[debug] [2017-12-23T19:51:14.028Z] CLI Version:   3.16.0
+[debug] [2017-12-23T19:51:14.028Z] Platform:      win32
+[debug] [2017-12-23T19:51:14.028Z] Node Version:  v8.7.0
+[debug] [2017-12-23T19:51:14.028Z] Time:          Sat Dec 23 2017 14:51:14 GMT-0500 (Eastern Standard Time)
+[debug] [2017-12-23T19:51:14.028Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-12-23T19:51:14.035Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2017-12-23T19:51:14.035Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\#_Projects\#_Personal\Skedge Master\skedge-two-point-oh
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
