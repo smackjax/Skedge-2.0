@@ -3,7 +3,6 @@ import moment from 'moment';
 // General functions
 import {
     dehydrateDate,
-    hydrateDate,
     objToArr,
     arrToObj
 } from '../_FUNCTIONS/';

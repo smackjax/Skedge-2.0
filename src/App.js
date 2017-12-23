@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import store from './_redux/redux-store';
-import {connect} from 'react-redux';
-import {saveState, loadState} from './_localData/localData';
-
-import Data_Acts from './_redux/actions/data.actions';
 import { Switch, Route } from 'react-router-dom';
-
-import {BottomSpinner} from './_spinners/';
+import {BottomSpinner} from './components/_generic-components/spinners';
 
 // Pages with navbar
-import SchedPage from './schedule-page/schedule-page.component'
-import PastSchedDash from './schedule-pages/past-schedules-page/past-schedules-page.component';
-import SettingsPage from './settings-page/settings-page.component';
+import SchedPage from './components/pages/schedule-pages/schedule-dash/schedule-dash.component'
+import PastSchedDash from './components/pages/schedule-pages/past-schedules-page/past-schedules-page.component';
+import SettingsPage from './components/pages/settings-page/settings-page.component';
 
 // Data Pages
 import {
@@ -20,31 +14,18 @@ import {
   TasksPage,
   DataSelectPage,
   DaysPage
-} from './data-page-components/pages/';
+} from './components/pages/data-page-components/pages/';
 
 // App-wide styles 
 import 'sanitize.css/sanitize.css';
-import './_generic-styles.style.css';
-import './_colors.style.css';
-import { genNewSched } from './brains/sched-api';
+import './app-styles/generic-styles.style.css';
+import './app-styles/colors.style.css';
 
-// Testing purposes
-store.subscribe(()=>{
-  saveState(store.getState());
-})
-
-
-const dateChange=(newVal)=>{
-  console.log("Date change val: ", newVal);
-}
 
 
 class App extends Component {
   state={
     generating: false
-  }
-
-  componentWillMount(){
   }
 
   handleBottomSpinner=(status)=>{

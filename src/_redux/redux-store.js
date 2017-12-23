@@ -1,6 +1,6 @@
 import {applyMiddleware, createStore} from 'redux';
 import Reducers from './reducers';
-import { loadState } from '../_localData/localData';
+import { saveState, loadState } from '../_localData/localData';
 import Data_Acts from './actions/data.actions';
 
 //Middleware
@@ -14,6 +14,13 @@ let reduxStore = createStore(
     Reducers,
     applyMiddleware(thunk, logger)
 );
+
+// Testing purposes
+reduxStore.subscribe(()=>{
+    saveState(reduxStore.getState());
+})
+  
+
 
 loadState()
 .then((jsonState)=>{

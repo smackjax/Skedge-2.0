@@ -23,7 +23,14 @@ export default (state={
                 }
             }
             return state;
-            break;
+
+        }
+
+        case META_DATA_ACT_TYPES.UPDATE_ACTIVE_SCHED_ID: {
+            return {
+                ...state,
+                activeSchedId: payload
+            }
         }
 
         case SCHED_ACT_TYPES.SAVE_NEW_SCHED: {
@@ -31,7 +38,7 @@ export default (state={
             ...state,
             activeSchedId: payload.newSched.id
             }
-            break;
+
         }
         default: return state
     }
