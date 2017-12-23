@@ -67,7 +67,7 @@ class PastSchedulesPage extends React.Component{
                             className={"dates-view-list border-sched " + borderColor}
                             headerClassName={"bg-sched text-light " + bgColor}
                             itemText={headerText}
-                            itemIcon={icons.day}
+                            itemIcon={icons.sched}
                             >
                                 <PastSchedControls
                                 id={id}

@@ -22,3 +22,4 @@ export const minus = <i className="fa fa-minus"></i>
 export const times = <i className="fa fa-times"></i>
 export const check = <i className="fa fa-check"></i>
 
+export const gearSpinner = <i className="fa fa-cog fa-spin fa-3x fa-fw"></i>

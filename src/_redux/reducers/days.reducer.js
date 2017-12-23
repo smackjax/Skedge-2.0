@@ -29,7 +29,7 @@ export default (state={
     '3' : {
         id: '3',
         name: 'Wednesday',
-        tasks: ['taskId1']
+        tasks: []
     },
     '4' : {
         id: '4',
@@ -53,9 +53,12 @@ export default (state={
     const payload = action.payload;
     switch(action.type){
         case DATA_ACT_TYPES.LOAD: {
-            return {
-                ...payload.days
+            if(payload.days){   
+                return {
+                    ...payload.days
+                }
             }
+            return state;
         }
 
         case DAYS_ACT_TYPES.SAVE_DAY: {

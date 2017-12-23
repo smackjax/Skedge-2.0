@@ -16,7 +16,13 @@ export function genNewSched(startDateStr, endDateStr){
         newTaskVals
         }
     */
-    return GenSched(startDateStr, endDateStr, reduxStore.getState());
+    return GenSched(
+        startDateStr, 
+        endDateStr, 
+        reduxStore.getState()
+    );
+        
+        
 }
 
 

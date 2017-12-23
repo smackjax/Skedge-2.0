@@ -10,29 +10,32 @@ import {
 } from './GENERIC_REDUCERS';
 
 export default function(state={
-    groupId1: {
-        id: 'groupId1',
-        name: 'Cannoneers',
-        members: ['membId1', 'membId3', 'membId2'],      
-    },
-    groupId2: {
-        id: 'groupId2',
-        name: 'Crewmen',
-        members: ['membId1']  
-    },
-    groupId3: {
-        id: 'groupId3',
-        name: 'Captains',
-        members: ['membId2']  
-    },
+    // groupId1: {
+    //     id: 'groupId1',
+    //     name: 'Cannoneers',
+    //     members: ['membId1', 'membId3', 'membId2'],      
+    // },
+    // groupId2: {
+    //     id: 'groupId2',
+    //     name: 'Crewmen',
+    //     members: ['membId1']  
+    // },
+    // groupId3: {
+    //     id: 'groupId3',
+    //     name: 'Captains',
+    //     members: ['membId2']  
+    // },
 }, action){
     const payload = action.payload;
 
     switch(action.type){
         case DATA_ACT_TYPES.LOAD: {
-            return {
-                ...action.data.groupsById
+            if(payload.groups){            
+                return {
+                    ...action.payload.groups
+                }
             }
+            return state;
         }
 
         // payload: {...group}

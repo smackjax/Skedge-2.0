@@ -30,6 +30,7 @@ export const DAYS_ACT_TYPES={
 
 export const SCHED_ACT_TYPES={
     SAVE_SCHED: 'save_schedule',
+    SAVE_NEW_SCHED: 'successful_sched_generation',
     DELETE_SCHED: 'delete_schedule',
     CHANGE_ACTIVE_SCHED: 'change_active_sched_id',
 }

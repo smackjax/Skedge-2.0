@@ -9,15 +9,32 @@ import CardBlock from './select-data-list-card-block/select-data-list-card-block
 import SelectDataListCard from './select-data-list-card/select-data-list-card.component';
 import './select-data-list-page.style.css';
 
+import Sched_Acts from '../../../_redux/actions/sched.actions';
+
+import { genNewSched } from '../../../brains/sched-api';
+
+
+
 class SelectDataListPage extends React.Component{
     
     state={
         generateModalOpen: false
     }
 
-    handleGenerate=(startDate, endDate)=>{
-        console.log("Dates:  ", startDate, endDate);
-        this.props.dispatch({type: "TODO"});
+    handleGenerate= async (startDate, endDate)=>{
+        this.props.handleBottomSpinner(true);
+        try{
+            const schedData = await genNewSched(startDate, endDate);
+            console.log("Sched gen success: ", schedData)
+            this.props.handleBottomSpinner(false);
+            this.props.dispatch(
+                Sched_Acts.schedGenSuccess(schedData)
+            );
+            this.props.history.push('/schedule-dash');
+        } catch (err){
+            console.log("Error generating schedule", err);
+            this.props.handleBottomSpinner(false);
+        }
     }
 
     handleModalToggle=()=>{
@@ -85,7 +102,8 @@ class SelectDataListPage extends React.Component{
 }
 
 SelectDataListPage.propTypes={
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    handleBottomSpinner: PropTypes.func.isRequired
 }
 
 export default connect()(SelectDataListPage);
