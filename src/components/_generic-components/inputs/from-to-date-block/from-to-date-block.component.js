@@ -82,8 +82,6 @@ class DateSelectBlock extends React.Component{
                 <DateSelectInput 
                 id="startDateInput"
                 onChange={this.handleStartDate}
-                minYear={2000}
-                maxYear={2001}
                 />
                 <DateSelectInput 
                 id="endDateInput"

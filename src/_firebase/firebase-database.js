@@ -1,3 +1,5 @@
 import FirebaseApp from './firebase-app';
-import 'firebase/database';
+const database = FirebaseApp.database();
+
+
 
