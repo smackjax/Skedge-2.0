@@ -58,9 +58,9 @@ class DayItemEditModal extends React.Component{
                 <ModalBody>
                     <ModalHeader
                     className="bg-day text-light"
-                    text={day.name || "NEW"}
                     >
                         {icons.day}
+                        {day.name || "Day"}
                     </ModalHeader>
                     
                     <ModalContent>

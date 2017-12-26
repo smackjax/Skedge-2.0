@@ -24,7 +24,11 @@ export default class DateSelectInput extends React.Component{
         name: PropTypes.string,
         onChange: PropTypes.func.isRequired,
 
+        invalidColor: PropTypes.string,
+        value: PropTypes.string,
         format: PropTypes.string,
+
+        outputFormat: PropTypes.string,
         valueOnMount: PropTypes.string,
         validateFunc: PropTypes.func
     }
@@ -87,9 +91,11 @@ export default class DateSelectInput extends React.Component{
         // Sets 'date' input border to invalid color,
         // if date is later than last date of month
         const dateElem = this.refs.dateSelectDay;
+        const compareString = `${year}-${month}-01`;
         const compareDate = 
-            moment().year(year).month(month).endOf('month').date();
-        
+            moment(compareString, "YYYY-MM-DD").endOf('month').date();
+
+
         dateElem.style.color =
         (   // If a char is not a number
             !hasOnlyNumbs(day) || 
@@ -120,6 +126,10 @@ export default class DateSelectInput extends React.Component{
 
         
         let isValid = (
+            day &&
+            month && 
+            year &&
+            year.length &&
             dateValid && 
             dayNumbs && 
             yearNumbs && 
@@ -135,7 +145,7 @@ export default class DateSelectInput extends React.Component{
             (!maxYear && yearNumbs && year.length === 4) ? "Choose earlier year" :
             (parseInt(day, 10) > compareDate) ? "Choose earlier date" :
             (parseInt(day, 10) <= 0) ? "Choose later date" :
-            !isValid  ? 'Invalid date' :
+            !isValid || !(day && month && year && year.length === 4)  ? 'Invalid date' :
             newDate.format(outputFormat);
 
         const inputName = this.props.name || null;

@@ -1,0 +1,22 @@
+.from-to-date-select-with-label{
+
+}
+.choose-date-select-block{
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 98%;
+    margin: 10px auto 0;
+    
+
+}
+.timeframe-label{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-right: 1px solid #ddd;
+    font-size: 16px;
+    margin-right: 5px;
+    width: 20%;
+    color: #333;
+}

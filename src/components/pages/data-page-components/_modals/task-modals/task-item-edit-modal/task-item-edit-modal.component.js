@@ -13,6 +13,8 @@ import {
 } from '../../_generic-item-edit-components/';
 import { GroupsSelectableSublist } from '../../../selectable-sublists/';
 import * as icons from '../../../_icons';
+import './task-item-edit-modal.style.css';
+
 
 class TaskItemEditModal extends React.Component{
     state={}
@@ -46,6 +48,21 @@ class TaskItemEditModal extends React.Component{
         this.setState({task: newTask});
     }
 
+    handleNumNeeded=(e)=>{
+        const numNeeded = parseInt(e.target.value);
+
+        const cleanedNumber = 
+            (!numNeeded ||  numNeeded <= 0) ?
+                        1 : 
+                        (numNeeded > 10) ? 
+                            10 : numNeeded;
+
+        this.handleNewVal("numNeeded", cleanedNumber);
+    }
+    handleIsExclusive=(e)=>{
+        const isExclusive = e.target.checked;
+        this.handleNewVal("isExclusive", isExclusive);
+    }
     handleNameChange=({target})=>{
         const newName = target.value;
         this.handleNewVal("name", newName);
@@ -55,16 +72,17 @@ class TaskItemEditModal extends React.Component{
     }
 
     render(){
-    
+        
         const task = this.state.task || {};
+
         return (
             <Modal open={this.props.open}>
                 <ModalBody>
                     <ModalHeader
                     className="bg-task text-light"
-                    text={task.name || "NEW"}
                     >
                         {icons.task}
+                        {task.name || "New task"}
                     </ModalHeader>
                     
                     <ModalContent>
@@ -77,6 +95,27 @@ class TaskItemEditModal extends React.Component{
                         value={task.name}
                         onChange={this.handleNameChange.bind(this)}
                         />
+
+                        <label className="number-needed-label">
+                            <input type="number"
+                            placeholder="(1)"
+                            value={task.numNeeded}
+                            onChange={this.handleNumNeeded}
+                            className="number-needed-input"
+                            />
+                            # members needed
+                        </label>
+
+                        
+                        <label 
+                        className="task-is-exclusive-label">
+
+                        <input type="checkbox"
+                        onChange={this.handleIsExclusive}
+                        value={task.isExclusive}
+                        className="task-is-exclusive-input"/>
+                        Must be done exclusively
+                        </label>
 
                         <GroupsSelectableSublist 
                         selectedIds={task.groups}

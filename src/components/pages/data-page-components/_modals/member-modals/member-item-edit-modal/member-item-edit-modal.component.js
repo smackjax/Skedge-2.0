@@ -7,13 +7,17 @@ import {
     ModalContent,
     ModalFooterBtns
 } from '../../_generic-modal-components';
+import { SlideIn, SlideGroup } from '../../../animations';
 import { EditItemName, DeleteItemBtn } from '../../_generic-item-edit-components';
 import { GroupsSelectableSublist } from '../../../selectable-sublists/';
+import UnavailableDates from './unavailable-dates/unavailable-dates.component';
+
 import * as icons from '../../../_icons';
 
 class MemberItemEditModal extends React.Component{
-    state={}
-    
+    state={
+        member: {}
+    }
     componentWillReceiveProps({item}){
         // Keeps from switching to uncontrolled input
         const member = item || {
@@ -56,7 +60,7 @@ class MemberItemEditModal extends React.Component{
         const newLinkedUsername = target.value;
         this.handleNewVal("linkedUsername", newLinkedUsername);
     }
-    
+
     render(){
         
         const member = this.state.member || {};
@@ -71,24 +75,25 @@ class MemberItemEditModal extends React.Component{
                         {icons.member}
                         {headerText}
                     </ModalHeader>
-                    
                     <ModalContent>
-                        <DeleteItemBtn 
-                        onClick={this.handleDelete.bind(this)}
-                        />
 
-                        <EditItemName
-                        placeholder={"Member name"}
-                        value={member.name}
-                        onChange={this.handleNameChange.bind(this)}
-                        />
+                            <div>
+                                <DeleteItemBtn 
+                                onClick={this.handleDelete.bind(this)}
+                                />
 
-                        <GroupsSelectableSublist 
-                        selectedIds={member.groups}
-                        handleNewList={this.handleGroupsList.bind(this)}
-                        />
+                                <EditItemName
+                                placeholder={"Member name"}
+                                value={member.name}
+                                onChange={this.handleNameChange.bind(this)}
+                                />
+
+                                <GroupsSelectableSublist 
+                                selectedIds={member.groups}
+                                handleNewList={this.handleGroupsList.bind(this)}
+                                />
+                            </div>
                     </ModalContent>
-
                     <ModalFooterBtns
                     bgClassName="bg-member"
                     handleSave={this.handleSave.bind(this)}
