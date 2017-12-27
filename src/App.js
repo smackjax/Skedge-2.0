@@ -21,12 +21,6 @@ import './app-styles/generic-styles.style.css';
 import './app-styles/colors.style.css';
 
 
-import{ FromToDatesWithLabel } from './components/_generic-components/inputs';
-
-const testDateSelect = (e)=>{
-  console.log(e);
-}
-
 class App extends Component {
   state={
     generating: false

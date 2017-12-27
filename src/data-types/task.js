@@ -17,6 +17,7 @@ export default (taskObj)=>{
         timesAssigned,
     } = taskObj;
     
+            
     const cleanedTaskObj ={
         id: (id || uniqid('t-')),
         name: (name || "" ),

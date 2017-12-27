@@ -41,6 +41,7 @@ const MemberPage = (props)=>{
         props.handleSetEdit(DATATYPE({}));  
     }
     const handleSave=(saveItem)=>{
+        saveItem.name = saveItem.name || "(No name)";
         const cleanedItem = DATATYPE(saveItem);
         BoundActs.saveMember(cleanedItem);
     }

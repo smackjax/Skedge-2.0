@@ -7,10 +7,8 @@ import {
     ModalContent,
     ModalFooterBtns
 } from '../../_generic-modal-components';
-import { SlideIn, SlideGroup } from '../../../animations';
 import { EditItemName, DeleteItemBtn } from '../../_generic-item-edit-components';
 import { GroupsSelectableSublist } from '../../../selectable-sublists/';
-import UnavailableDates from './unavailable-dates/unavailable-dates.component';
 
 import * as icons from '../../../_icons';
 

@@ -6,7 +6,12 @@
     margin: 5px auto; 
     padding: 5px;
     max-width: 300px;
-    justify-content: space-around;
+    justify-content: flex-start;
+}
+
+.task-is-exclusive-label .text,
+.number-needed-label .text{
+    margin-left: 10px;
 }
 
 .number-needed-input{

@@ -4,6 +4,14 @@ import shortid from 'shortid';
 import { CSSTransition } from 'react-transition-group';
 import './modal.style.css';
 
+const addBodyScroll=()=>{
+    document.body.style.overflow = "auto";
+} 
+
+const removeBodyScroll=()=>{
+    document.body.style.overflow = "hidden";
+}
+
 
 const duration = 300;
 
@@ -24,6 +32,8 @@ class Modal extends React.Component {
             classNames="modal"
             mountOnEnter={true}
             unmountOnExit={true}
+            onEnter={removeBodyScroll}
+            onExit={addBodyScroll}
             >    
                 <div
                 key={this.state.key}

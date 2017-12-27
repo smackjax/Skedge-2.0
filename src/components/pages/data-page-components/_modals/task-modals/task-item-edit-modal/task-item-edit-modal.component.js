@@ -49,8 +49,14 @@ class TaskItemEditModal extends React.Component{
     }
 
     handleNumNeeded=(e)=>{
-        const numNeeded = parseInt(e.target.value);
+        const  val = e.target.value;
 
+        if(val === ""){
+            this.handleNewVal("numNeeded", val);
+            return;
+        }
+
+        const numNeeded = parseInt(val, 10);
         const cleanedNumber = 
             (!numNeeded ||  numNeeded <= 0) ?
                         1 : 
@@ -96,25 +102,24 @@ class TaskItemEditModal extends React.Component{
                         onChange={this.handleNameChange.bind(this)}
                         />
 
-                        <label className="number-needed-label">
+                        <label className="number-needed-label custom-input">
                             <input type="number"
-                            placeholder="(1)"
+                            placeholder="#"
                             value={task.numNeeded}
                             onChange={this.handleNumNeeded}
                             className="number-needed-input"
                             />
-                            # members needed
+                            <span className="text"># members needed</span>
                         </label>
 
                         
                         <label 
-                        className="task-is-exclusive-label">
-
-                        <input type="checkbox"
-                        onChange={this.handleIsExclusive}
-                        value={task.isExclusive}
-                        className="task-is-exclusive-input"/>
-                        Must be done exclusively
+                        className="task-is-exclusive-label custom-input">
+                            <input type="checkbox"
+                            onChange={this.handleIsExclusive}
+                            value={task.isExclusive}
+                            className="task-is-exclusive-input"/>
+                            <span className="text">Assigned exclusively</span>
                         </label>
 
                         <GroupsSelectableSublist 
