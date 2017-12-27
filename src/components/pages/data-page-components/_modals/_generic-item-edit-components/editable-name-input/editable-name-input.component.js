@@ -11,6 +11,7 @@ export default ({className, ...rest})=>{
             <input
             type="text"
             id="editItemName"
+            max="200"
             className={argClassName}
             {...rest}/>
         </label>

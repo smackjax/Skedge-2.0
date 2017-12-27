@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import shortid from 'shortid';
 import * as icons from '../icons';
 import { connect } from 'react-redux';
 import Navbar from '../../../_generic-components/navbar/navbar.component';
-
+import {SCHED_ACTIONS} from '../../../_redux-generics/actions';
 import PastSchedControls from './past-sched-control-btns/past-sched-control-btns.component';
 import {
     ExpandableViewListItem as ExpandableItem
@@ -32,13 +33,14 @@ class PastSchedulesPage extends React.Component{
     }
 
     handleMakeActive=(schedId)=>{
-        this.props.dispatch({
-            type: "TODO change active sched", 
-            payload:"Nothing here" 
-        });
+        this.props.dispatch(
+            SCHED_ACTIONS.changeActiveSchedId(schedId)
+        );
     }
-    handleViewSched=(schedId)=>{
-        console.log("TODO ", schedId);
+    handleDelete=(schedId)=>{
+        this.props.dispatch(
+            SCHED_ACTIONS.deleteSchedById(schedId)
+        );
     }
 
     render(){
@@ -63,7 +65,7 @@ class PastSchedulesPage extends React.Component{
                                 "border-sched" : "border-dark-gray";
                             return( 
                             <ExpandableItem
-                            key={"s"+sIndex}
+                            key={"s"+shortid()}
                             className={"dates-view-list border-sched " + borderColor}
                             headerClassName={"bg-sched text-light " + bgColor}
                             itemText={headerText}
@@ -72,7 +74,7 @@ class PastSchedulesPage extends React.Component{
                                 <PastSchedControls
                                 id={id}
                                 makeActive={this.handleMakeActive}
-                                viewSched={this.handleViewSched}
+                                handleDelete={this.handleDelete}
                                 /> 
                             </ExpandableItem>
                             )

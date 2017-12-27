@@ -15,6 +15,7 @@ export const vDots = <i className="fa fa-ellipsis-v"></i>
 export const eye = <i className="fa fa-eye"></i>
 export const activeSched = <i className="fa fa-asterisk"></i>
 export const oldSched = <i className="fa fa-reply"></i>
+export const trash = <i className="fa fa-trash"></i>
 
 
 export const plus = <i className="fa fa-plus"></i>

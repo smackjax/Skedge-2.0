@@ -31,14 +31,6 @@ export default (props)=>{
                 >
                     {icons.oldSched}
                 </NavLink>
-
-                <NavLink
-                className="main-nav-btn"
-                activeClassName="active"
-                to="/settings"
-                >
-                    {icons.settings}
-                </NavLink>
             </div>
         </nav>
     )

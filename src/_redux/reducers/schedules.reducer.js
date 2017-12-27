@@ -2,7 +2,9 @@ import {
     SCHED_ACT_TYPES,
     DATA_ACT_TYPES
 } from '../actions/_ACTION_TYPES';
-
+import {
+    mainItems
+} from './GENERIC_REDUCERS';
 export default (state={
 
     // 'schedId1': {
@@ -148,6 +150,11 @@ export default (state={
                 }    
             }
         }
+
+        case SCHED_ACT_TYPES.DELETE_SCHED:{
+            return mainItems.deleteById(state, payload);
+        }
+
         default: return state
     }
 }

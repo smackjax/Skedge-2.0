@@ -4,7 +4,9 @@
     border-left-width: 2px;
 
     width: 97%;
+    max-width: 400px;
     margin: 5px auto 0;
+
     background-color: #f4f4f4;
 
     box-shadow: 0 1px 6px -2px #222;

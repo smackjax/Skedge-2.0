@@ -1,4 +1,7 @@
-import {SCHED_ACT_TYPES as TYPES} from './_ACTION_TYPES';
+import {
+    SCHED_ACT_TYPES as TYPES,
+    META_DATA_ACT_TYPES
+} from './_ACTION_TYPES';
 
 export default {
     schedGenSuccess: (schedData)=>{
@@ -9,8 +12,14 @@ export default {
     },
     changeActiveSchedId: (newSchedId)=>{
         return {
-            type: TYPES.CHANGE_ACTIVE_SCHED,
+            type: META_DATA_ACT_TYPES.UPDATE_ACTIVE_SCHED_ID,
             payload: newSchedId
+        }
+    },
+    deleteSchedById: (deleteId)=>{
+        return {
+            type: TYPES.DELETE_SCHED,
+            payload: deleteId
         }
     }
 }

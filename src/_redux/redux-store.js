@@ -17,7 +17,10 @@ let reduxStore = createStore(
 
 // Testing purposes
 reduxStore.subscribe(()=>{
-    saveState(reduxStore.getState());
+    const currentState = reduxStore.getState();
+    console.log("Current meta: ", currentState.meta);
+
+    saveState(currentState);
 })
   
 

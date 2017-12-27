@@ -5,7 +5,6 @@ import {BottomSpinner} from './components/_generic-components/spinners';
 // Pages with navbar
 import SchedPage from './components/pages/schedule-pages/schedule-dash/schedule-dash.component'
 import PastSchedDash from './components/pages/schedule-pages/past-schedules-page/past-schedules-page.component';
-import SettingsPage from './components/pages/settings-page/settings-page.component';
 
 // Data Pages
 import {
@@ -55,7 +54,6 @@ class App extends Component {
           <Route path="/groups" component={GroupsPage}/>
           <Route path="/tasks" component={TasksPage}/>
           <Route path="/days" component={DaysPage} />
-          <Route path="/settings" component={SettingsPage} />
           <Route render={PreloadDataSelect} />
         </Switch>
       </div>

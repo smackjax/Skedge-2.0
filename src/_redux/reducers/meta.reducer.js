@@ -16,7 +16,7 @@ export default (state={
 }, action)=>{
     const payload = action.payload;
     switch(action.type){
-        case DATA_ACT_TYPES: {
+        case DATA_ACT_TYPES.LOAD: {
             if(payload.meta){
                 return {
                     ...payload.meta
