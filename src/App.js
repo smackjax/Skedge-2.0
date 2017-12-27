@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect} from 'react-router-dom';
 import {BottomSpinner} from './components/_generic-components/spinners';
 
 // Pages with navbar
@@ -40,6 +40,7 @@ class App extends Component {
       />
     }
 
+    const RedirectToHome = ()=>(<Redirect to="schedule-dash"/>)
     return (
       <div className="App">
         
@@ -54,7 +55,8 @@ class App extends Component {
           <Route path="/groups" component={GroupsPage}/>
           <Route path="/tasks" component={TasksPage}/>
           <Route path="/days" component={DaysPage} />
-          <Route render={PreloadDataSelect} />
+          <Route path="/select-data" render={PreloadDataSelect} />
+          <Route component={RedirectToHome } />
         </Switch>
       </div>
     );

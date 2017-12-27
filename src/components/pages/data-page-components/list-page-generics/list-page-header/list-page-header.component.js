@@ -12,14 +12,16 @@ const ListPageHeader = (props)=>{
 
     return(
         <div className={"list-page-header " + props.bgColorClassName}>
-            <button 
-            style={{fontSize: "24px"}}
-            onClick={goBack}>
-                {chevLeft}
-            </button>
-            <span className="header-text">
-                {props.children}
-            </span>
+            <div className="controls-wrapper">
+                <button 
+                style={{fontSize: "24px"}}
+                onClick={goBack}>
+                    {chevLeft}
+                </button>
+                <span className="header-text">
+                    {props.children}
+                </span>
+            </div>
         </div>
     )
 }

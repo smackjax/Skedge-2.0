@@ -35,6 +35,9 @@ class NewSchedModal extends React.Component {
         }
     }
 
+    handleStart=()=>{
+
+    }
 
     render(){
         return(

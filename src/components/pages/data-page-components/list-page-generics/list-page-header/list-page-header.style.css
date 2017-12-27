@@ -1,9 +1,15 @@
 .list-page-header{
+
+
+}
+.list-page-header .controls-wrapper{
     display: flex; 
     justify-content: flex-start;
     align-content: center;
     color: #efefef;
-
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 .list-page-header button {
     font-size: 18px;
@@ -18,7 +24,4 @@
     align-items: center;
     margin-left: 30px;
     font-size: 21px;
-}
-.list-page-header .header-text i {
-    
 }
