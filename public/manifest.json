@@ -1,15 +1,35 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Emmets",
+  "name": "Emmets - Mobile schedule",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "icons/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon-2x.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon-3x.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon-4x.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon-5x.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#6746ad",
+  "background_color": "#efefef"
 }

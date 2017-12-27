@@ -1,14 +1,13 @@
-.from-to-date-select-with-label{
-
+.from-to-date-select-with-label {
+    margin: 10px auto;
 }
-.choose-date-select-block{
+.choose-date-select-block {
     display: flex; 
+    justify-content: center;
     flex-direction: row;
     flex-wrap: nowrap;
     width: 98%;
     margin: 10px auto 0;
-    
-
 }
 .timeframe-label{
     display: flex;

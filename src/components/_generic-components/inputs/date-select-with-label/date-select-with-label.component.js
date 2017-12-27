@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import {DateSelectInput} from '../';
 import './date-select-with-label.style.css';
 
@@ -10,8 +11,12 @@ class DateSelectWithLabel extends React.Component{
     }
     
     handleChange=(result)=>{
+        const currentOutput = !result.invalid ?
+            moment(result.value, "YYYY-MM-DD").format("MMM DD, YYYY") :
+                result.value;
+
         this.setState({
-            currentOutput: result.value,
+            currentOutput,
             valid: !result.invalid
         },
         ()=>{
@@ -51,7 +56,7 @@ class DateSelectWithLabel extends React.Component{
                 <DateSelectInput
                 onChange={this.handleChange}
                 invalidColor="red"
-                outputFormat="MMM DD, YYYY"
+                outputFormat="YYYY-MM-DD"
                 />
             </label>
         )

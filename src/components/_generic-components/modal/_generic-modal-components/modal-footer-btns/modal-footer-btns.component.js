@@ -21,6 +21,7 @@ const ModalFooterBtns= (props)=>{
                 {times} Cancel
             </button>
             <button
+            disabled={props.disabled}
             onClick={handleSave}
             className={"save-item-btn " + (props.bgClassName || "")}
             >
@@ -33,6 +34,7 @@ const ModalFooterBtns= (props)=>{
 ModalFooterBtns.propTypes={
     bgClassName: PropTypes.string.isRequired,
     saveText: PropTypes.string,
+    disabled: PropTypes.bool, 
     handleSave: PropTypes.func.isRequired,
     handleCancel: PropTypes.func.isRequired
 }

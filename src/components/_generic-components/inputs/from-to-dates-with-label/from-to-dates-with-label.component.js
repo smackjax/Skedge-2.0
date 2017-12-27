@@ -11,7 +11,7 @@ const FromToDatesWithLabel = (props)=>{
             >
                 <DateSelectWithLabel 
                 labelText="From:"
-                onChange={props.handleStartDate}           
+                onChange={props.handleStartChange}           
                 />
             </div>
             <div
@@ -19,7 +19,7 @@ const FromToDatesWithLabel = (props)=>{
             >
                 <DateSelectWithLabel 
                 labelText="To:"
-                onChange={props.handleEndDate}           
+                onChange={props.handleEndChange}           
                 />
             </div>
         </div>

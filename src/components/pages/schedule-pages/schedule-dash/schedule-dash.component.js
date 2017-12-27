@@ -45,7 +45,7 @@ class SchedulePage extends React.Component{
                 currentView={this.state.currentView}
                 handleViewSwitch={this.handleViewSwitch}
                 />) : 
-                <span>Couldn't find an active schedule</span>
+                <div style={{textAlign: "center"}}>Couldn't find an active schedule</div>
                 }
             </div>
         )

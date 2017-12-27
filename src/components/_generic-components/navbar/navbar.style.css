@@ -1,7 +1,7 @@
 .main-navbar{
     width: 100%;
-    background-color: #999;
-    box-shadow:  0 0 4px 0px #111;
+    background-color: #6746ad;
+    box-shadow:  0 1px 4px -1px #111;
     z-index: 200;
     margin-bottom: 14px;
 }
@@ -25,5 +25,5 @@
 }
 .main-nav-btn.active{
     background-color: #efefef;
-    color: #777;
+    color: #6746ad;
 }
