@@ -1,0 +1,5 @@
+.slide-group-wrapper{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}

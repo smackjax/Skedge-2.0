@@ -12,7 +12,7 @@ const ModalFooterBtns= (props)=>{
     }
     return (
         <div
-        className="modal-footer-btns"
+        className="modal-footer-btns-wrapper"
         >
             <button
             className="cancel-item-btn"

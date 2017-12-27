@@ -1,0 +1,17 @@
+.date-select-input-label{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+.date-select-wrapper{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.date-output-label{
+    color: #444;
+    font-size: 16px;
+    
+}
+.date-output-text{
+    margin-left: 10px;
+}

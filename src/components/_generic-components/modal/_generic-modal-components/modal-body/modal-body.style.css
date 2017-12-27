@@ -1,4 +1,5 @@
 .modal-body {
+    transition: height 300ms; 
     display: flex;
     flex-direction: column;
     width: 97%;

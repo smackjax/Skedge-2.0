@@ -1,9 +1,13 @@
-.modal-footer-btns button{
-    margin-top:20px;
+.modal-footer-btns-wrapper{
+    width: 100%;
+    margin: auto;
+}
+.modal-footer-btns-wrapper button{
+    margin-top: 2px;
+    margin-bottom: 2px;
     width:50%;
     padding: 5px;
-
 }
-.modal-footer-btns .cancel-item-btn{
+.modal-footer-btns-wrapper .cancel-item-btn{
     background-color: #d63f3f;
 }
