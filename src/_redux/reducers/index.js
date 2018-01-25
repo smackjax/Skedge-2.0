@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import dateRanges from './date-ranges.reducer';
 import schedules from './schedules.reducer'; 
 import members from './members.reducer';
 import groups from './groups.reducer';
@@ -8,6 +9,7 @@ import meta from './meta.reducer';
 
 export default combineReducers({
     meta,
+    dateRanges,
     schedules,
     members,
     groups,

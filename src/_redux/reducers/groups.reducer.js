@@ -38,6 +38,16 @@ export default function(state={
             return state;
         }
 
+        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
+            if(payload.groups){            
+                return {
+                    ...action.payload.groups
+                }
+            }
+            return state;
+        }
+
+
         // payload: {...group}
         case GROUP_TYPES.SAVE_GROUP: 
             return mainItems.saveItem(state, payload);

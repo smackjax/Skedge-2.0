@@ -8,9 +8,9 @@ const GenerateSchedBtn = (props)=>{
     return (
         <button
         onClick={props.onClick}
-        className="generate-sched-btn bg-sched text-light"
+        className="generate-sched-btn bg-day text-light"
         >
-        {icons.sched} New schedule
+            Generate New { icons.plus }
         </button>
     )
 }

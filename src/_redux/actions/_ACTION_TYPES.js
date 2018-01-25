@@ -1,6 +1,7 @@
 export const DATA_ACT_TYPES = {
     LOAD : 'load_all_data',
-    SAVE: 'save_all_data'
+    SAVE: 'save_all_data',
+    CHANGE_ACTIVE_SCHEDULE: "change_active_schedule",
 }
 
 export const MEMBER_ACT_TYPES ={
@@ -28,14 +29,32 @@ export const DAYS_ACT_TYPES={
     SAVE_DAY: 'save_day'
 }
 
-export const SCHED_ACT_TYPES={
+export const DATE_RANGE_ACT_TYPES={
+    
     SAVE_SCHED: 'save_schedule',
-    SAVE_NEW_SCHED: 'successful_sched_generation',
-    DELETE_SCHED: 'delete_schedule',
+    SAVE_NEW_DATE_RANGE: 'successful_sched_generation',
+    DELETE_DATE_RANGE: 'DELETE_DATE_RANGEule',
     CHANGE_ACTIVE_SCHED: 'change_active_sched_id',
+
+    // These will replace the old actions
+    SAVE_DATE_RANGE: 'save_date_range',
+    SAVE_NEW_DATE_RANGE: 'successful_date_range_generation',
+    DELETE_DATE_RANGE: 'delete_date_range_object',
 }
 
 export const META_DATA_ACT_TYPES={
+    // Old
     UPDATE_ACTIVE_SCHED_ID: 'update_active_schedule_id', 
-    LINK_USERNAME_TO_ID: 'link_username_to_member_id'
+    LINK_USERNAME_TO_ID: 'link_username_to_member_id',
+
+    // New,
+    // All data under 'meta' reducer should only be controlled 
+    // through these actions or the 'data' actions
+    CHANGE_ACTIVE_DATE_RANGE_ID: 'change_active_date_range_id',
+    CHANGE_ACTIVE_SCHEDULE: 'change_active_schedule',
+    SWITCH_USER_TYPE: 'toggle_user_between_worker_and_creator',
+
+    // Shelved for now
+    UPDATE_PENDING_VIEWERS: 'update_pending_viewers',
+    UPDATE_AUTHORIZED_VIEWERS: 'update_authorized_viewers'
 }

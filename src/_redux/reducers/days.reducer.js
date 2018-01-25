@@ -61,6 +61,16 @@ export default (state={
             return state;
         }
 
+        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
+            // payload: scheduleObj
+            if(payload.days){
+                return {
+                    ...payload.days
+                }
+            }
+            return state;
+        }
+
         case DAYS_ACT_TYPES.SAVE_DAY: {
             return mainItems.saveItem(state, payload)
         }

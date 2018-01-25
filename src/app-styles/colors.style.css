@@ -1,5 +1,15 @@
 /* APP-WIDE COLORS */
 
+/* Creator ( #8C5BAD )*/
+.bg-creator{ background-color: #8C5BAD; }
+.text-creator{ color: #8C5BAD; }
+.border-creator{ border-color: #8C5BAD; }
+
+/* Worker ( #5B6AAD ) */
+.bg-worker{ background-color: #5B6AAD; }
+.text-worker{ color: #5B6AAD; }
+.border-worker{ border-color: #5B6AAD; }
+
 /* Light ( #FAFAFA )*/
 .bg-light{ background-color: #FAFAFA; }
 .text-light{ color: #FAFAFA; }
@@ -10,30 +20,30 @@
 .text-danger{ color: #D63F3F; }
 .border-danger{ border-color: #D63F3F; }
 
-/* Member ( #1E90DA ) */
-.border-member{border-color: #1E90DA }
-.text-member{color: #1E90DA }
-.bg-member{background-color: #1E90DA }
+/* Member ( #5B6AAD ) */
+.border-member{border-color: #5B6AAD }
+.text-member{color: #5B6AAD }
+.bg-member{background-color: #5B6AAD }
 
-/* Group ( #A839BA ) */
-.border-group{border-color: #A839BA }
-.text-group{color: #A839BA }
-.bg-group{background-color: #A839BA }
+/* Group ( #138FB6 ) */
+.border-group{border-color: #138FB6 }
+.text-group{color: #138FB6 }
+.bg-group{background-color: #138FB6 }
 
-/* Task ( #B0613B ) */
-.border-task{border-color: #B0613B }
-.text-task{color: #B0613B }
-.bg-task{background-color: #B0613B }
+/* Task ( rgb(74, 148, 118) ) */
+.border-task{border-color: rgb(74, 148, 118) }
+.text-task{color: rgb(74, 148, 118) }
+.bg-task{background-color: rgb(74, 148, 118) }
 
 /* Day ( #B70046 ) */
 .border-day{border-color: #B70046 }
 .text-day{color: #B70046 }
 .bg-day{background-color: #B70046 }
 
-/*Schedule ( #DA5700 ) */
-.border-sched{border-color: #DA5700}
-.text-sched{color: #DA5700 }
-.bg-sched{background-color: #DA5700 }
+/*Schedule ( #EB753E ) */
+.border-sched{border-color: #EB753E}
+.text-sched{color: #EB753E }
+.bg-sched{background-color: #EB753E }
 
 /*Data ( #A839BA ) */
 .border-data{border-color: #A839BA }

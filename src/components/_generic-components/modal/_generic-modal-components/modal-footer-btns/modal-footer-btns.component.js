@@ -15,7 +15,7 @@ const ModalFooterBtns= (props)=>{
         className="modal-footer-btns-wrapper"
         >
             <button
-            className="cancel-item-btn"
+            className="cancel-item-btn text-light"
             onClick={props.handleCancel}
             >
                 {times} Cancel
@@ -23,7 +23,7 @@ const ModalFooterBtns= (props)=>{
             <button
             disabled={props.disabled}
             onClick={handleSave}
-            className={"save-item-btn " + (props.bgClassName || "")}
+            className={"save-item-btn text-light " + (props.bgClassName || "")}
             >
                 {check}  {props.saveText || "Save"}
             </button>

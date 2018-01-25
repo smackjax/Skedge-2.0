@@ -13,7 +13,7 @@ button, .btn{
     transition: background-color 200ms ease-out;
     border: 0px;
     background-color: #eee;
-    color: #efefef;
+    color: #333;
     cursor: pointer;
     padding: 5px; 
     border-radius: 2px;
@@ -22,4 +22,8 @@ button, .btn{
 button:disabled, .btn:disabled{
     cursor: not-allowed;
     background-color: #adadad;
+}
+
+.action-btn {
+    box-shadow: 0 2px 5px 0px rgba(0,0,0,.4);
 }

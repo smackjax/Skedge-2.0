@@ -1,6 +1,6 @@
 import {MEMBER_ACT_TYPES as TYPES, 
     GROUP_ACT_TYPES as GROUP_TYPES,
-    SCHED_ACT_TYPES as SCHED_TYPES,
+    DATE_RANGE_ACT_TYPES as SCHED_TYPES,
     DATA_ACT_TYPES} from '../actions/_ACTION_TYPES';
 
 // Generic reducer functions 
@@ -43,6 +43,17 @@ export default function(state={
 
     switch(action.type){
         case DATA_ACT_TYPES.LOAD: {
+            // Check for & return local data OR
+                // if none, an empty object 
+            if(payload.members){
+                return {
+                    ...payload.members
+                }
+            }
+            return state;
+        }
+
+        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
             // Check for & return local data OR
                 // if none, an empty object 
             if(payload.members){
@@ -110,7 +121,7 @@ export default function(state={
         }
 
         // Takes updated member timesAssigned values
-        case SCHED_TYPES.SAVE_NEW_SCHED: {
+        case SCHED_TYPES.SAVE_NEW_DATE_RANGE: {
             return {
                 ...state,
                 ...payload.newMembVals

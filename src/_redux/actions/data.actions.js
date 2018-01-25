@@ -1,7 +1,9 @@
 import {DATA_ACT_TYPES} from './_ACTION_TYPES';
 import reduxStore from '../redux-store';
 
+// These actions affect the entire store
 export default {
+
     saveData:  ()=>{
             const state = reduxStore.getState();
             const dispatch = reduxStore.dispatch;
@@ -42,6 +44,13 @@ export default {
         return {
             type: DATA_ACT_TYPES.LOAD,
             payload: savedState
+        }
+    },
+
+    changeActiveSchedule: (scheduleObj)=>{
+        return {
+            type: DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE,
+            payload: scheduleObj
         }
     }
 }

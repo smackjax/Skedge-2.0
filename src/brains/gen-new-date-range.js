@@ -41,11 +41,11 @@ export default (startDateString, endDateString, currentState)=>{
     // Same as 'members', this is where task info is taken from here on
     let tasks = objToArr(tasksById);
     
-    const newSched = {
-        id: idGen('sched-'),
+    const newDateRange = {
+        id: idGen('dateRange-'),
         startDate: startDateString,
         endDate: endDateString,
-        sched: {}
+        dates: {}
     };
 
     // Stores moment objects
@@ -252,7 +252,7 @@ export default (startDateString, endDateString, currentState)=>{
     
     // Assigns day to sched with its string date as its prop key
     finishedDaysArray.forEach(day=>{
-        newSched.sched[day.id] = {...day};
+        newDateRange.dates[day.id] = {...day};
     });
 
     const newMembVals = arrToObj(members);
@@ -261,6 +261,6 @@ export default (startDateString, endDateString, currentState)=>{
     return {
         newMembVals,
         newTaskVals,
-        newSched
+        newDateRange
     };
 }

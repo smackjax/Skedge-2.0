@@ -1,12 +1,13 @@
 import {
-    SCHED_ACT_TYPES as TYPES,
-    META_DATA_ACT_TYPES
+    DATE_RANGE_ACT_TYPES as TYPES,
+    META_DATA_ACT_TYPES,
+    DATA_ACT_TYPES
 } from './_ACTION_TYPES';
-
+// TODO this will be unneeded if only pulling schedule list on one page, when mounted
 export default {
     schedGenSuccess: (schedData)=>{
         return {
-            type: TYPES.SAVE_NEW_SCHED,
+            type: TYPES.SAVE_NEW_DATE_RANGE,
             payload: schedData
         }
     },
@@ -16,10 +17,12 @@ export default {
             payload: newSchedId
         }
     },
+    
     deleteSchedById: (deleteId)=>{
         return {
-            type: TYPES.DELETE_SCHED,
+            type: TYPES.DELETE_DATE_RANGE,
             payload: deleteId
         }
-    }
+    },
+    
 }

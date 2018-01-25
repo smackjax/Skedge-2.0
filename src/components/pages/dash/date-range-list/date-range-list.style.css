@@ -1,0 +1,11 @@
+.date-range-list-wrapper{
+    width: 100%;
+    max-width: 500px;
+    margin: 10px auto;
+}
+
+.date-range-list-wrapper h4 {
+    border-bottom-width: 1px;
+    border-bottom-style: solid; 
+    padding: 10px 10px 5px;
+}

@@ -1,5 +1,7 @@
 import {
-    SCHED_ACT_TYPES,
+
+    
+    DATE_RANGE_ACT_TYPES,
     DATA_ACT_TYPES
 } from '../actions/_ACTION_TYPES';
 import {
@@ -7,11 +9,11 @@ import {
 } from './GENERIC_REDUCERS';
 export default (state={
 
-    // 'schedId1': {
-    //     id: 'schedId1',
+    // 'dateRangeId1': {
+    //     id: 'dateRangeId1',
     //     startDate: '2017-09-01',
     //     endDate: '2017-09-15',
-    //     sched: {
+    //     data: {
     //         '2017-09-01': {
     //             id: '2017-09-01', 
     //             date : 'Sep 1',
@@ -142,16 +144,7 @@ export default (state={
             }
         }
 
-        case SCHED_ACT_TYPES.SAVE_NEW_SCHED:{
-            return {
-                ...state, 
-                [payload.newSched.id] :{
-                    ...payload.newSched
-                }    
-            }
-        }
-
-        case SCHED_ACT_TYPES.DELETE_SCHED:{
+        case DATE_RANGE_ACT_TYPES.DELETE_DATE_RANGE:{
             return mainItems.deleteById(state, payload);
         }
 

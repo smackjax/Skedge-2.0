@@ -1,36 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import NavBar from '../../../../_generic-components/navbar/navbar.component';
-import * as icons from '../../_icons';
+import { connect } from 'react-redux';
+
+import { Navbar, icons } from '../../../generic-components';
 import GenerateSchedBtn from './generate-sched-btn/generate-sched-btn.component';
-import {NewSchedModal} from '../../_modals';
+import { NewSchedModal } from '../../_modals';
 import CardBlock from './select-data-list-card-block/select-data-list-card-block.component';
 import SelectDataListCard from './select-data-list-card/select-data-list-card.component';
 import './select-data-list-page.style.css';
 
-import {SCHED_ACTIONS} from '../../../../_redux-generics/actions';
+import { DATE_RANGE_ACTIONS } from '../../../../_redux-generics/actions';
 
-import { genNewSched } from '../../../../../brains/sched-api';
+import { genNewDateRange } from '../../../../../brains/sched-api';
 
 
 
 class SelectDataListPage extends React.Component{
     
     state={
-        generateModalOpen: false
+        generateModalOpen: false,
+        errorMsg: "",
     }
 
-    handleGenerate= async (startDate, endDate)=>{
+    componentDidMount(){
+        /* TODO Calculate empty items, give error message */
+    }
+
+    handleGenerate = async (startDate, endDate)=>{
+        const currentState = {
+            members: this.props.members,
+            groups: this.props.groups,
+            tasks: this.props.tasks,
+            days: this.props.days
+        };
+
         this.props.handleBottomSpinner(true);
         try{
-            const schedData = await genNewSched(startDate, endDate);
-            console.log("Sched gen success: ", schedData)
+            const dateRangeData = await genNewDateRange(startDate, endDate, currentState);
+            console.log("Date range gen success: ", dateRangeData)
             this.props.handleBottomSpinner(false);
             this.props.dispatch(
-                SCHED_ACTIONS.schedGenSuccess(schedData)
+                DATE_RANGE_ACTIONS.dateRangeGenSuccess(dateRangeData)
             );
-            this.props.history.push('/schedule-dash');
+            this.props.history.push('/dashboard');
+            
         } catch (err){
             console.log("Error generating schedule", err);
             this.props.handleBottomSpinner(false);
@@ -44,9 +57,17 @@ class SelectDataListPage extends React.Component{
     }
 
     render(){
+        const errorMsg = this.state.errorMsg;
+
         return (
-            <div>
-                <NavBar />
+            <div className="data-page">
+                <Navbar />
+
+                { errorMsg && (
+                    <div>
+                        {errorMsg}
+                    </div>
+                )}
                 
 
             <GenerateSchedBtn 
@@ -59,7 +80,7 @@ class SelectDataListPage extends React.Component{
                     className="bg-member"
                     >
                         {icons.member}
-                        <span>MEMBERS</span>
+                        <span>WORKERS</span>
                     </SelectDataListCard>
 
                     <SelectDataListCard 
@@ -102,8 +123,21 @@ class SelectDataListPage extends React.Component{
 }
 
 SelectDataListPage.propTypes={
+    history: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    handleBottomSpinner: PropTypes.func.isRequired
+    handleBottomSpinner: PropTypes.func.isRequired,
+
+    // Used to calculate errors
+    members: PropTypes.object.isRequired,
+    groups: PropTypes.object.isRequired,
+    tasks: PropTypes.object.isRequired,
+    days: PropTypes.object.isRequired
 }
 
-export default connect()(SelectDataListPage);
+
+export default connect(store=>({
+    members: store.members,
+    groups: store.groups,
+    tasks: store.tasks,
+    days: store.days
+}))( SelectDataListPage );

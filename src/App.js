@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import { auth } from './_firebase/';
+
 import { Switch, Route, Redirect} from 'react-router-dom';
 import {BottomSpinner} from './components/_generic-components/spinners';
 
 // Pages with navbar
 import SchedPage from './components/pages/schedule-pages/schedule-dash/schedule-dash.component'
 import PastSchedDash from './components/pages/schedule-pages/past-schedules-page/past-schedules-page.component';
+import LoginPage from './components/pages/login-page/login-page.component';
+
+import { 
+  MainDash,
+  ManageSchedules
+} from './components/pages';
 
 // Data Pages
 import {
@@ -23,14 +31,33 @@ import './app-styles/colors.style.css';
 
 class App extends Component {
   state={
+    user: false,
     generating: false
   }
+
+  componentDidMount(){
+    auth().onAuthStateChanged(
+      (user)=>{
+        this.setState({ user });
+    })
+  }
+
 
   handleBottomSpinner=(status)=>{
     this.setState({generating: status})
   }
+  signOut=()=>{
+    auth().signOut();
+  }
 
   render() {
+
+    if(!this.state.user){
+      return (
+        <LoginPage />
+      )
+    }
+
     const PreloadDataSelect = (routerProps)=>{
       return <DataSelectPage 
       {...routerProps}
@@ -38,10 +65,12 @@ class App extends Component {
       />
     }
 
-    const RedirectToHome = ()=>(<Redirect to="schedule-dash"/>)
+    const RedirectToHome = ()=>(<Redirect to="dashboard"/>)
     return (
       <div className="App">
-        
+        {/* <button
+        onClick={this.signOut}
+        >Sign out</button> */}
         {this.state.generating && (
           <BottomSpinner /> 
         )}
@@ -54,6 +83,10 @@ class App extends Component {
           <Route path="/tasks" component={TasksPage}/>
           <Route path="/days" component={DaysPage} />
           <Route path="/select-data" render={PreloadDataSelect} />
+
+          <Route path="/manage-schedules" component={ManageSchedules} />
+          <Route path="/schedule-data" render={PreloadDataSelect} />
+          <Route path="/dashboard" component={MainDash} />
           <Route component={RedirectToHome } />
         </Switch>
       </div>

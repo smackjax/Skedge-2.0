@@ -1,6 +1,6 @@
 import {TASK_ACT_TYPES as TYPES, 
     GROUP_ACT_TYPES as GROUP_TYPES,
-    SCHED_ACT_TYPES as SCHED_TYPES,
+    DATE_RANGE_ACT_TYPES as SCHED_TYPES,
     DATA_ACT_TYPES } from '../actions/_ACTION_TYPES';
 import {
     mainItems,
@@ -70,6 +70,16 @@ export default function(state={
             return state;
         }
 
+        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
+            // payload: scheduleObj
+            if(payload.tasks){
+                    return {
+                    ...payload.tasks
+                }
+            }
+            return state;
+        }
+
         // action.newTask
         case TYPES.SAVE_TASK:
             return mainItems.saveItem(state, payload);
@@ -107,7 +117,7 @@ export default function(state={
         
 
         // Updates with task results from new sched generation
-        case SCHED_TYPES.SAVE_NEW_SCHED: {
+        case SCHED_TYPES.SAVE_NEW_DATE_RANGE: {
             return {
                 ...state,
                 ...payload.newTaskVals
