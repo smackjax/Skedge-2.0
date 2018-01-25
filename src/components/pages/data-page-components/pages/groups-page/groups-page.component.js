@@ -40,10 +40,10 @@ const GroupsPage = (props)=>{
     const handleSave=(saveItem)=>{
         saveItem.name = saveItem.name || "(No name)";
         const cleanedItem = DATATYPE(saveItem);
-        BoundActs.saveGroup(cleanedItem);
+        BoundActs.saveGroup(props.activeSchedId, cleanedItem);
     }
     const handleDelete=(itemId)=>{
-        BoundActs.deleteGroup(itemId);
+        BoundActs.deleteGroup(props.activeSchedId, itemId);
         props.handleClearEdit();
     }
     const handleAddTo=(taskIds)=>{
@@ -161,5 +161,6 @@ GroupsPage.propTypes = {
 
 export default connect(
     store=>({
-        itemsById: store.groups
+        itemsById: store.groups,
+        activeSchedId: store.meta.activeSchedId
     }))( WithItemArrayControls(WithBulkModalControls(GroupsPage)));

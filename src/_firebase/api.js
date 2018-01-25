@@ -59,7 +59,6 @@ export const deleteSchedule=(schedId)=>{
     return schedules.child(schedId).set(null)
 }
 
-
 export const createNewSchedule=(userId, newSchedName)=>{
     const newKey = schedules.push().key;
 
@@ -82,4 +81,47 @@ export const createNewSchedule=(userId, newSchedName)=>{
     .child(newKey)
     .set(newSchedule)
     .then(success=>newSchedule)
+}
+
+// Sched Data
+const genericSaveData=( schedId, dataKey, dataObj )=>{
+    console.log("schedId:", schedId);
+    return schedules
+    .child(schedId)
+    .child(dataKey)
+    .child(dataObj.id)
+    .update(dataObj)
+}
+
+const genericDeleteData=( schedId, dataKey, dataId )=>{
+    return schedules
+    .child(schedId)
+    .child(dataKey)
+    .child(dataId)
+    .set(null)
+}
+
+export const saveMember=( schedId, memberObj )=>{
+    return genericSaveData(schedId, 'members', memberObj)
+}
+export const deleteMember=( schedId, memberId)=>{
+    return genericDeleteData( schedId, 'members', memberId )
+}
+
+export const saveGroup=(schedId, groupObj)=>{
+    return genericSaveData(schedId, 'groups', groupObj)
+}
+export const deleteGroup=(schedId, groupId)=>{
+    return genericDeleteData( schedId, 'groups', groupId )
+}
+
+export const saveTask=( schedId, taskObj)=>{
+    return genericSaveData(schedId, 'tasks', taskObj)
+}
+export const deleteTask=( schedId, taskId)=>{
+    return genericDeleteData( schedId, 'tasks', taskId )
+}
+
+export const saveDay=( schedId, dayObj)=>{
+    return genericSaveData(schedId, 'days', dayObj)
 }

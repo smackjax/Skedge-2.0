@@ -22,14 +22,13 @@ const changeActiveDateRange=(userId, schedId, dateRangeId)=>{}
 // Worker sched actions
 const changeViewingSched=(userId, schedId)=>{}
 
-const updateOrAddMember=( userId, schedId, memberObj )=>{}
+const saveMember=( userId, schedId, memberObj )=>{}
 const deleteMember=( userId, schedId, memberId)=>{}
-const linkMemberToUserAccount = (userId, schedId, memberId, linkToUserId)=>{}
 
-const updateOrAddGroup=(userId, schedId, groupObj)=>{}
+const saveGroup=(userId, schedId, groupObj)=>{}
 const deleteGroup=(userId, schedId, groupId)=>{}
 
-const updateOrAddTask=(userId, schedId, taskObj)=>{}
+const saveTask=(userId, schedId, taskObj)=>{}
 const deleteTask=(userId, schedId, taskId)=>{}
 
-const updateTasksOnDay=(userId, schedId, dayObj)=>{}
+const saveTasksOnDay=(userId, schedId, dayObj)=>{}

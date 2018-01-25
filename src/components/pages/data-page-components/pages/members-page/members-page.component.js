@@ -43,14 +43,14 @@ const MemberPage = (props)=>{
     const handleSave=(saveItem)=>{
         saveItem.name = saveItem.name || "(No name)";
         const cleanedItem = DATATYPE(saveItem);
-        BoundActs.saveMember(cleanedItem);
+        BoundActs.saveMember( props.activeSchedId, cleanedItem );
     }
     const handleDelete=(itemId)=>{
-        // Todo
-        // this works, but I'd like something less hacky
-        BoundActs.deleteMember(itemId);
+        BoundActs.deleteMember(props.activeSchedId, itemId);
         props.handleClearEdit();
     }
+
+
     const handleAddTo=(groupIds)=>{
         BoundActs.addMembersToGroups(
             props.selectedIds,
@@ -164,5 +164,6 @@ MemberPage.propTypes = {
 
 export default connect(
     store=>({
-        itemsById: store.members
+        itemsById: store.members,
+        activeSchedId: store.meta.activeSchedId
     }))( WithItemArrayControls(WithBulkModalControls(MemberPage)));

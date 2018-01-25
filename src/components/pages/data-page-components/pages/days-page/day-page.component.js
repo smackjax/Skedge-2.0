@@ -17,7 +17,9 @@ import DayItem from './day-item/day-item.component';
 
 const DaysPage = (props)=>{
     const handleSave=(saveItem)=>{
-        props.dispatch(DAY_ACTIONS.saveDay(saveItem));
+        props.dispatch(
+            DAY_ACTIONS.saveDay(props.activeSchedId, saveItem)
+        );
     }
 
     const bgColor = "bg-day";
@@ -72,11 +74,16 @@ DaysPage.propTypes = {
     handleSelect: PropTypes.func.isRequired,
     handleSelectAll: PropTypes.func.isRequired,
     handleSetEdit: PropTypes.func.isRequired,
-    handleClearEdit: PropTypes.func.isRequired
+    handleClearEdit: PropTypes.func.isRequired,
+
+    // From connect
+    itemsById: PropTypes.array.isRequired,
+    activeSchedId: PropTypes.string.isRequired
 }
 
 export default connect(
     store=>({
-        itemsById: store.days
+        itemsById: store.days,
+        activeSchedId: store.meta.activeSchedId
     }))( WithItemArrayControls(DaysPage));
     

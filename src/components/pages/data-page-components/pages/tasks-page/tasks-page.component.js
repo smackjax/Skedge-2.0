@@ -38,10 +38,10 @@ const TasksPage = (props)=>{
     const handleSave=(saveItem)=>{
         saveItem.name = saveItem.name || "(No name)";
         const cleanedItem = DATATYPE(saveItem);
-        BoundActs.saveTask(cleanedItem);
+        BoundActs.saveTask(props.activeSchedId, cleanedItem);
     }
     const handleDelete=(itemId)=>{
-        BoundActs.deleteTask(itemId);
+        BoundActs.deleteTask(props.activeSchedId, itemId);
         props.handleClearEdit();
     }
     const handleAddTo=(dayIds)=>{
@@ -152,10 +152,15 @@ TasksPage.propTypes = {
     handleSelect: PropTypes.func.isRequired,
     handleSelectAll: PropTypes.func.isRequired,
     handleSetEdit: PropTypes.func.isRequired,
-    handleClearEdit: PropTypes.func.isRequired
+    handleClearEdit: PropTypes.func.isRequired,
+
+    // From connect
+    itemsById: PropTypes.array.isRequired,
+    activeSchedId: PropTypes.string.isRequired
 }
 
 export default connect(
     store=>({
-        itemsById: store.tasks
+        itemsById: store.tasks,
+        activeSchedId: store.meta.activeSchedId
     }))( WithItemArrayControls(WithBulkModalControls(TasksPage)));

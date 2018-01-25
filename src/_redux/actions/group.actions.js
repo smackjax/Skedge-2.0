@@ -1,4 +1,5 @@
 import { GROUP_ACT_TYPES as TYPE} from './_ACTION_TYPES';
+import * as api from '../../_firebase/api';
 import {
     addItem, 
     deleteItem, 
@@ -7,22 +8,38 @@ import {
 } from './_GENERIC.actions';
 
 export default {
-    saveGroup: (newGroup)=>{
+    saveGroup: (schedId, newGroup)=>{
         return (dispatch)=>{
-            const action = {
-                type: TYPE.SAVE_GROUP,
-                payload: newGroup
-            }
-            addItem(dispatch, action);
+            return api.saveGroup(schedId, newGroup)
+            .then(success=>{
+                const action = {
+                    type: TYPE.SAVE_GROUP,
+                    payload: newGroup
+                }
+                addItem(dispatch, action);
+                return true;
+            })
+            .catch(err=>{
+                console.log('Error saving group: ', err);
+                throw Error("Couldn't save group")
+            })
         }
     },
-    deleteGroup: (groupId)=>{
+    deleteGroup: (schedId, groupId)=>{
         return (dispatch)=>{
-            const action = {
-                type: TYPE.DELETE_GROUP_BY_ID,
-                payload: groupId
-            }
-            deleteItem(dispatch, action);
+            return api.deleteGroup(schedId, groupId)
+            .then( success=> {
+                const action = {
+                    type: TYPE.DELETE_GROUP_BY_ID,
+                    payload: groupId
+                }
+                deleteItem(dispatch, action);
+                return true;
+            })
+            .catch(err=>{
+                console.log("Error deleting group", err);
+                throw Error("Couldn't delete group");
+            })
         }
     },
     // Bulk Actions

@@ -1,4 +1,5 @@
 import { TASK_ACT_TYPES as TYPE} from './_ACTION_TYPES';
+import * as api from '../../_firebase/api';
 import {
     addItem, 
     deleteItem,
@@ -7,22 +8,39 @@ import {
 } from './_GENERIC.actions';
 
 export default {
-    saveTask: (newTask)=>{
+    saveTask: (schedId, newTask)=>{
         return (dispatch)=>{
-           const action = {
-                type: TYPE.SAVE_TASK,
-                payload: newTask
-            }
-            addItem(dispatch, action);
+            return api.saveTask(schedId, newTask)
+            .then(success=>{
+                const action = {
+                    type: TYPE.SAVE_TASK,
+                    payload: newTask
+                }
+                addItem(dispatch, action);
+                return true;
+            })
+            .catch(err=>{
+                console.log('Error saving task: ', err);
+                throw Error("Couldn't save task")
+            })
         }
     },
-    deleteTask: (taskId)=>{
+    deleteTask: (schedId, taskId)=>{
         return (dispatch)=>{
-            const action =  {
-                type: TYPE.DELETE_TASK_BY_ID,
-                payload: taskId
-            }
-            deleteItem(dispatch, action);
+            return api.deleteTask(schedId, taskId)
+            .then( success=> {
+                const action =  {
+                    type: TYPE.DELETE_TASK_BY_ID,
+                    payload: taskId
+                }
+                deleteItem(dispatch, action);
+                return true;
+            })
+            .catch(err=>{
+                console.log("Error deleting task", err);
+                throw Error("Couldn't delete task");
+            })
+
         }
     },
     // Bulk Actions
