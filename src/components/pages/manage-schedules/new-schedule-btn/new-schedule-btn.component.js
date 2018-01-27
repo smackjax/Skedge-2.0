@@ -4,6 +4,11 @@ import { icons } from '../../generic-components';
 const NewScheduleBtn = (props)=>{
     return (
         <button
+        style={{
+            display: "block",
+            margin: "15px auto",
+            padding: "10px"
+        }}
         className="action-btn bg-sched text-light"
         onClick={props.onClick}
         >

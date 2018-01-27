@@ -32,8 +32,6 @@ export const DAYS_ACT_TYPES={
 export const DATE_RANGE_ACT_TYPES={
     
     SAVE_SCHED: 'save_schedule',
-    SAVE_NEW_DATE_RANGE: 'successful_sched_generation',
-    DELETE_DATE_RANGE: 'DELETE_DATE_RANGEule',
     CHANGE_ACTIVE_SCHED: 'change_active_sched_id',
 
     // These will replace the old actions

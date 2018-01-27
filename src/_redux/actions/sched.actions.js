@@ -1,7 +1,6 @@
 import {
     DATE_RANGE_ACT_TYPES as TYPES,
-    META_DATA_ACT_TYPES,
-    DATA_ACT_TYPES
+    META_DATA_ACT_TYPES
 } from './_ACTION_TYPES';
 // TODO this will be unneeded if only pulling schedule list on one page, when mounted
 export default {

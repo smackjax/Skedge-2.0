@@ -8,10 +8,11 @@ import {
     ModalHeader,
     ModalFooterBtns
 } from '../_generic-modal-components';
+
 import { FromToDatesWithLabel  } from '../../inputs';
 
 import * as icons from '../../_icons';
-import './new-sched-modal.style.css';
+import './new-date-range-modal.style.css';
 
 
 class NewSchedModal extends React.Component {
@@ -21,37 +22,38 @@ class NewSchedModal extends React.Component {
         endValid: false,
         endDateStr: "",
         startDateStr: "",
-        errorMsg: ""
+        errorMsg: "",
+        makeActiveRange: false
     }
 
     handleGenerate=()=>{
-
-
         if((this.state.startValid && this.state.endValid)){
-            const {startDateStr, endDateStr} = this.state;
-            this.props.handleGenerate(startDateStr, endDateStr);
+            const {startDateStr, endDateStr, makeActiveRange} = this.state;
+            this.props.handleGenerate(
+                startDateStr, 
+                endDateStr, 
+                makeActiveRange
+            );
         }
     }
     
     handleStart=(result)=>{
-        const {invalid, value} = result;
-
+        const {isValid, value, year} = result;
+        const valid = (isValid && (year.length === 4));
         this.setState({
-            startValid: !invalid,
+            startValid: valid,
             startDateStr: value
             
         }, this.checkEndDate);
     }
 
-    logState=()=>{
-        console.log(this.state);
-    }
-
     handleEnd=(result)=>{
-        const {invalid, value} = result;
+        const {isValid, value, year} = result;
+
+        const valid = (isValid && (year.length === 4));
 
         this.setState({
-            endValid: !invalid,
+            endValid: valid,
             endDateStr: value
             
         }, this.checkEndDate);
@@ -75,22 +77,30 @@ class NewSchedModal extends React.Component {
         })
     }
 
+    handleMakeActive=(e)=>{
+        const makeActiveRange =  e.target.checked;
+        this.setState({ makeActiveRange });
+    }
+
     render(){
         const {startValid, endValid, errorMsg} = 
             this.state;
+            
         const mainMsg = 
-            errorMsg ? errorMsg :
+            errorMsg ? 
+                errorMsg :
             (startValid, endValid) ?
-            "Ready" : "Waiting for dates";
+                "Ready" : 
+            "Waiting for dates";
 
         return(
             <Modal open={this.props.open}>
                 <ModalBody>
                     <ModalHeader
-                    className="bg-sched"
+                    className="bg-day"
                     >
                         {icons.sched}
-                        <span>New Schedule</span>
+                        <span>New Date Range</span>
                     </ModalHeader>
 
                     <ModalContent>     
@@ -108,10 +118,33 @@ class NewSchedModal extends React.Component {
                         handleEndChange={this.handleEnd}
                         />
 
-                    </ModalContent>
+                        <label
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "90%",
+                            maxWidth: "125px",
+                            margin: "10px auto",
+                            padding: "5px",
+                            borderBottom: "1px solid #ddd",
+                            fontWeight: this.state.makeActiveRange ? "bold" : ""
+                        }}
+                        >
+                            <input 
+                            type="checkbox"
+                            checked={this.state.makeActiveRange}
+                            onChange={this.handleMakeActive}
+                            />
+                            <span>
+                                Make active
+                            </span>
+                        </label>
 
+                    </ModalContent>
                     <ModalFooterBtns
-                    bgClassName="bg-sched"
+                    bgClassName="bg-day"
                     saveText="Generate"
                     disabled={!(startValid && endValid && !errorMsg)}
                     handleCancel={this.props.handleCancel}

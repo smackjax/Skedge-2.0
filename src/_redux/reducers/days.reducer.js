@@ -9,8 +9,7 @@ import {
     mainItems
 } from './GENERIC_REDUCERS';
 
-export default (state={
-
+const initialState={
     '0' : {
         id: '0',
         name: 'Sunday',
@@ -46,19 +45,22 @@ export default (state={
         name: 'Saturday',
         tasks: []
     }
+}
 
 
-
+export default (state={
+    ...initialState
 }, action)=>{
     const payload = action.payload;
     switch(action.type){
+
         case DATA_ACT_TYPES.LOAD: {
-            if(payload.days){   
+            if(payload.days){
                 return {
                     ...payload.days
                 }
             }
-            return state;
+            return { ...initialState };
         }
 
         case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
@@ -68,7 +70,7 @@ export default (state={
                     ...payload.days
                 }
             }
-            return state;
+            return { ...initialState };
         }
 
         case DAYS_ACT_TYPES.SAVE_DAY: {

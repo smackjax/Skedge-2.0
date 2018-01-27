@@ -77,7 +77,8 @@ export default function(state={
                     ...payload.tasks
                 }
             }
-            return state;
+            // Replaces current store data with schedule data
+            return {};
         }
 
         // action.newTask

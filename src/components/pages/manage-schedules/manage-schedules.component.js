@@ -10,11 +10,14 @@ import Navbar from './manage-schedules-navbar/manage-schedules-navbar.component'
 import NewScheduleBtn from './new-schedule-btn/new-schedule-btn.component';
 import ScheduleItem from './schedule-item/schedule-item.component';
 
+import NewScheduleModal from './new-schedule-modal/new-schedule-modal.component';
+
 class ManageSchedules extends React.Component{
     state={
         loading: true,
         errorMsg: "",
-        schedules: []
+        schedules: [],
+        modalOpen: false
     }
     
     componentDidMount(){
@@ -68,12 +71,36 @@ class ManageSchedules extends React.Component{
         })
     }
 
-    createNewSchedule=()=>{
+    createNewSchedule=(scheduleName)=>{
+        this.closeModal();
+
+        // Create new schedule with provided name
         const userId = getUser().uid;
-        createNewSchedule(userId, "Test name")
+        createNewSchedule(userId, scheduleName)
         .then(newSchedule=>{
             const schedules = [...this.state.schedules, newSchedule];
-            this.setSchedules(schedules);
+            return this.setSchedules(schedules)
+            .then(success=>{
+                this.changeSchedule(newSchedule.id)
+            })
+        })
+        
+        
+    }
+
+    toggleModal=()=>{
+        const modalOpen = !this.state.modalOpen;
+        return new Promise(resolve=>{
+            this.setState({
+                modalOpen
+            }, 
+            ()=>{ resolve() });
+        })
+        
+    }
+    closeModal=()=>{
+        this.setState({
+            modalOpen: false
         })
     }
 
@@ -81,7 +108,6 @@ class ManageSchedules extends React.Component{
         const selectedSchedule = this.state.schedules.filter(
             schedule=>(schedule.id === scheduleId)
         )[0];
-        console.log("run");
         this.props.dispatch(
             DATA_ACTIONS.changeActiveSchedule(selectedSchedule)
         );
@@ -90,21 +116,29 @@ class ManageSchedules extends React.Component{
     render(){
         return (
             <div>
-
                 <Navbar />
 
-                <div>Schedule Id: {this.props.scheduleId} </div>
                 <NewScheduleBtn
-                onClick={this.createNewSchedule}
+                onClick={this.toggleModal}
                 />
+
                 {this.state.schedules.map(schedule=>(
                     <ScheduleItem
                     key={schedule.id} 
                     id={schedule.id}
+                    isCurrent={schedule.id === this.props.scheduleId}
                     name={schedule.name}
+                    handleDelete={this.deleteScheduleById}
                     handleChangeSchedule={this.changeSchedule}
                     />
                 ))}
+
+                <NewScheduleModal 
+                open={this.state.modalOpen}
+                handleNewSched={this.createNewSchedule}
+                closeModal={this.closeModal}
+                />
+
             </div>
         )
     }
@@ -112,7 +146,8 @@ class ManageSchedules extends React.Component{
 
 ManageSchedules.propTypes={
     history: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    scheduleId: PropTypes.string.isRequired
 }
 
 export default withRouter(

@@ -4,7 +4,7 @@ export const saveState = async (state)=>{
         
         const stringState = JSON.stringify(state);
         await localForage.setItem('state', stringState);
-        console.log("Saved meta: ", state.meta);
+        console.log("Saved: ", state);
     } catch(err){
         console.log("Data save failed")
         // Oh nooooooo!!!

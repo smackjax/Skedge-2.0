@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Navbar, icons } from '../../../generic-components';
 import GenerateSchedBtn from './generate-sched-btn/generate-sched-btn.component';
-import { NewSchedModal } from '../../_modals';
+import { NewDateRangeModal } from '../../_modals';
 import CardBlock from './select-data-list-card-block/select-data-list-card-block.component';
 import SelectDataListCard from './select-data-list-card/select-data-list-card.component';
 import './select-data-list-page.style.css';
@@ -26,7 +26,7 @@ class SelectDataListPage extends React.Component{
         /* TODO Calculate empty items, give error message */
     }
 
-    handleGenerate = async (startDate, endDate)=>{
+    handleGenerate = async (startDate, endDate, makeActiveRange)=>{
         const currentState = {
             members: this.props.members,
             groups: this.props.groups,
@@ -112,7 +112,7 @@ class SelectDataListPage extends React.Component{
 
                 </div>
 
-                <NewSchedModal
+                <NewDateRangeModal
                 open={this.state.generateModalOpen}
                 handleGenerate={this.handleGenerate}
                 handleCancel={this.handleModalToggle}

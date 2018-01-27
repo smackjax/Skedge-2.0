@@ -19,6 +19,8 @@ import idGen from 'uniqid';
 
 
 export default (startDateString, endDateString, currentState)=>{
+    // TODO shake the tree. Eliminate object ids that don't exist in their parents 
+
     const state = currentState;
     
     // Initialize data for sched
@@ -254,6 +256,8 @@ export default (startDateString, endDateString, currentState)=>{
     finishedDaysArray.forEach(day=>{
         newDateRange.dates[day.id] = {...day};
     });
+
+    // TODO subtract greatest difference possible from member assigned most to member assigned least, on both members and tasks
 
     const newMembVals = arrToObj(members);
     const newTaskVals = arrToObj(tasks);

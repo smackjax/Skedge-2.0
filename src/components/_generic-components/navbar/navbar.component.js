@@ -14,7 +14,7 @@ const NavBar = (props)=>{
     if(props.userType === "creator"){
         return (
         <CreatorNavbar 
-        schedName="Test Name"
+        schedName={props.activeSchedName}
         />
         )
     }
@@ -55,5 +55,6 @@ NavBar.propTypes={
 }
 
 export default connect((store)=>({
-    userType: store.meta.userType
+    userType: store.meta.userType,
+    activeSchedName: store.meta.activeSchedName
 }))(NavBar);

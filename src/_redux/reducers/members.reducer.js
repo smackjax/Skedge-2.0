@@ -55,13 +55,13 @@ export default function(state={
 
         case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
             // Check for & return local data OR
-                // if none, an empty object 
+                // if none, an empty object
             if(payload.members){
                 return {
                     ...payload.members
                 }
             }
-            return state;
+            return {};
         }
 
         // payload is {...new member}

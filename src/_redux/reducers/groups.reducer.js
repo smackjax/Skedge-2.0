@@ -41,10 +41,11 @@ export default function(state={
         case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
             if(payload.groups){            
                 return {
-                    ...action.payload.groups
+                    ...payload.groups
                 }
             }
-            return state;
+            // Replaces current data with schedule data
+            return {};
         }
 
 

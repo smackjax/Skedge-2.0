@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ez-react-date-input": "^1.0.1",
     "firebase": "^4.8.1",
     "font-awesome": "^4.7.0",
     "install": "^0.10.2",

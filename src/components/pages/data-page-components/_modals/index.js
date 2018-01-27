@@ -1,5 +1,5 @@
 // All data modals
-import NewSchedModal from './new-sched-modal/new-sched-modal.component';
+import NewDateRangeModal from './new-date-range-modal/new-date-range-modal.component';
 import MemberItemEditModal from './member-modals/member-item-edit-modal/member-item-edit-modal.component';
 import MemberBulkModal from './member-modals/members-bulk-modal/members-bulk-modal.component';
 import GroupItemEditModal from './group-modals/group-item-edit-modal/group-item-edit-modal.component';
@@ -10,7 +10,7 @@ import DayItemEditModal from './day-modals/day-item-edit-modal/day-item-edit-mod
 
 
 export {
-    NewSchedModal,
+    NewDateRangeModal,
     MemberItemEditModal,
     MemberBulkModal,
     GroupItemEditModal,

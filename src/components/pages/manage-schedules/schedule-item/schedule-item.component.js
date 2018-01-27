@@ -5,6 +5,10 @@ const ScheduleItem = (props)=>{
     const changeSchedule=()=>{
         props.handleChangeSchedule(props.id);
     }
+
+    const deleteSchedule=()=>{
+        props.handleDelete(props.id)
+    }
     
     return (
         <div
@@ -42,6 +46,16 @@ const ScheduleItem = (props)=>{
                     {props.name}
                 </span>
                 
+                { props.isCurrent && (
+                <span
+                style={{
+                    marginLeft: "10px"
+                }}
+                >
+                    {icons.star}
+                </span>
+                )}
+                
                 <span 
                 style={{
                     marginLeft: "auto",
@@ -53,6 +67,7 @@ const ScheduleItem = (props)=>{
                 </span>
             </button>
             <button
+            onClick={deleteSchedule}
             style={{
                 width: "15%"
             }}
@@ -66,7 +81,9 @@ const ScheduleItem = (props)=>{
 ScheduleItem.propTypes={
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    handleChangeSchedule: PropTypes.func.isRequired
+    isCurrent: PropTypes.bool.isRequired,
+    handleChangeSchedule: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired
 }
 
 export default ScheduleItem;

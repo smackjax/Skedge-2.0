@@ -155,7 +155,7 @@ TasksPage.propTypes = {
     handleClearEdit: PropTypes.func.isRequired,
 
     // From connect
-    itemsById: PropTypes.array.isRequired,
+    itemsById: PropTypes.object.isRequired,
     activeSchedId: PropTypes.string.isRequired
 }
 
