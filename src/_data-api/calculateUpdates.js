@@ -233,11 +233,6 @@ const memberIdsToGroupIds=(store, groupIds, memberIds, addTo)=>{
 }   
 
 
-
-
-
-
-
 // Exposed api functions
 export const saveMember=(store, newMemberObj )=>{
     return saveItemAndSync(store, 'members', newMemberObj, 'groups');
