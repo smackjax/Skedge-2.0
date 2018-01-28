@@ -7,21 +7,21 @@ import {
 import * as ACTIONS from '../../_action-types';
 
 export default function(state={
-    // groupId1: {
-    //     id: 'groupId1',
-    //     name: 'Cannoneers',
-    //     members: ['membId1', 'membId3', 'membId2'],      
-    // },
-    // groupId2: {
-    //     id: 'groupId2',
-    //     name: 'Crewmen',
-    //     members: ['membId1']  
-    // },
-    // groupId3: {
-    //     id: 'groupId3',
-    //     name: 'Captains',
-    //     members: ['membId2']  
-    // },
+    groupId1: {
+        id: 'groupId1',
+        name: 'Cannoneers',
+        members: [],      
+    },
+    groupId2: {
+        id: 'groupId2',
+        name: 'Crewmen',
+        members: []  
+    },
+    groupId3: {
+        id: 'groupId3',
+        name: 'Captains',
+        members: []  
+    },
 }, action){
     const payload = action.payload;
 

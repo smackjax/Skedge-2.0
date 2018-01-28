@@ -12,31 +12,31 @@ import {
 } from './GENERIC_REDUCERS';
 
 export default function(state={
-    // membId1: {
-    //     id: 'membId1',
-    //     name: 'Smackjax',
-    //     // Date strings by dehydrated date format
-    //     unavailableDates: [['2017-09-15','2017-09-16','2017-09-17','2017-09-18']],
-    //     // Times assigned gets added to 
-    //     totalTimesAssigned: 0,
-    //     groups: ['groupId1', 'groupId2']    
-    // },
-    // membId2: {
-    //     id: 'membId2',
-    //     name: 'The Kid',
-    //      // Date strings by dehydrated date format
-    //     unavailableDates: [],
-    //     totalTimesAssigned: 0,
-    //     groups: ['groupId1', 'groupId3']  
-    // },
-    // membId3: {
-    //     id: 'membId3',
-    //     name: 'TJ',
-    //      // Date strings by dehydrated date format
-    //     unavailableDates: [],
-    //     totalTimesAssigned: 6,
-    //     groups: ['groupId1']  
-    // },
+    membId1: {
+        id: 'membId1',
+        name: 'Smackjax',
+        // Date strings by dehydrated date format
+        unavailableDates: [['2017-09-15','2017-09-16','2017-09-17','2017-09-18']],
+        // Times assigned gets added to 
+        totalTimesAssigned: 0,
+        groups: []    
+    },
+    membId2: {
+        id: 'membId2',
+        name: 'The Kid',
+         // Date strings by dehydrated date format
+        unavailableDates: [],
+        totalTimesAssigned: 0,
+        groups: []  
+    },
+    membId3: {
+        id: 'membId3',
+        name: 'TJ',
+         // Date strings by dehydrated date format
+        unavailableDates: [],
+        totalTimesAssigned: 6,
+        groups: []  
+    },
 }, action){
     const payload = action.payload;
 

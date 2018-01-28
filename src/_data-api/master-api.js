@@ -154,7 +154,7 @@ export const saveTask=( taskObj )=>{
         )
     }
 }
-export const deleteTask=( taskId )=>{
+export const deleteTaskById=( taskId )=>{
     return (dispatch, getState)=>{
         const updates = update.deleteTaskById(getState(), taskId);
         return Promise.resolve(

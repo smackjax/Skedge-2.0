@@ -25,6 +25,14 @@ import {GROUP_ACTIONS} from '../../../../_redux-generics/actions';
 import ItemToList from './group-item/group-item.component';
 import { GROUP as DATATYPE } from '../../_DATATYPES';
 
+import { 
+    saveGroup,
+    deleteGroupById,
+    addGroupIdsToTaskIds,
+    removeGroupIdsFromTaskIds
+} from '../master-api';
+
+
 const pageClass = 'groups';
 const bgColor = 'bg-group';
 const primaryIcon = icons.group;
@@ -32,7 +40,6 @@ const bulkIcon = icons.task;
 const bulkBgClass = 'bg-task';
 
 const GroupsPage = (props)=>{
-    const BoundActs = bindActionCreators(GROUP_ACTIONS, props.dispatch);
     
     const handleNew=()=>{
         props.handleSetEdit(DATATYPE({}));  
@@ -40,20 +47,20 @@ const GroupsPage = (props)=>{
     const handleSave=(saveItem)=>{
         saveItem.name = saveItem.name || "(No name)";
         const cleanedItem = DATATYPE(saveItem);
-        BoundActs.saveGroup(props.activeSchedId, cleanedItem);
+        props.saveGroup(saveItem);
     }
     const handleDelete=(itemId)=>{
-        BoundActs.deleteGroup(props.activeSchedId, itemId);
+        props.deleteGroupById(itemId);
         props.handleClearEdit();
     }
     const handleAddTo=(taskIds)=>{
-        BoundActs.addGroupsToTasks(
+        props.addGroupIdsToTaskIds(
             props.selectedIds,
             taskIds
         );
     }
     const handleRemoveFrom=(taskIds)=>{
-        BoundActs.removeGroupsFromTasks(
+        props.removeGroupIdsFromTaskIds(
             props.selectedIds,
             taskIds
         );
@@ -159,8 +166,15 @@ GroupsPage.propTypes = {
     handleClearEdit: PropTypes.func.isRequired
 }
 
+const apiActions = {
+    saveGroup,
+    deleteGroupById,
+    addGroupIdsToTaskIds,
+    removeGroupIdsFromTaskIds
+}
+
 export default connect(
     store=>({
         itemsById: store.groups,
         activeSchedId: store.meta.activeSchedId
-    }))( WithItemArrayControls(WithBulkModalControls(GroupsPage)));
+    }), apiActions)( WithItemArrayControls(WithBulkModalControls(GroupsPage)));

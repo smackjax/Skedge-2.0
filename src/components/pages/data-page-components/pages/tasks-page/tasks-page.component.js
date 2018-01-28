@@ -23,6 +23,13 @@ import {TASK_ACTIONS} from '../../../../_redux-generics/actions';
 import ItemToList from './task-item/task-item.component';
 import { TASK as DATATYPE } from '../../_DATATYPES';
 
+import { 
+    saveTask,
+    deleteTaskById,
+    addTaskIdsToDays,
+    removeTaskIdsFromDays
+} from '../master-api';
+
 const pageClass = 'tasks';
 const bgColor = 'bg-task';
 const primaryIcon = icons.task;
@@ -30,28 +37,24 @@ const bulkIcon = icons.day;
 const bulkBgClass = 'bg-day';
 
 const TasksPage = (props)=>{
-    const BoundActs = bindActionCreators(TASK_ACTIONS, props.dispatch);
-    
+
     const handleNew=()=>{
         props.handleSetEdit(DATATYPE({}));  
     }
     const handleSave=(saveItem)=>{
         saveItem.name = saveItem.name || "(No name)";
         const cleanedItem = DATATYPE(saveItem);
-        BoundActs.saveTask(props.activeSchedId, cleanedItem);
+        props.saveTask(cleanedItem);
     }
     const handleDelete=(itemId)=>{
-        BoundActs.deleteTask(props.activeSchedId, itemId);
+        props.deleteTaskById(itemId);
         props.handleClearEdit();
     }
     const handleAddTo=(dayIds)=>{
-        BoundActs.addTasksToDays(
-            props.selectedIds,
-            dayIds
-        );
+        props.addTaskIdsToDays(props.selectedIds, dayIds)
     }
     const handleRemoveFrom=(dayIds)=>{
-        BoundActs.removeTasksFromDays(
+        props.removeTaskIdsFromDays(
             props.selectedIds,
             dayIds
         )
@@ -159,8 +162,16 @@ TasksPage.propTypes = {
     activeSchedId: PropTypes.string.isRequired
 }
 
+// Binds api functions to dispatch
+const apiActions={
+    saveTask,
+    deleteTaskById,
+    addTaskIdsToDays,
+    removeTaskIdsFromDays
+}
+
 export default connect(
     store=>({
         itemsById: store.tasks,
         activeSchedId: store.meta.activeSchedId
-    }))( WithItemArrayControls(WithBulkModalControls(TasksPage)));
+    }), apiActions)( WithItemArrayControls(WithBulkModalControls(TasksPage)));

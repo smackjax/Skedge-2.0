@@ -10,16 +10,17 @@ import {
 import {
     DayItemEditModal as ItemEditModal
 } from '../../_modals/';
-import {DAY_ACTIONS} from '../../../../_redux-generics/actions';
+
 import * as icons from '../../_icons';
 import DayItem from './day-item/day-item.component';
 
+import { 
+    saveDay
+} from '../master-api';
 
 const DaysPage = (props)=>{
     const handleSave=(saveItem)=>{
-        props.dispatch(
-            DAY_ACTIONS.saveDay(props.activeSchedId, saveItem)
-        );
+        props.saveDay(saveItem);
     }
 
     const bgColor = "bg-day";
@@ -81,9 +82,14 @@ DaysPage.propTypes = {
     activeSchedId: PropTypes.string.isRequired
 }
 
+const apiActions = {
+    saveDay
+}
+
 export default connect(
     store=>({
         itemsById: store.days,
         activeSchedId: store.meta.activeSchedId
-    }))( WithItemArrayControls(DaysPage));
+    }), 
+    apiActions )( WithItemArrayControls(DaysPage) );
     

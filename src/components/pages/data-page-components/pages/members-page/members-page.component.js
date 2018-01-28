@@ -166,28 +166,11 @@ MemberPage.propTypes = {
 
 
 // Binds api functions to dispatch
-const mapDispatch=(dispatch, props)=>{
-    return {
-        saveMember: (saveObj)=>{ 
-            return dispatch( saveMember( saveObj ) ) 
-        },
-        deleteMember: (deleteId)=>{
-            return dispatch( deleteMemberById( deleteId ) ) 
-        },
-        addMemberIdsToGroupIds: (memberIds, groupIds)=>{
-            return dispatch( 
-                addMemberIdsToGroupIds( 
-                    memberIds, 
-                    groupIds 
-                ) 
-            ) 
-        },
-        removeMemberIdsFromGroupIds: (memberIds, groupIds)=>{ 
-            return dispatch( 
-                removeMemberIdsFromGroupIds( memberIds, groupIds ) 
-            ) 
-        }
-    }
+const apiActions = {
+    saveMember,
+    deleteMemberById,
+    addMemberIdsToGroupIds,
+    removeMemberIdsFromGroupIds
 }
 
 export default  connect(
@@ -195,7 +178,7 @@ export default  connect(
         itemsById: store.members,
         activeSchedId: store.meta.activeSchedId
     }), 
-    mapDispatch)( 
+    apiActions)( 
         WithItemArrayControls(  WithBulkModalControls( MemberPage ) 
         ) 
     );
