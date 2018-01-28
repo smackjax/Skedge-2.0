@@ -9,52 +9,44 @@ import {
 } from './GENERIC_REDUCERS';
 import * as ACTIONS from '../../_action-types';
 export default function(state={
-    // taskId1: {
-    //     id: 'taskId1',
-    //     name: "Cannon swabber",
-    //     groups: ['groupId1'],
-    //     // Whether a member assigned here can be assigned to another task on the same day
-    //     isExclusive: false, 
-    //     numNeeded: 1,
-    //     // Holds amount of times membId has been assigned to task
-    //     timesAssigned : {
-    //         'membId2': 1,
-    //     }
-    // },
-    // taskId2: {
-    //     id: 'taskId2',
-    //     name: "Man the wheel",
-    //     groups: ['groupId1', 'groupId2'],
-    //     numNeeded: 1,
-    //     isExclusive: false,
-    //     timesAssigned : {
-    //         'membId1': 0,
-    //         'membId2': 0,
-    //         'membId3': 0
-    //     }
-    // },
-    // taskId3: {
-    //     id: 'taskId3',
-    //     name: "Hoist sail",
-    //     groups: ['groupId2', 'groupId3'],
-    //     numNeeded: 2,
-    //     isExclusive: false,
-    //     timesAssigned : {
-    //         'membId1': 0,
-    //         'membId4': 0,
-    //         'membId3': 0
-    //     }
-    // },
-    // taskId4: {
-    //     id: 'taskId4',
-    //     name: "Remove barnacles",
-    //     groups: [],
-    //     numNeeded: 1,
-    //     isExclusive: false,
-    //     timesAssigned : {
-    //         'membId3' : 0
-    //     }
-    // }
+    taskId1: {
+        id: 'taskId1',
+        name: "Cannon swabber",
+        groups: [],
+        // Whether a member assigned here can be assigned to another task on the same day
+        isExclusive: false, 
+        numNeeded: 1,
+        // Holds amount of times membId has been assigned to task
+        timesAssigned : {
+        }
+    },
+    taskId2: {
+        id: 'taskId2',
+        name: "Man the wheel",
+        groups: [],
+        numNeeded: 1,
+        isExclusive: false,
+        timesAssigned : {
+        }
+    },
+    taskId3: {
+        id: 'taskId3',
+        name: "Hoist sail",
+        groups: [],
+        numNeeded: 2,
+        isExclusive: false,
+        timesAssigned : {
+        }
+    },
+    taskId4: {
+        id: 'taskId4',
+        name: "Remove barnacles",
+        groups: [],
+        numNeeded: 1,
+        isExclusive: false,
+        timesAssigned : {
+        }
+    }
 }, action){
     const payload = action.payload;
     switch(action.type){

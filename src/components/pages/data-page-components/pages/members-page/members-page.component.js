@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { 
     WithBulkModalControls,
     WithItemArrayControls
 } from '../../_HOCIndex';
-
 import {
     ListPage,
     ListPageHeader,
@@ -14,7 +12,8 @@ import {
     ListControlsWrapper, 
     BulkAddToBtn, 
     BulkRemoveFromBtn, 
-    AddNewItemBtn } from '../../list-page-generics/index';
+    AddNewItemBtn 
+} from '../../list-page-generics/index';
 
 import { 
     MemberItemEditModal as ItemEditModal,
@@ -23,9 +22,15 @@ import {
 
 import * as icons from '../../_icons';
 import ItemToList from './member-item/member-item.component';
-import {MEMBER_ACTIONS} from '../../../../_redux-generics/actions';
+
 import { MEMBER as DATATYPE } from '../../_DATATYPES';
-import { saveMember as testSave } from '../master-api';
+
+import { 
+    saveMember,
+    deleteMemberById,
+    addMemberIdsToGroupIds,
+    removeMemberIdsFromGroupIds
+} from '../master-api';
 
 const pageClass = 'members';
 const bgColor = 'bg-member';
@@ -33,32 +38,29 @@ const primaryIcon = icons.member;
 const bulkIcon = icons.group;
 const bulkBgClass = 'bg-group';
 
-const MemberPage = (props)=>{
-
-    const BoundActs = bindActionCreators(MEMBER_ACTIONS, props.dispatch);
-    
+const MemberPage = (props)=>{    
     const handleNew=()=>{
         props.handleSetEdit(DATATYPE({}));  
     }
     const handleSave=(saveItem)=>{
         saveItem.name = saveItem.name || "(No name)";
         const cleanedItem = DATATYPE(saveItem);
-        props.dispatch(testSave(cleanedItem));
+        props.saveMember(cleanedItem);
     }
     const handleDelete=(itemId)=>{
-        BoundActs.deleteMember(props.activeSchedId, itemId);
+        props.deleteMember(itemId);
         props.handleClearEdit();
     }
 
 
     const handleAddTo=(groupIds)=>{
-        BoundActs.addMembersToGroups(
+        props.addMemberIdsToGroupIds(
             props.selectedIds,
             groupIds
         );
     }
     const handleRemoveFrom=(groupIds)=>{
-        BoundActs.removeMembersFromGroups(
+        props.removeMemberIdsFromGroupIds(
             props.selectedIds,
             groupIds
         );
@@ -162,8 +164,38 @@ MemberPage.propTypes = {
     handleClearEdit: PropTypes.func.isRequired
 }
 
-export default connect(
-    store=>({
+
+// Binds api functions to dispatch
+const mapDispatch=(dispatch, props)=>{
+    return {
+        saveMember: (saveObj)=>{ 
+            return dispatch( saveMember( saveObj ) ) 
+        },
+        deleteMember: (deleteId)=>{
+            return dispatch( deleteMemberById( deleteId ) ) 
+        },
+        addMemberIdsToGroupIds: (memberIds, groupIds)=>{
+            return dispatch( 
+                addMemberIdsToGroupIds( 
+                    memberIds, 
+                    groupIds 
+                ) 
+            ) 
+        },
+        removeMemberIdsFromGroupIds: (memberIds, groupIds)=>{ 
+            return dispatch( 
+                removeMemberIdsFromGroupIds( memberIds, groupIds ) 
+            ) 
+        }
+    }
+}
+
+export default  connect(
+    (store, ownProps)=>({
         itemsById: store.members,
         activeSchedId: store.meta.activeSchedId
-    }))( WithItemArrayControls(WithBulkModalControls(MemberPage)));
+    }), 
+    mapDispatch)( 
+        WithItemArrayControls(  WithBulkModalControls( MemberPage ) 
+        ) 
+    );
