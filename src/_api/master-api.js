@@ -24,16 +24,32 @@
 */
 
 
+import {
+    SAVE_MEMBER,
+    DELETE_MEMBER_BY_ID,
+    ADD_MEMBER_IDS_TO_GROUP_IDs,
+    REMOVE_MEMBER_IDS_FROM_GROUP_IDS,
+    SAVE_GROUP,
+    DELETE_GROUP_BY_ID,
+    ADD_GROUP_IDS_TO_TASKS,
+    REMOVE_GROUP_IDS_FROM_TASKS,
+    SAVE_TASK,
+    DELETE_TASK_BY_ID,
+    ADD_TASK_IDS_TO_DAYS,
+    REMOVE_TASK_IDS_FROM_DAYS,
+    SAVE_DAY
+} from '../action-types/action-types';
+
 // These all return an object with needed updates under their
 // equivalent redux key.
-import * as calculate from './calculateUpdates';
+import * as update from './calculations';
 // import * as localData from './localAndRemoteDataApi';
 
 
 // Members
 export const saveMember=( memberObj )=>{
     return (dispatch, getState)=>{
-        const updates = calculate.saveMember(getState(), memberObj);
+        const updates = update.saveMember(getState(), memberObj);
         return Promise.resolve(
                 dispatch({
                 type: SAVE_MEMBER,
@@ -44,7 +60,7 @@ export const saveMember=( memberObj )=>{
 }
 export const deleteMemberById=( memberId )=>{
     return (dispatch, getState)=>{
-        const updates = calculate.deleteMemberById(getState(), memberId);
+        const updates = update.deleteMemberById(getState(), memberId);
         return Promise.resolve(
             dispatch({
                 type: DELETE_MEMBER_BY_ID,
@@ -55,7 +71,7 @@ export const deleteMemberById=( memberId )=>{
 }
 export const addMemberIdsToGroupIds=(membIds, groupIds)=>{
     return (dispatch, getState)=>{
-        const updates = calculate.addMemberIdsToGroupIds(getState(), membIds, groupIds)
+        const updates = update.addMemberIdsToGroupIds(getState(), membIds, groupIds)
         return Promise.resolve(
             dispatch({
                 type: ADD_MEMBER_IDS_TO_GROUP_IDs,
@@ -67,7 +83,7 @@ export const addMemberIdsToGroupIds=(membIds, groupIds)=>{
 
 export const removeMemberIdsFromGroupIds=(membIds, groupIds)=>{
     return (dispatch, getState)=>{
-        const updates = calculate.removeMemberIdsFromGroupIds(getState(), membIds, groupIds);
+        const updates = update.removeMemberIdsFromGroupIds(getState(), membIds, groupIds);
         return Promise.resolve(
             dispatch({
                 type: REMOVE_MEMBER_IDS_FROM_GROUP_IDS,
@@ -81,7 +97,7 @@ export const removeMemberIdsFromGroupIds=(membIds, groupIds)=>{
 // Groups
 export const saveGroup=(groupObj)=>{
     return (dispatch, getState)=>{
-        const updates = calculate.saveGroup(getState(), groupObj);
+        const updates = update.saveGroup(getState(), groupObj);
         return Promise.resolve(
             dispatch({
                 type: SAVE_GROUP,
@@ -92,7 +108,7 @@ export const saveGroup=(groupObj)=>{
 }
 export const deleteGroupById=(groupId)=>{
     return (dispatch, getState)=>{
-        const updates = calculate.deleteGroupById(getState(), groupId);
+        const updates = update.deleteGroupById(getState(), groupId);
         return Promise.resolve(
             dispatch({
                 type: DELETE_GROUP_BY_ID,
@@ -103,7 +119,7 @@ export const deleteGroupById=(groupId)=>{
 }
 export const addGroupIdsToTaskIds=(groupIds, taskIds)=>{
     return (dispatch, getState)=>{
-        const updates = calculate.addGroupIdsToTaskIds(getState(), groupIds, taskIds)
+        const updates = update.addGroupIdsToTaskIds(getState(), groupIds, taskIds)
         return Promise.resolve(
             dispatch({
                 type: ADD_GROUP_IDS_TO_TASKS,
@@ -115,7 +131,7 @@ export const addGroupIdsToTaskIds=(groupIds, taskIds)=>{
 export const removeGroupIdsFromTaskIds=(groupIds, taskIds)=>{
     return (dispatch, getState)=>{
         const updates = 
-            calculate.removeGroupIdsFromTaskIds(getState(), groupIds, taskIds);
+            update.removeGroupIdsFromTaskIds(getState(), groupIds, taskIds);
         return Promise.resolve(
             dispatch({
                 type: REMOVE_GROUP_IDS_FROM_TASKS,
@@ -129,7 +145,7 @@ export const removeGroupIdsFromTaskIds=(groupIds, taskIds)=>{
 // Tasks
 export const saveTask=( taskObj )=>{
     return (dispatch, getState)=>{
-        const updates = calculate.saveTask(getState(), taskObj);
+        const updates = update.saveTask(getState(), taskObj);
         return Promise.resolve(
             dispatch({
                 type: SAVE_TASK,
@@ -140,7 +156,7 @@ export const saveTask=( taskObj )=>{
 }
 export const deleteTask=( taskId )=>{
     return (dispatch, getState)=>{
-        const updates = calculate.deleteTaskById(getState(), taskId);
+        const updates = update.deleteTaskById(getState(), taskId);
         return Promise.resolve(
             dispatch({
                 type: DELETE_TASK_BY_ID,
@@ -151,7 +167,7 @@ export const deleteTask=( taskId )=>{
 }
 export const addTaskIdsToDays=(taskIds, dayIds)=>{
     return (dispatch, getState)=>{
-        const updates = calculate.addTaskIdsToDayIds(getState(), taskIds, dayIds);
+        const updates = update.addTaskIdsToDayIds(getState(), taskIds, dayIds);
         return Promise.resolve(
             dispatch({
                 type: ADD_TASK_IDS_TO_DAYS,
@@ -163,7 +179,7 @@ export const addTaskIdsToDays=(taskIds, dayIds)=>{
 export const removeTaskIdsFromDays=(taskIds, dayIds)=>{
     return (dispatch, getState)=>{
         const updates = 
-            calculate.removeTaskIdsFromDayIds(getState(), taskIds, dayIds);
+            update.removeTaskIdsFromDayIds(getState(), taskIds, dayIds);
         return Promise.resolve(
             dispatch({
                 type: REMOVE_TASK_IDS_FROM_DAYS,
@@ -177,7 +193,7 @@ export const removeTaskIdsFromDays=(taskIds, dayIds)=>{
 // Days
 export const saveDay=( dayObj )=>{
     return (dispatch, getState)=>{
-        const updates = calculate.saveDay(getState(), dayObj);
+        const updates = update.saveDay(getState(), dayObj);
         return Promise.resolve(
             dispatch({
                 type: SAVE_DAY,

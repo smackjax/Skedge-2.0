@@ -23,6 +23,7 @@ import {
   DaysPage
 } from './components/pages/data-page-components/pages/';
 
+
 // App-wide styles 
 import 'sanitize.css/sanitize.css';
 import './app-styles/generic-styles.style.css';
@@ -69,8 +70,8 @@ class App extends Component {
     return (
       <div className="App">
         {/* <button
-        onClick={this.signOut}
-        >Sign out</button> */}
+        onClick={()=>{ console.log(JSON.stringify(createFakeMember(10))) }}
+        >Create Member</button> */}
         {this.state.generating && (
           <BottomSpinner /> 
         )}
