@@ -1,15 +1,14 @@
-import {MEMBER_ACT_TYPES as TYPES, 
-    GROUP_ACT_TYPES as GROUP_TYPES,
+import {
     DATE_RANGE_ACT_TYPES as SCHED_TYPES,
-    DATA_ACT_TYPES} from '../actions/_ACTION_TYPES';
+    DATA_ACT_TYPES
+} from '../actions/_ACTION_TYPES';
+
+import * as ACTIONS from '../../_action-types';
 
 // Generic reducer functions 
 import {
- 
-    mainItems, 
-    bulkAddToSublist, 
-    bulkRemoveFromSublist,
-    syncStateWithNewSave
+    deleteIdsByObject,
+    updateByObject,
 } from './GENERIC_REDUCERS';
 
 export default function(state={
@@ -41,94 +40,53 @@ export default function(state={
 }, action){
     const payload = action.payload;
 
+    /* Updates are now calculated beforehand, 
+    so payload is:
+        {
+            ...other updates
+            members: {
+                ...member data updates
+            }
+        }
+    */
     switch(action.type){
-        case DATA_ACT_TYPES.LOAD: {
-            // Check for & return local data OR
-                // if none, an empty object 
-            if(payload.members){
-                return {
-                    ...payload.members
-                }
-            }
-            return state;
-        }
+        case DATA_ACT_TYPES.LOAD: 
+            // Returns current state if no data
+            return updateByObject(state, payload, 'members');
 
-        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
-            // Check for & return local data OR
-                // if none, an empty object
-            if(payload.members){
-                return {
-                    ...payload.members
-                }
-            }
-            return {};
-        }
+        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: 
+            // Returns empty object if no data
+            return updateByObject(state, payload, 'members', true);  
 
-        // payload is {...new member}
-        case TYPES.SAVE_MEMBER:
-            return mainItems.saveItem(state, payload);
+        case ACTIONS.SAVE_MEMBER: 
+            return updateByObject(state, payload, 'members');
         
-        // payload is "membID"
-        case TYPES.DELETE_MEMBER_BY_ID: 
-            return mainItems.deleteById(state, payload);
+        case ACTIONS.DELETE_MEMBER_BY_ID:
+            return deleteIdsByObject(state, payload, 'members');
 
-        // payload {
-        //  primaryIds<[]membIds>,
-        //  bulkIds<[]groupIds>
-        //}
-        case TYPES.ADD_MEMB_IDS_TO_GROUPS: {
-            return bulkAddToSublist(
-                state,
-                payload.primaryIds,
-                'groups',
-                payload.bulkIds
-            );
-        }
+        case ACTIONS.ADD_MEMBER_IDS_TO_GROUP_IDS: 
+            return updateByObject(state, payload, 'members');
+        
+        case ACTIONS.REMOVE_MEMBER_IDS_FROM_GROUP_IDS: 
+            return updateByObject(state, payload, 'members');
+        
 
-        case TYPES.REMOVE_MEMB_IDS_FROM_GROUPS: {
-            return bulkRemoveFromSublist(
-                state,
-                payload.primaryIds,
-                'groups',
-                payload.bulkIds
-            );
-        }
-
-
-        // - - GROUP SUBLIST FUNCTIONS
-        // Listens for groups saved,
-        // updating each member.groups array
-        case GROUP_TYPES.SAVE_GROUP: {
-            // Removes from/adds to member sublists
-            return syncStateWithNewSave(
-                state,
-                payload.id,
-                'groups',
-                payload.members
-            )
-        }
+        // - - GROUP LISTENERS
+        case ACTIONS.SAVE_GROUP: 
+            return updateByObject(state, payload, 'members');
 
         // payload: <groupId>
-        case GROUP_TYPES.DELETE_GROUP_BY_ID: {
-            // Removes deleted id from all state sublists
-            const allIds = Object.keys(state);
-            return bulkRemoveFromSublist(
-                state,
-                allIds,
-                "groups",
-                [payload]
-            )
-        }
+        case ACTIONS.DELETE_GROUP_BY_ID: 
+            return updateByObject(state, payload, 'members')
 
-        // Takes updated member timesAssigned values
+        // TODO switch to update object
         case SCHED_TYPES.SAVE_NEW_DATE_RANGE: {
             return {
                 ...state,
                 ...payload.newMembVals
             }
-
         }
 
         default: return state
-    }//end switch
+    } //end switch
 }

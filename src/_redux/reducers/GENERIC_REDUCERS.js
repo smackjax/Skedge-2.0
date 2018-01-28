@@ -107,9 +107,6 @@ export const syncStateWithNewSave= (state, savedItemId, sublistKey, savedSublist
     return newState;
 }
 
-
-
-
 // Save and delete actions
 export const mainItems = {
     saveItem: (state, newItem)=>{
@@ -125,4 +122,47 @@ export const mainItems = {
         delete newState[idToDelete];
         return newState;
     }
+}
+
+
+
+export const deleteIdsByObject = (state, updatesObj, updateKey)=>{
+    // If object for this state
+    if(updatesObj[updateKey]){
+        const idsToDelete = Object.keys(updatesObj[updateKey]);
+        // and keys to update
+        if(idsToDelete.length > 0){
+            const newState = {...state};
+            idsToDelete.forEach(
+                id=>{
+                    delete newState[id];
+                }
+            )
+            return newState;
+        }
+    } 
+
+    // Default to returning state(don't update)
+    return state;    
+}
+
+export const updateByObject = (state, updatesObj, updateKey, cleanSlate)=>{
+    // If there is an object for this slice of state
+    if(updatesObj[updateKey]){
+        const ids = Object.keys(updatesObj[updateKey]);
+        // and there are ids to update
+        if(ids.length > 0){
+            return {
+                ...state,
+                ...updatesObj[updateKey]
+            }
+        }
+    } 
+
+    // Otherwise
+    return cleanSlate ? 
+        // Start from empty object(if flag is set)
+        {} : 
+        // or just return state(don't update)
+        state
 }

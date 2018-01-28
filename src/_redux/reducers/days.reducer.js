@@ -1,15 +1,9 @@
-import { 
-    DAYS_ACT_TYPES,
-    TASK_ACT_TYPES,
-    DATA_ACT_TYPES
-} from '../actions/_ACTION_TYPES';
-import {
-    bulkAddToSublist,
-    bulkRemoveFromSublist, 
-    mainItems
-} from './GENERIC_REDUCERS';
+import { DATA_ACT_TYPES } from '../actions/_ACTION_TYPES';
+import { updateByObject } from './GENERIC_REDUCERS';
+import * as ACTIONS from '../../_action-types';
 
 const initialState={
+    // At the very least, this always gets returned
     '0' : {
         id: '0',
         name: 'Sunday',
@@ -54,56 +48,25 @@ export default (state={
     const payload = action.payload;
     switch(action.type){
 
-        case DATA_ACT_TYPES.LOAD: {
-            if(payload.days){
-                return {
-                    ...payload.days
-                }
-            }
-            return { ...initialState };
-        }
+        case DATA_ACT_TYPES.LOAD: 
+            return updateByObject(state, payload, 'days');
 
-        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
-            // payload: scheduleObj
-            if(payload.days){
-                return {
-                    ...payload.days
-                }
-            }
-            return { ...initialState };
-        }
+        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: 
+            return updateByObject(state, payload, 'days');
 
-        case DAYS_ACT_TYPES.SAVE_DAY: {
-            return mainItems.saveItem(state, payload)
-        }
+        case ACTIONS.SAVE_DAY:
+            return updateByObject(state, payload, 'days');
 
-        case TASK_ACT_TYPES.ADD_TASK_IDS_TO_DAYS: {
-            return bulkAddToSublist(
-                state,
-                payload.bulkIds,
-                'tasks',
-                payload.primaryIds
-            )
-        }
-        case TASK_ACT_TYPES.REMOVE_TASK_IDS_FROM_DAYS: {
-            return bulkRemoveFromSublist(
-                state,
-                payload.bulkIds,
-                'tasks',
-                payload.primaryIds
-            )
-        }
+        // - - TASK LISTENERS
+        case ACTIONS.ADD_TASK_IDS_TO_DAYS:
+            return updateByObject(state, payload, 'days');
+
+        case ACTIONS.REMOVE_TASK_IDS_FROM_DAYS:
+            return updateByObject(state, payload, 'days');
         
-        // action.taskIdList
-        case TASK_ACT_TYPES.DELETE_TASK_BY_ID: {
-            const allIds = Object.keys(state);
-            return bulkRemoveFromSublist(
-                state,
-                allIds,
-                'tasks',
-                [payload]
-            )
-        }
+        case ACTIONS.DELETE_TASK_BY_ID: 
+            return updateByObject(state, payload, 'days');
+        
         default: return state;
     }
 }

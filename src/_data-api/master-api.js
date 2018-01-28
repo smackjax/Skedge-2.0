@@ -27,7 +27,7 @@
 import {
     SAVE_MEMBER,
     DELETE_MEMBER_BY_ID,
-    ADD_MEMBER_IDS_TO_GROUP_IDs,
+    ADD_MEMBER_IDS_TO_GROUP_IDS,
     REMOVE_MEMBER_IDS_FROM_GROUP_IDS,
     SAVE_GROUP,
     DELETE_GROUP_BY_ID,
@@ -38,7 +38,7 @@ import {
     ADD_TASK_IDS_TO_DAYS,
     REMOVE_TASK_IDS_FROM_DAYS,
     SAVE_DAY
-} from './action-types';
+} from '../_action-types';
 
 // These all return an object with needed updates under their
 // equivalent redux key.
@@ -74,7 +74,7 @@ export const addMemberIdsToGroupIds=(membIds, groupIds)=>{
         const updates = update.addMemberIdsToGroupIds(getState(), membIds, groupIds)
         return Promise.resolve(
             dispatch({
-                type: ADD_MEMBER_IDS_TO_GROUP_IDs,
+                type: ADD_MEMBER_IDS_TO_GROUP_IDS,
                 payload: updates
             })
         )

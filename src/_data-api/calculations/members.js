@@ -8,6 +8,7 @@ export const saveMember=(store, newMemberObj )=>{
     return saveItemAndSync(store, 'members', newMemberObj, 'groups');
 }
 export const deleteMemberById=(store, memberId)=>{
+    const allGroupIDs = Object.keys(store.groups);
     return deleteIdsFromStoreItems(store, 'groups', allGroupIDs,'members', [memberId], true);
 }
 export const addMemberIdsToGroupIds=(store, memberIds, groupIds)=>{

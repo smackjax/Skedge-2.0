@@ -1,13 +1,13 @@
-import {TASK_ACT_TYPES as TYPES, 
-    GROUP_ACT_TYPES as GROUP_TYPES,
-    DATE_RANGE_ACT_TYPES as SCHED_TYPES,
-    DATA_ACT_TYPES } from '../actions/_ACTION_TYPES';
 import {
-    mainItems,
-    bulkAddToSublist,
-    bulkRemoveFromSublist
-} from './GENERIC_REDUCERS';
+    DATE_RANGE_ACT_TYPES as SCHED_TYPES,
+    DATA_ACT_TYPES 
+} from '../actions/_ACTION_TYPES';
 
+import {
+    updateByObject,
+    deleteIdsByObject
+} from './GENERIC_REDUCERS';
+import * as ACTIONS from '../../_action-types';
 export default function(state={
     // taskId1: {
     //     id: 'taskId1',
@@ -15,7 +15,6 @@ export default function(state={
     //     groups: ['groupId1'],
     //     // Whether a member assigned here can be assigned to another task on the same day
     //     isExclusive: false, 
-    //     // How many members need to be assigned TODO in gui
     //     numNeeded: 1,
     //     // Holds amount of times membId has been assigned to task
     //     timesAssigned : {
@@ -59,64 +58,29 @@ export default function(state={
 }, action){
     const payload = action.payload;
     switch(action.type){
-        case DATA_ACT_TYPES.LOAD: {
-            // Check for & return local data OR
-                // if none, an empty object 
-            if(payload.tasks){
-                    return {
-                    ...payload.tasks
-                }
-            }
-            return state;
-        }
 
-        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: {
-            // payload: scheduleObj
-            if(payload.tasks){
-                    return {
-                    ...payload.tasks
-                }
-            }
-            // Replaces current store data with schedule data
-            return {};
-        }
+        case DATA_ACT_TYPES.LOAD: 
+            return updateByObject(state, payload, 'tasks');
 
-        // action.newTask
-        case TYPES.SAVE_TASK:
-            return mainItems.saveItem(state, payload);
+        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE:
+            return updateByObject(state, payload, 'tasks', true);
 
-        // action.taskIdList
-        case TYPES.DELETE_TASK_BY_ID: 
-            return mainItems.deleteById(state, payload);
+        case ACTIONS.SAVE_TASK:
+            return updateByObject(state, payload, 'tasks');
 
-        // GROUP Listeners
-        case GROUP_TYPES.ADD_GROUP_IDS_TO_TASKS:{
-            return bulkAddToSublist(
-                state,
-                payload.bulkIds,
-                'groups',
-                payload.primaryIds
-            );
-        }
-        case GROUP_TYPES.REMOVE_GROUP_IDS_FROM_TASKS:{
-            return bulkRemoveFromSublist(
-                state,
-                payload.bulkIds,
-                'groups',
-                payload.primaryIds
-            );
-        }
-        case GROUP_TYPES.DELETE_GROUP_BY_ID:{
-            const allIds = Object.keys(state);
-            return bulkRemoveFromSublist(
-                state,
-                allIds,
-                'groups',
-                [payload]
-            )
-        }
+        case ACTIONS.DELETE_TASK_BY_ID: 
+            return updateByObject(state, payload, 'tasks');
+
+        // - - GROUP LISTENERS
+        case ACTIONS.ADD_GROUP_IDS_TO_TASKS:
+            return updateByObject(state, payload, 'tasks');
+
+        case ACTIONS.REMOVE_GROUP_IDS_FROM_TASKS:
+            return updateByObject(state, payload, 'tasks');
+
+        case ACTIONS.DELETE_GROUP_BY_ID: 
+            return updateByObject(state, payload, 'tasks');
         
-
         // Updates with task results from new sched generation
         case SCHED_TYPES.SAVE_NEW_DATE_RANGE: {
             return {

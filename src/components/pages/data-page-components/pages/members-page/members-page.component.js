@@ -25,7 +25,7 @@ import * as icons from '../../_icons';
 import ItemToList from './member-item/member-item.component';
 import {MEMBER_ACTIONS} from '../../../../_redux-generics/actions';
 import { MEMBER as DATATYPE } from '../../_DATATYPES';
-
+import { saveMember as testSave } from '../master-api';
 
 const pageClass = 'members';
 const bgColor = 'bg-member';
@@ -43,7 +43,7 @@ const MemberPage = (props)=>{
     const handleSave=(saveItem)=>{
         saveItem.name = saveItem.name || "(No name)";
         const cleanedItem = DATATYPE(saveItem);
-        BoundActs.saveMember( props.activeSchedId, cleanedItem );
+        props.dispatch(testSave(cleanedItem));
     }
     const handleDelete=(itemId)=>{
         BoundActs.deleteMember(props.activeSchedId, itemId);
