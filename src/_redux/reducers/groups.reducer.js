@@ -1,7 +1,7 @@
-import { DATA_ACT_TYPES } from '../actions/_ACTION_TYPES';
 import {
     updateByObject,
-    deleteIdsByObject
+    deleteIdsByObject,
+    overwriteByObject
 } from './GENERIC_REDUCERS';
 
 import * as ACTIONS from '../../_action-types';
@@ -26,17 +26,17 @@ export default function(state={
     const payload = action.payload;
 
     switch(action.type){
-        case DATA_ACT_TYPES.LOAD: 
-            return updateByObject(state, payload, 'groups');
+        case ACTIONS.LOAD_REDUX_STATE: 
+            return overwriteByObject(state, payload, 'groups');
 
-        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: 
-            return updateByObject(state, payload, 'groups', true);
+        case ACTIONS.CHANGE_ACTIVE_SCHEDULE: 
+            return overwriteByObject(state, payload, 'groups', true);
 
         case ACTIONS.SAVE_GROUP: 
             return updateByObject(state, payload, 'groups');
 
         case ACTIONS.DELETE_GROUP_BY_ID:
-            return updateByObject(state, payload, 'groups');
+            return deleteIdsByObject(state, payload, 'groups');
 
         // -- MEMBER LISTENERS
         case ACTIONS.ADD_MEMBER_IDS_TO_GROUP_IDS:

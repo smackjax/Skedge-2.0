@@ -9,7 +9,7 @@ import CardBlock from './select-data-list-card-block/select-data-list-card-block
 import SelectDataListCard from './select-data-list-card/select-data-list-card.component';
 import './select-data-list-page.style.css';
 
-import { DATE_RANGE_ACTIONS } from '../../../../_redux-generics/actions';
+import { saveDateRange } from '../../api';
 
 import { genNewDateRange } from '../../../../../brains/sched-api';
 
@@ -39,9 +39,7 @@ class SelectDataListPage extends React.Component{
             const dateRangeData = await genNewDateRange(startDate, endDate, currentState);
             console.log("Date range gen success: ", dateRangeData)
             this.props.handleBottomSpinner(false);
-            this.props.dispatch(
-                DATE_RANGE_ACTIONS.dateRangeGenSuccess(dateRangeData)
-            );
+            this.props.saveDateRange(dateRangeData);
             this.props.history.push('/dashboard');
             
         } catch (err){
@@ -124,7 +122,6 @@ class SelectDataListPage extends React.Component{
 
 SelectDataListPage.propTypes={
     history: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
     handleBottomSpinner: PropTypes.func.isRequired,
 
     // Used to calculate errors
@@ -134,10 +131,14 @@ SelectDataListPage.propTypes={
     days: PropTypes.object.isRequired
 }
 
+const mapDispatch = {
+    saveDateRange
+}
 
 export default connect(store=>({
     members: store.members,
     groups: store.groups,
     tasks: store.tasks,
     days: store.days
-}))( SelectDataListPage );
+}), mapDispatch
+)( SelectDataListPage );

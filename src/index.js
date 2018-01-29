@@ -16,7 +16,9 @@ import 'font-awesome/css/font-awesome.min.css';
 ReactDOM.render((
     <Provider store={REDUXSTORE}>
         <Router>
-            <App />
+            <App 
+            dispatch={REDUXSTORE.dispatch}
+            />
         </Router>
     </Provider>
 ), document.getElementById('root'));

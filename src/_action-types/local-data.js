@@ -1,0 +1,1 @@
+export const LOAD_REDUX_STATE = "load_redux_state_from_object";

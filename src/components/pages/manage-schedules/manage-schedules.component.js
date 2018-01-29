@@ -2,8 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { DATA_ACTIONS } from '../../_redux-generics/actions';
-import { getUserSchedules, createNewSchedule, getUser, deleteSchedule } from '../api';
+import { changeActiveSchedule } from '../master-api';
+
+import { 
+    getSchedulesByUserId, 
+    createNewSchedule, 
+    getUser, 
+    deleteScheduleById
+} from '../api';
+
 import { objToArr } from '../functions';
 
 import Navbar from './manage-schedules-navbar/manage-schedules-navbar.component';
@@ -23,23 +30,23 @@ class ManageSchedules extends React.Component{
     componentDidMount(){
         const userId = getUser().uid;
         this.setLoading(true);
-        getUserSchedules(userId)
+        getSchedulesByUserId(userId)
         .then(schedulesObj=>{
             const scheduleArray = objToArr(schedulesObj);
             this.setSchedules(scheduleArray);
         })
         .catch(err=>{
             console.log("Error getting schedules", err);
-            this.setErrorMsg("Couldn't get schedules.")
+            this.setErrorMsg("Couldn't get schedules")
         })
         .then(always=>{
             this.setLoading(false);
         })
     }
 
-    deleteScheduleById=(scheduleId)=>{
+    deleteSchedule=(scheduleId)=>{
         this.setLoading(true);
-        deleteSchedule(scheduleId)
+        deleteScheduleById(scheduleId)
         .then(success=>{
             const schedules =
                 this.state.schedules.filter(
@@ -49,6 +56,7 @@ class ManageSchedules extends React.Component{
         })
         .catch(err=>{
             console.log("Couldn't delete schedule", err);
+            this.setErrorMsg("Couldn't delete schedule")
         })
         .then(always=>{
             this.setLoading(false);
@@ -84,8 +92,6 @@ class ManageSchedules extends React.Component{
                 this.changeSchedule(newSchedule.id)
             })
         })
-        
-        
     }
 
     toggleModal=()=>{
@@ -108,9 +114,7 @@ class ManageSchedules extends React.Component{
         const selectedSchedule = this.state.schedules.filter(
             schedule=>(schedule.id === scheduleId)
         )[0];
-        this.props.dispatch(
-            DATA_ACTIONS.changeActiveSchedule(selectedSchedule)
-        );
+        this.props.changeActiveSchedule(selectedSchedule);
     }
 
     render(){
@@ -128,7 +132,7 @@ class ManageSchedules extends React.Component{
                     id={schedule.id}
                     isCurrent={schedule.id === this.props.scheduleId}
                     name={schedule.name}
-                    handleDelete={this.deleteScheduleById}
+                    handleDelete={this.deleteSchedule}
                     handleChangeSchedule={this.changeSchedule}
                     />
                 ))}
@@ -146,11 +150,14 @@ class ManageSchedules extends React.Component{
 
 ManageSchedules.propTypes={
     history: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
     scheduleId: PropTypes.string.isRequired
+}
+
+const mapDispatch = {
+    changeActiveSchedule
 }
 
 export default withRouter(
     connect(store=>({
         scheduleId: store.meta.activeSchedId
-    }))( ManageSchedules))
+    }), mapDispatch)( ManageSchedules))

@@ -1,38 +1,21 @@
 import {applyMiddleware, createStore} from 'redux';
 import Reducers from './reducers';
-import { saveState, loadState } from '../_localData/localData';
-import Data_Acts from './actions/data.actions';
+import { saveAppState } from '../_api';
 
 //Middleware
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-
-// Get saved state
-
 
 let reduxStore = createStore(
     Reducers,
     applyMiddleware(thunk, logger)
 );
 
-// Testing purposes
+// Saves state to local data after each change
+// Overwrites last object each time
 reduxStore.subscribe(()=>{
     const currentState = reduxStore.getState();
-    saveState(currentState);
+    saveAppState(currentState);
 })
-  
-
-
-loadState()
-.then((jsonState)=>{
-if(jsonState){
-    console.log("retrieval success");
-    const parsedState = JSON.parse(jsonState);
-    reduxStore.dispatch(Data_Acts.loadData(parsedState));
-}
-})       
-.catch(err=>{
-    console.log("Data retrieval failed");
-})     
 
 export default reduxStore;

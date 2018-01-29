@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import { 
     WithBulkModalControls,
@@ -19,7 +18,6 @@ import {
     TaskItemEditModal as ItemEditModal,
     TaskBulkModal as BulkSelectModal
 } from '../../_modals/';
-import {TASK_ACTIONS} from '../../../../_redux-generics/actions';
 import ItemToList from './task-item/task-item.component';
 import { TASK as DATATYPE } from '../../_DATATYPES';
 

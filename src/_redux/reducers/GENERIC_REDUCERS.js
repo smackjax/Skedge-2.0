@@ -161,8 +161,20 @@ export const updateByObject = (state, updatesObj, updateKey, cleanSlate)=>{
 
     // Otherwise
     return cleanSlate ? 
-        // Start from empty object(if flag is set)
+        // Clear everything (if flag is set)
         {} : 
         // or just return state(don't update)
         state
+}
+
+// Always updates
+export const overwriteByObject = (state, updatesObj, updateKey, baseState)=>{
+    const newVals = updatesObj[updateKey];
+            // Check for new values
+    return  (Object.keys(newVals).length > 0) ? 
+                { ...newVals } : 
+            // Check for base state
+            baseState ? {...baseState} :
+            // Default to empty state
+            {};
 }

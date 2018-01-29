@@ -1,5 +1,4 @@
-import { DATA_ACT_TYPES } from '../actions/_ACTION_TYPES';
-import { updateByObject } from './GENERIC_REDUCERS';
+import { updateByObject, overwriteByObject } from './GENERIC_REDUCERS';
 import * as ACTIONS from '../../_action-types';
 
 const initialState={
@@ -48,11 +47,11 @@ export default (state={
     const payload = action.payload;
     switch(action.type){
 
-        case DATA_ACT_TYPES.LOAD: 
-            return updateByObject(state, payload, 'days');
+        case ACTIONS.LOAD_REDUX_STATE: 
+            return overwriteByObject(state, payload, 'days', initialState);
 
-        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: 
-            return updateByObject(state, payload, 'days');
+        case ACTIONS.CHANGE_ACTIVE_SCHEDULE: 
+            return overwriteByObject(state, payload, 'days', initialState);
 
         case ACTIONS.SAVE_DAY:
             return updateByObject(state, payload, 'days');

@@ -5,7 +5,7 @@ import shortid from 'shortid';
 import * as icons from '../icons';
 import { connect } from 'react-redux';
 import Navbar from '../../../_generic-components/navbar/navbar.component';
-import {SCHED_ACTIONS} from '../../../_redux-generics/actions';
+import { changeActiveScheduleId, deleteScheduleById } from '../../api';
 import PastSchedControls from './past-sched-control-btns/past-sched-control-btns.component';
 import {
     ExpandableViewListItem as ExpandableItem
@@ -33,14 +33,10 @@ class PastSchedulesPage extends React.Component{
     }
 
     handleMakeActive=(schedId)=>{
-        this.props.dispatch(
-            SCHED_ACTIONS.changeActiveSchedId(schedId)
-        );
+        this.props.changeActiveScheduleId(schedId);
     }
     handleDelete=(schedId)=>{
-        this.props.dispatch(
-            SCHED_ACTIONS.deleteSchedById(schedId)
-        );
+        this.props.deleteScheduleById(schedId);
     }
 
     render(){
@@ -93,9 +89,14 @@ PastSchedulesPage.propTypes={
     dispatch: PropTypes.func.isRequired
 }
 
+const mapDispatchToProps={
+    changeActiveScheduleId,
+    deleteScheduleById
+}
+
 export default connect(
     store=>({
         schedules: store.schedules,
         activeSchedId: store.meta.activeSchedId
-    })
+    }), mapDispatchToProps
 )(PastSchedulesPage);

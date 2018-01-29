@@ -1,12 +1,13 @@
 import {
-
-    
     DATE_RANGE_ACT_TYPES,
     DATA_ACT_TYPES
 } from '../actions/_ACTION_TYPES';
+import * as ACTIONS from '../../_action-types';
 import {
-    mainItems
+    updateByObject,
+    deleteIdsByObject
 } from './GENERIC_REDUCERS';
+
 export default (state={
 
     // 'dateRangeId1': {
@@ -135,17 +136,12 @@ export default (state={
 
  
 }, action)=>{
+
     const payload = action.payload;
     switch(action.type){
         
-        case DATA_ACT_TYPES.LOAD: {
-            return {
-                ...payload.schedules
-            }
-        }
-
-        case DATE_RANGE_ACT_TYPES.DELETE_DATE_RANGE:{
-            return mainItems.deleteById(state, payload);
+        case ACTIONS.LOAD_REDUX_STATE: {
+            return updateByObject(state, payload, 'schedules')
         }
 
         default: return state

@@ -1,4 +1,4 @@
-import { objToArr, arrToObj } from '../../../_FUNCTIONS/index';
+import { objToArr } from '../../../_FUNCTIONS/index';
 import {
     checkInList,
     checkNotInList,

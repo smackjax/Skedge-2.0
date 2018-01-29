@@ -1,1 +1,1 @@
-export * from '../_data-api';
+export * from '../_api';

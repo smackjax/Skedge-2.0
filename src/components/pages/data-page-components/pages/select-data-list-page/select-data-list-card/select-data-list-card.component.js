@@ -7,7 +7,7 @@ const SelectDataListCard = (props)=>{
     return (
         <Link
         to={props.path}
-        className={"select-data-list-card " + props.className }>
+        className={"select-data-list-card action-btn " + props.className }>
             {props.children}
         </Link>
     )

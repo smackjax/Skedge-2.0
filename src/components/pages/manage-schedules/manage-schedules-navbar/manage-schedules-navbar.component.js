@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { icons } from '../../generic-components';
 const ManageSchedulesNavbar = (props)=>{

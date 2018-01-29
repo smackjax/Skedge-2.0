@@ -4,6 +4,8 @@ import { auth } from './_firebase/';
 import { Switch, Route, Redirect} from 'react-router-dom';
 import {BottomSpinner} from './components/_generic-components/spinners';
 
+import { loadAppState } from './components/master-api';
+
 // Pages with navbar
 import SchedPage from './components/pages/schedule-pages/schedule-dash/schedule-dash.component'
 import PastSchedDash from './components/pages/schedule-pages/past-schedules-page/past-schedules-page.component';
@@ -39,7 +41,15 @@ class App extends Component {
   componentDidMount(){
     auth().onAuthStateChanged(
       (user)=>{
-        this.setState({ user });
+        this.setState({ user },
+        ()=>{
+          if(user){
+            // Dispatches action to 
+            // retrieve app state if user is signed in
+            this.props.dispatch(loadAppState())
+          }
+        }
+      );
     })
   }
 
@@ -94,5 +104,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;

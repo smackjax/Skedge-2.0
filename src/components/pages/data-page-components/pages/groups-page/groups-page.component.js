@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import { 
     WithBulkModalControls,
@@ -21,7 +20,6 @@ import {
     GroupItemEditModal as ItemEditModal,
     GroupBulkModal as BulkSelectModal
 } from '../../_modals/';
-import {GROUP_ACTIONS} from '../../../../_redux-generics/actions';
 import ItemToList from './group-item/group-item.component';
 import { GROUP as DATATYPE } from '../../_DATATYPES';
 
@@ -47,7 +45,7 @@ const GroupsPage = (props)=>{
     const handleSave=(saveItem)=>{
         saveItem.name = saveItem.name || "(No name)";
         const cleanedItem = DATATYPE(saveItem);
-        props.saveGroup(saveItem);
+        props.saveGroup(cleanedItem);
     }
     const handleDelete=(itemId)=>{
         props.deleteGroupById(itemId);

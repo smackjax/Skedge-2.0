@@ -1,14 +1,10 @@
-import {
-    DATE_RANGE_ACT_TYPES as SCHED_TYPES,
-    DATA_ACT_TYPES
-} from '../actions/_ACTION_TYPES';
-
 import * as ACTIONS from '../../_action-types';
 
 // Generic reducer functions 
 import {
     deleteIdsByObject,
     updateByObject,
+    overwriteByObject,
 } from './GENERIC_REDUCERS';
 
 export default function(state={
@@ -50,13 +46,13 @@ export default function(state={
         }
     */
     switch(action.type){
-        case DATA_ACT_TYPES.LOAD: 
+        case ACTIONS.LOAD_REDUX_STATE: 
             // Returns current state if no data
-            return updateByObject(state, payload, 'members');
+            return overwriteByObject(state, payload, 'members');
 
-        case DATA_ACT_TYPES.CHANGE_ACTIVE_SCHEDULE: 
+        case ACTIONS.CHANGE_ACTIVE_SCHEDULE: 
             // Returns empty object if no data
-            return updateByObject(state, payload, 'members', true);  
+            return overwriteByObject(state, payload, 'members', true);  
 
         case ACTIONS.SAVE_MEMBER: 
             return updateByObject(state, payload, 'members');
@@ -77,15 +73,12 @@ export default function(state={
 
         // payload: <groupId>
         case ACTIONS.DELETE_GROUP_BY_ID: 
-            return updateByObject(state, payload, 'members')
+            return updateByObject(state, payload, 'members');
 
         // TODO switch to update object
-        case SCHED_TYPES.SAVE_NEW_DATE_RANGE: {
-            return {
-                ...state,
-                ...payload.newMembVals
-            }
-        }
+        case ACTIONS.SAVE_NEW_DATE_RANGE: 
+            return updateByObject(state, payload, 'members');
+        
 
         default: return state
     } //end switch
