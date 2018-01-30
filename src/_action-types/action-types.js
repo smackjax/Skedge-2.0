@@ -20,9 +20,12 @@ export const REMOVE_TASK_IDS_FROM_DAYS = "remove_task_ids_from_day_objs";
 export const SAVE_DAY = "save_day_obj";
 
 // Meta
+export const CHANGE_SYNC_STATUS = "change_remote_sync_status";
 export const UPDATE_ACTIVE_SCHED_ID = "update_active_sched_id";
 export const CHANGE_ACTIVE_DATE_RANGE_ID = "change_active_date_range_id";
 export const SWITCH_USER_TYPE = "switch_user_interface_type";
+export const CHANGE_CONNECTED_STATUS = "change_whether_connected_to_internet";
+
 
 // Schedule
 export const CHANGE_ACTIVE_SCHEDULE = "change_active_schedule";

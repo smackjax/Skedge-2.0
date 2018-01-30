@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import { auth } from './_firebase/';
+import firebase from './_firebase/';
 
-import { Switch, Route, Redirect} from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import {BottomSpinner} from './components/_generic-components/spinners';
 
-import { loadAppState } from './components/master-api';
+import { loadAppState, changeActiveSchedule, changeConnectedStatus } from './components/api';
+
+import { FullScreenSpinner } from './components/_generic-components/spinners';
 
 // Pages with navbar
-import SchedPage from './components/pages/schedule-pages/schedule-dash/schedule-dash.component'
-import PastSchedDash from './components/pages/schedule-pages/past-schedules-page/past-schedules-page.component';
 import LoginPage from './components/pages/login-page/login-page.component';
 
 import { 
   MainDash,
-  ManageSchedules
+  ManageSchedules,
+  ViewDateRange,
+  SettingsPage,
 } from './components/pages';
 
 // Data Pages
@@ -32,42 +34,137 @@ import './app-styles/generic-styles.style.css';
 import './app-styles/colors.style.css';
 
 
+
 class App extends Component {
   state={
     user: false,
-    generating: false
+    generating: false,
+    loading: true,
+    connected: true,
   }
 
   componentDidMount(){
-    auth().onAuthStateChanged(
+    firebase.auth().onAuthStateChanged(
       (user)=>{
-        this.setState({ user },
+        this.setState({ 
+          user
+        },
         ()=>{
           if(user){
             // Dispatches action to 
             // retrieve app state if user is signed in
-            this.props.dispatch(loadAppState())
+            this.props.dispatch( loadAppState() )
+            .catch(err=>{
+              console.log("Error loading data in main app. That's bad. ", err);
+            })
+            .then(success=>{
+              this.handleFullscreenSpinner(false);
+              // Only initializes if there is a user.
+              this.listenToConnection();
+            })
+          } else {
+            // Stop spinner
+            this.handleFullscreenSpinner(false);
           }
         }
       );
     })
   }
 
+  // Keeps app in sync with connection status
+  listenToConnection=()=>{
+    firebase.database().ref('.info/connected')
+    .on('value', (snapshot)=> {
+      const connected = snapshot.val();
+      this.setState(
+        {
+          connected
+        },
+        ()=>{
+          this.props.dispatch( changeConnectedStatus( connected ) )
+        }
+      )
+    });
+  }
 
   handleBottomSpinner=(status)=>{
     this.setState({generating: status})
   }
-  signOut=()=>{
-    auth().signOut();
+
+
+  handleFullscreenSpinner=(loading)=>{
+    this.setState({
+      loading
+    })
   }
 
+
   render() {
+    const activeSchedId = this.props.getState().meta.activeSchedId;
+
+    if(this.state.loading){
+      return (
+        <FullScreenSpinner />
+      )
+    }
 
     if(!this.state.user){
       return (
         <LoginPage />
       )
     }
+
+    if(
+      !activeSchedId && !this.state.connected){
+      return (
+        <div
+        style={{
+          padding: "20px",
+          margin: "50px auto",
+          maxWidth: "300px"
+        }}
+        className="action-btn bg-sched"
+        >
+          <h3
+          style={{
+            textAlign: "center",
+            margin: "15px",
+            color: "#fff"
+          }}
+          >
+            Sorry!
+          </h3>
+          
+          <h3
+          style={{
+            textAlign: "center",
+            margin: "15px",
+            paddingBottom: "5px",
+            borderBottom: "4px dashed #fff",
+            color: "#fff"
+          }}
+          >
+            Please go online
+          </h3>
+
+          <p
+          style={{
+            textAlign: "justify",
+            margin: "10px",
+            color: "#fff"
+          }}
+          >To use this app offline, please go online and choose an active schedule.</p>
+
+        </div>
+      )
+    }
+    
+    // TODO I don't like this. 
+    // It calls getState each time, need to look into how much it slows down the app
+    if(!activeSchedId){
+      return <ManageSchedules />
+    }
+    
 
     const PreloadDataSelect = (routerProps)=>{
       return <DataSelectPage 
@@ -76,19 +173,16 @@ class App extends Component {
       />
     }
 
-    const RedirectToHome = ()=>(<Redirect to="dashboard"/>)
+    const RedirectToHome = ()=>(<Redirect to="/dashboard"/>)
+    
+
     return (
       <div className="App">
-        {/* <button
-        onClick={()=>{ console.log(JSON.stringify(createFakeMember(10))) }}
-        >Create Member</button> */}
         {this.state.generating && (
           <BottomSpinner /> 
         )}
 
         <Switch>
-          <Route path="/schedule-dash" component={SchedPage}/>
-          <Route path="/schedules" component={PastSchedDash}/>
           <Route path="/members" component={MembersPage}/>
           <Route path="/groups" component={GroupsPage}/>
           <Route path="/tasks" component={TasksPage}/>
@@ -97,7 +191,9 @@ class App extends Component {
 
           <Route path="/manage-schedules" component={ManageSchedules} />
           <Route path="/schedule-data" render={PreloadDataSelect} />
+          <Route path="/date-range/:dateRangeId" component={ViewDateRange} />
           <Route path="/dashboard" component={MainDash} />
+          <Route path="/settings" component={SettingsPage} />
           <Route component={RedirectToHome } />
         </Switch>
       </div>

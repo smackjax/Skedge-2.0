@@ -4,6 +4,8 @@
     align-items: center;
     justify-content: space-around;
     margin: 3px auto 30px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
     width: 100%;
     max-width: 400px;
 }
@@ -30,4 +32,17 @@
    justify-content: center;
    align-items: center;
    text-decoration: none;
+}
+
+.creator-navbar .action-btn {
+    background-color: #8C5BAD;
+    border: 1px solid rgba(255,255,255,0);
+    color: #fff;
+}
+
+.creator-navbar .action-btn.active.bg-creator{
+    background-color: rgba(255,255,255, 0);
+    box-shadow: 0 0 0 0 rgba(255,255,255,.1);
+    border: 1px solid rgba(0,0,0,.2);
+    color: #222;
 }

@@ -40,6 +40,9 @@ export const createAccountOrSignIn=(isNewAccount, email, password, displayName, 
     })
 }
 
+export const signOut=()=>{
+    return auth().signOut()
+}
 // On hold...
 // const switchUserType=(userId)=>{}
 // const changeDisplayName=(newDisplayName)=>{}

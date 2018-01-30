@@ -11,50 +11,22 @@ import './navbar.style.css';
 
 
 const NavBar = (props)=>{
-    if(props.userType === "creator"){
-        return (
-        <CreatorNavbar 
-        schedName={props.activeSchedName}
-        />
-        )
-    }
-
     return (
-        <nav className="main-navbar">
-            <div className="nav-btns-wrapper">
-                <NavLink
-                className="main-nav-btn"
-                activeClassName="active"
-                to="/select-data"
-                >
-                    {icons.data}
-                </NavLink>
-
-                <NavLink
-                className="main-nav-btn"
-                activeClassName="active"
-                to="/schedule-dash"
-                >
-                    {icons.sched}
-                </NavLink>
-
-                <NavLink
-                className="main-nav-btn"
-                activeClassName="active"
-                to="/schedules"
-                >
-                    {icons.oldSched}
-                </NavLink>
-            </div>
-        </nav>
+    <CreatorNavbar 
+    schedName={props.activeSchedName}
+    connected={props.connected}
+    />
     )
 }
 
 NavBar.propTypes={
-    userType: PropTypes.string.isRequired
+    userType: PropTypes.string.isRequired,
+    connected: PropTypes.bool.isRequired,
+    activeSchedName: PropTypes.string.isRequired
 }
 
 export default connect((store)=>({
     userType: store.meta.userType,
+    connected: store.meta.connectedToInternet,
     activeSchedName: store.meta.activeSchedName
 }))(NavBar);

@@ -1,4 +1,10 @@
 import * as update from '../calculations';
+
+import { 
+    getActiveSchedId, 
+    saveUpdatesAndPush 
+} from './_utilityFuncs';
+
 import {
     SAVE_TASK,
     DELETE_TASK_BY_ID,
@@ -8,43 +14,63 @@ import {
 
 export const saveTask=( taskObj )=>{
     return (dispatch, getState)=>{
-        const updates = update.saveTask(getState(), taskObj);
+        const state = getState();
+        const updates = update.saveTask(state, taskObj);
+        
         dispatch({
             type: SAVE_TASK,
             payload: updates
         })
-        return Promise.resolve(true)
+
+        const activeSchedId = getActiveSchedId(state);
+        // Returns a promise with sync state, don't end with semi-colon
+        return saveUpdatesAndPush(activeSchedId, updates, dispatch)
     }
 }
 export const deleteTaskById=( taskId )=>{
     return (dispatch, getState)=>{
-        const updates = update.deleteTaskById(getState(), taskId);
+        const state = getState();
+        const updates = update.deleteTaskById(state, taskId);
+
         dispatch({
             type: DELETE_TASK_BY_ID,
             payload: updates
         })
-        return Promise.resolve(true)
+
+        const activeSchedId = getActiveSchedId(state);
+        // Returns a promise with sync state, don't end with semi-colon
+        return saveUpdatesAndPush(activeSchedId, updates, dispatch)
     }
 }
 export const addTaskIdsToDays=(taskIds, dayIds)=>{
     return (dispatch, getState)=>{
-        const updates = update.addTaskIdsToDayIds(getState(), taskIds, dayIds);
+        const state = getState();
+        const updates = update.addTaskIdsToDayIds(state, taskIds, dayIds);
+        
         dispatch({
             type: ADD_TASK_IDS_TO_DAYS,
             payload: updates
         })
-        return Promise.resolve(true)
+
+        const activeSchedId = getActiveSchedId(state);
+        // Returns a promise with sync state, don't end with semi-colon
+        return saveUpdatesAndPush(activeSchedId, updates, dispatch)
     }
 }
 export const removeTaskIdsFromDays=(taskIds, dayIds)=>{
     return (dispatch, getState)=>{
+        const state = getState();
         const updates = 
-            update.removeTaskIdsFromDayIds(getState(), taskIds, dayIds);
+            update.removeTaskIdsFromDayIds(state, taskIds, dayIds);
+
         dispatch({
             type: REMOVE_TASK_IDS_FROM_DAYS,
             payload: updates
         })
-        return Promise.resolve(true)
+
+        const activeSchedId = getActiveSchedId(state);
+        // Returns a promise with sync state, don't end with semi-colon
+        return saveUpdatesAndPush(activeSchedId, updates, dispatch)
     }
 }
 

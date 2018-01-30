@@ -1,6 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { icons } from '../../generic-components';
+
+
+
 const ManageSchedulesNavbar = (props)=>{
 
     return (
@@ -17,27 +21,37 @@ const ManageSchedulesNavbar = (props)=>{
             margin: "0 auto 20px",
             padding: "5px 0"
         }}
-        >
-            <Link
-            style={{
-                padding: "5px 15px",
-                fontSize: "25px",
-                color: "#333"
-            }}
-            to="/dashboard"
-            >
-                {icons.chevLeft}
-            </Link>
+        >           
+
+            { // If no sched is active, dash btn disappears
+            props.isActiveSched && (
+                <Link
+                style={{
+                    padding: "5px 15px",
+                    fontSize: "25px",
+                    color: "#333"
+                }}
+                to="/dashboard"
+                >
+                    {icons.chevLeft}
+                </Link>
+            )}
 
             <span
             style={{
                 marginLeft: "15px"
             }}
+            className={props.isActiveSched ? "" : "text-danger" }
             >
-                Manage Schedules
+                {props.isActiveSched ? "Manage Schedules" : "! No active schedule"}
             </span>
+
         </nav>
     )
+}
+
+ManageSchedulesNavbar.propTypes={
+    isActiveSched: PropTypes.bool.isRequired
 }
 
 export default ManageSchedulesNavbar;

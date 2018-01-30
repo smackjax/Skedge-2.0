@@ -11,10 +11,10 @@ export function getOneSched(schedId){
 }
 
 export function genNewDateRange(startDateStr, endDateStr, store){
-    /*  Returns: {
-            newDateRange, 
-            newMembVals,
-            newTaskVals
+    /*  returns update object {
+            members, 
+            tasks,
+            dateRanges
         }
     */
     return GenDateRange(

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeActiveSchedule } from '../master-api';
 
@@ -18,13 +18,20 @@ import NewScheduleBtn from './new-schedule-btn/new-schedule-btn.component';
 import ScheduleItem from './schedule-item/schedule-item.component';
 
 import NewScheduleModal from './new-schedule-modal/new-schedule-modal.component';
+import DeleteScheduleModal from './delete-schedule-modal/delete-schedule-modal';
+
 
 class ManageSchedules extends React.Component{
     state={
         loading: true,
         errorMsg: "",
         schedules: [],
-        modalOpen: false
+        
+        newModalOpen: false,
+
+        deleteName: "",
+        deleteId: "",
+        deleteModalOpen: false
     }
     
     componentDidMount(){
@@ -46,7 +53,7 @@ class ManageSchedules extends React.Component{
 
     deleteSchedule=(scheduleId)=>{
         this.setLoading(true);
-        deleteScheduleById(scheduleId)
+        this.props.deleteScheduleById(scheduleId)
         .then(success=>{
             const schedules =
                 this.state.schedules.filter(
@@ -80,7 +87,7 @@ class ManageSchedules extends React.Component{
     }
 
     createNewSchedule=(scheduleName)=>{
-        this.closeModal();
+        this.closeNewModal();
 
         // Create new schedule with provided name
         const userId = getUser().uid;
@@ -94,21 +101,37 @@ class ManageSchedules extends React.Component{
         })
     }
 
-    toggleModal=()=>{
-        const modalOpen = !this.state.modalOpen;
+    toggleNewModal=()=>{
+        const newModalOpen = !this.state.newModalOpen;
         return new Promise(resolve=>{
             this.setState({
-                modalOpen
+                newModalOpen
             }, 
             ()=>{ resolve() });
         })
         
     }
-    closeModal=()=>{
+    closeNewModal=()=>{
         this.setState({
-            modalOpen: false
+            newModalOpen: false
         })
     }
+
+    openDeleteModal=(deleteName, deleteId)=>{
+        this.setState({
+            deleteModalOpen: true,
+            deleteName,
+            deleteId
+        })
+    }
+    closeDeleteModal=()=>{
+        this.setState({
+            deleteModalOpen: false,
+            deleteName: "",
+            deleteId: ""
+        })
+    }
+
 
     changeSchedule=(scheduleId)=>{
         const selectedSchedule = this.state.schedules.filter(
@@ -118,12 +141,19 @@ class ManageSchedules extends React.Component{
     }
 
     render(){
+        const isActiveSched = this.props.scheduleId !== "";
+        if(!this.props.connected){
+            return (<Redirect to="/dashboard" />)
+        }
+
         return (
             <div>
-                <Navbar />
+                <Navbar 
+                isActiveSched={isActiveSched}
+                />
 
                 <NewScheduleBtn
-                onClick={this.toggleModal}
+                onClick={this.toggleNewModal}
                 />
 
                 {this.state.schedules.map(schedule=>(
@@ -132,15 +162,23 @@ class ManageSchedules extends React.Component{
                     id={schedule.id}
                     isCurrent={schedule.id === this.props.scheduleId}
                     name={schedule.name}
-                    handleDelete={this.deleteSchedule}
+                    handleDelete={this.openDeleteModal}
                     handleChangeSchedule={this.changeSchedule}
                     />
                 ))}
 
                 <NewScheduleModal 
-                open={this.state.modalOpen}
+                open={this.state.newModalOpen}
                 handleNewSched={this.createNewSchedule}
-                closeModal={this.closeModal}
+                closeNewModal={this.closeNewModal}
+                />
+
+                <DeleteScheduleModal 
+                    open={this.state.deleteModalOpen}
+                    idToDelete={this.state.deleteId}
+                    scheduleName={this.state.deleteName}
+                    handleDelete={this.deleteSchedule}
+                    handleClose={this.closeDeleteModal}
                 />
 
             </div>
@@ -154,10 +192,13 @@ ManageSchedules.propTypes={
 }
 
 const mapDispatch = {
-    changeActiveSchedule
+    changeActiveSchedule,
+    deleteScheduleById,
 }
 
 export default withRouter(
     connect(store=>({
-        scheduleId: store.meta.activeSchedId
-    }), mapDispatch)( ManageSchedules))
+        scheduleId: store.meta.activeSchedId,
+        connected: store.meta.connectedToInternet
+    }), 
+    mapDispatch)( ManageSchedules))

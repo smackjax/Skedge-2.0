@@ -7,7 +7,7 @@ const ScheduleItem = (props)=>{
     }
 
     const deleteSchedule=()=>{
-        props.handleDelete(props.id)
+        return props.handleDelete(props.name, props.id)
     }
     
     return (
@@ -68,11 +68,12 @@ const ScheduleItem = (props)=>{
             </button>
             <button
             onClick={deleteSchedule}
+            className="text-danger"
             style={{
                 width: "15%"
             }}
             > 
-                { icons.cog }
+                { icons.trash }
             </button>
         </div>
     )

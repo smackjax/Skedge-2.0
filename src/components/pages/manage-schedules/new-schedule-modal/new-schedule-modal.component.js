@@ -33,8 +33,10 @@ class NewScheduleModal extends React.Component {
         this.setState({ newName, disabled });
     }
 
+
     
     render(){
+
         return (
             <Modal open={this.props.open}>
                 <ModalBody>
@@ -68,7 +70,7 @@ class NewScheduleModal extends React.Component {
                         disabled={this.state.disabled}
                         bgClassName="bg-sched"
                         saveText="Create"
-                        handleCancel={this.props.closeModal}
+                        handleCancel={this.props.closeNewModal}
                         />
                     </form>
 
@@ -80,7 +82,7 @@ class NewScheduleModal extends React.Component {
 
 NewScheduleModal.propTypes = {
     open: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired,
+    closeNewModal: PropTypes.func.isRequired,
     handleNewSched: PropTypes.func.isRequired
 }
 

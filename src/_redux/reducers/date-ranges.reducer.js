@@ -53,19 +53,20 @@ export default (state={
  
 }, action)=>{
     const payload = action.payload;
+    const stateKey = 'dateRanges';
     switch(action.type){
         
         case ACTIONS.LOAD_REDUX_STATE: 
-            return overwriteByObject(state, payload, 'dateRanges');
+            return overwriteByObject(state, payload, stateKey, {});
 
         case ACTIONS.CHANGE_ACTIVE_SCHEDULE:
-            return overwriteByObject(state, payload, 'dateRanges');
+            return overwriteByObject(state, payload, stateKey);
 
         case ACTIONS.SAVE_NEW_DATE_RANGE:
-            return updateByObject(state, payload, 'dateRanges');
+            return updateByObject(state, payload, stateKey);
         
         case ACTIONS.DELETE_DATE_RANGE:
-            return deleteIdsByObject(state, payload, 'dateRanges');
+            return deleteIdsByObject(state, payload, stateKey);
 
         default: return state
     }

@@ -11,6 +11,7 @@ const CreatorNavbar  = (props)=>{
         <nav
         className="creator-navbar"
         >
+            { props.connected ? 
             <Link
             className="manage-schedules"
             to="/manage-schedules"
@@ -21,9 +22,23 @@ const CreatorNavbar  = (props)=>{
                 <div
                 className="text-sched change-sched-link"
                 >
-                    <i className="fa fa-refresh"/> Change
+                    {icons.refresh} Change
                 </div>
             </Link>
+            :
+            <div
+            className="manage-schedules"
+            >
+                <div className="schedule-name">
+                    {props.schedName}
+                </div>
+                <div
+                className="text-danger change-sched-link"
+                >   
+                    {icons.times} Offline
+                </div>
+            </div>
+            }
 
             <NavLink
             className="action-btn btn bg-creator text-light"
@@ -31,9 +46,10 @@ const CreatorNavbar  = (props)=>{
             >
                 { icons.data }
             </NavLink>
+
             <NavLink 
             className="action-btn btn bg-creator text-light"
-            to="/view-sched"
+            to="/dashboard"
             >
                 { icons.sched }
             </NavLink>
@@ -48,7 +64,8 @@ const CreatorNavbar  = (props)=>{
 }
 
 CreatorNavbar.propTypes = {
-    schedName: PropTypes.string.isRequired
+    schedName: PropTypes.string.isRequired,
+    connected: PropTypes.bool.isRequired
 };
 
 export default CreatorNavbar;

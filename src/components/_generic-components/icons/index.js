@@ -27,7 +27,10 @@ export const plus = <i className="fa fa-plus"></i>
 export const minus = <i className="fa fa-minus"></i>
 export const times = <i className="fa fa-times"></i>
 export const check = <i className="fa fa-check"></i>
+export const refresh = <i className="fa fa-refresh" />
 
+export const signIn = <i className="fa fa-sign-in" />
+export const signOut = <i className="fa fa-sign-out" />
 
 export const cog = <i className="fa fa-cogs" />
 export const gearSpinner = <i className="fa fa-cog fa-spin fa-3x fa-fw" />

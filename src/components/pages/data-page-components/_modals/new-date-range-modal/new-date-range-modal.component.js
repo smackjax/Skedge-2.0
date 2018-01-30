@@ -38,23 +38,24 @@ class NewSchedModal extends React.Component {
     }
     
     handleStart=(result)=>{
-        const {isValid, value, year} = result;
+        const {isValid, year, month, date} = result;
         const valid = (isValid && (year.length === 4));
+        const startDateStr = valid ? `${year}-${month}-${date}` : "";
         this.setState({
             startValid: valid,
-            startDateStr: value
+            startDateStr
             
         }, this.checkEndDate);
     }
 
     handleEnd=(result)=>{
-        const {isValid, value, year} = result;
-
+        const {isValid, year, month, date} = result;
         const valid = (isValid && (year.length === 4));
 
+        const endDateStr = valid ? `${year}-${month}-${date}` : "";
         this.setState({
             endValid: valid,
-            endDateStr: value
+            endDateStr
             
         }, this.checkEndDate);
     }

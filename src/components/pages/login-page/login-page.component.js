@@ -149,7 +149,9 @@ class LoginPage extends React.Component {
             </form>
             <hr />
 
-            <button className="sign-in-with-google">
+            <button 
+            
+            className="sign-in-with-google">
                 Sign in with google
             </button>
 

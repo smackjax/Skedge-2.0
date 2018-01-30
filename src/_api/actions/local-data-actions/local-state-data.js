@@ -13,7 +13,8 @@ export const loadAppState = ()=>{
                     type: LOAD_REDUX_STATE,
                     payload: loadedAppState
                 })
-                resolve(true)
+
+                resolve(true);    
             })
             .catch(err=>{
                 console.log("Couldn't load state from local", err);

@@ -20,7 +20,6 @@ import idGen from 'uniqid';
 
 export default (startDateString, endDateString, currentState)=>{
     // TODO shake the tree. Eliminate object ids that don't exist in their parents 
-
     const state = currentState;
     
     // Initialize data for sched
@@ -44,7 +43,7 @@ export default (startDateString, endDateString, currentState)=>{
     let tasks = objToArr(tasksById);
     
     const newDateRange = {
-        id: idGen('dateRange-'),
+        id: idGen('dR-'),
         startDate: startDateString,
         endDate: endDateString,
         dates: {}
@@ -108,7 +107,6 @@ export default (startDateString, endDateString, currentState)=>{
                 // filters out already assigned to exclusive task
             const tasksWithAvailable = tasksToGen.map((task)=>{
                 const newAvailable = task.groups.map((groupId)=>{
-
                     return groupsById[groupId].members;
                 }).reduce(
                     // Concat all member lists
@@ -263,8 +261,10 @@ export default (startDateString, endDateString, currentState)=>{
     const newTaskVals = arrToObj(tasks);
     
     return {
-        newMembVals,
-        newTaskVals,
-        newDateRange
+        members: newMembVals,
+        tasks: newTaskVals,
+        dateRanges: {
+            [newDateRange.id] : newDateRange
+        }
     };
 }

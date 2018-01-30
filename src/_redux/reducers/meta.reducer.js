@@ -6,9 +6,11 @@ import {
 export default (state={
     // Holds interface type
     userType: "creator",
+    syncedWithRemote: true,
     activeSchedId: '',
     activeSchedName: "schedNameTest",
-    activeDateRangeId: ""
+    activeDateRangeId: "",
+    connectedToInternet: false
 }, action)=>{
     
     const payload = action.payload;
@@ -21,14 +23,22 @@ export default (state={
         case ACTIONS.UPDATE_ACTIVE_SCHED_ID:
             return updateByObject(state, payload, 'meta');
 
+        case ACTIONS.CHANGE_SYNC_STATUS: {
+            return updateByObject(state, payload, 'meta')
+        }
+
         case ACTIONS.SAVE_NEW_DATE_RANGE: 
             return updateByObject(state, payload, 'meta');
         
         case ACTIONS.CHANGE_ACTIVE_SCHEDULE: {
+            const activeSchedName = payload.id ? 
+            (payload.name || "No sched name"):
+            "(None active)"
+
             return {
                 ...state,
-                activeSchedName: payload.name,
-                activeSchedId: payload.id,
+                activeSchedName,
+                activeSchedId: (payload.id || ""),
                 activeDateRangeId: (payload.activeDateRangeId || "")
             }
         }
@@ -38,6 +48,9 @@ export default (state={
         
 
         case ACTIONS.SWITCH_USER_TYPE: 
+            return updateByObject(state, payload, 'meta');
+
+        case ACTIONS.CHANGE_CONNECTED_STATUS:
             return updateByObject(state, payload, 'meta');
 
         default: return state

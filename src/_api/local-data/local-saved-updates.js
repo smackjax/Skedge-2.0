@@ -5,8 +5,8 @@ import localForage from 'localforage';
 import updateSchedule from '../database/_updateSchedData';
 
 // Which update object keys to write to local storage,
-// and pushed to the database
-const updateKeysToSave=["members", "groups", "tasks", "days", "meta" ];
+// and push to the schedule in database
+const updateKeysToSave=["members", "groups", "tasks", "days", "dateRanges", "meta" ];
 
 // Save updates object
 export const saveUpdatesToLocal=(updatesObj)=>{
@@ -15,36 +15,43 @@ export const saveUpdatesToLocal=(updatesObj)=>{
     const saveKeys = updateKeys.filter( 
         key=>updateKeysToSave.includes(key) 
     );
-    saveKeys.forEach(
-        // update/redux/firebase schedule/local key to save
-        key=>{
-            localForage.getItem(key)
-            .then( savedObj=>{
-                // If no information saved there yet, initialize
-                if(!savedObj) return {}
-                else return savedObj
-            })
-            .then( existingVals=>{
-                // Spread both objects, overwriting old values with updated
-                return {
-                    ...existingVals,
-                    ...updatesObj[key]
-                }
-            })
-            .then(newValues=>{
-                const newValueKeys = Object.keys(newValues);
-                if(newValueKeys.length > 0){
-                    localForage.setItem(key, newValues)
-                    .catch(err=>{
-                        console.log(`Couldn't save updates to ${key}`, err);
+    return new Promise((resolve, reject)=>{        
+        Promise.all(
+            saveKeys.map(
+                // update/redux/firebase schedule/local key to save
+                key=>(
+                    localForage.getItem(key)
+                    .then( savedObj=>{
+                        // If no information saved there yet, initialize
+                        if(!savedObj || !Object.keys(savedObj).length ) return {}
+                        else return savedObj
                     })
-                }
-            })
-            .catch(err=>{
-                console.log("Couldn't get data from local before update save", err);
-            })
-        }
-    )
+                    .then( existingVals=>{
+                        // Spread both objects, overwriting old values with updated
+                        const updates = updatesObj[key] || {};
+                        return {
+                            ...existingVals,
+                            ...updates
+                        }
+                    })
+                    .then(newValues=>{
+                        const newValueKeys = Object.keys(newValues);
+                        if(newValueKeys.length > 0){
+                            localForage.setItem(key, newValues)
+                            .catch(err=>{
+                                reject(`Couldn't save updates to ${key}`, err);
+                            })
+                        }
+                    })
+                    .catch(err=>{
+                        reject("Couldn't get data from local before update save", err);
+                    })
+                )
+            )
+        ).then(success=>{
+            resolve(true)
+        })
+    })
 }
 
 // Sets local key to empty object
@@ -58,21 +65,36 @@ const resetLocalKey = (key)=>{
 // Pushes updates to firebase, 
 // clears saved local keys on success
 export const pushUpdates=(activeSchedId)=>{
-    updateKeysToSave.forEach(
-        key=>{
-            return localForage.getItem(key)
-            .then(keyUpdates=>{
-                // For example: keyUpdates would be 
-                // the equivalent object found in "redux.members"
-                const newUpdates = Object.keys(keyUpdates);
-                // If there are updates stored under local key
-                if(newUpdates.length > 0){
-                    return updateSchedule(activeSchedId, key, keyUpdates)
-                    .then(success=>{
-                        return resetLocalKey(key)
+    if(!activeSchedId) throw Error("No active schedule id set");
+    
+    return new Promise((resolve, reject)=>{
+            Promise.all(
+            updateKeysToSave.map(
+                key=>(
+                    localForage.getItem(key)
+                    // For example: keyUpdates would be 
+                    // the equivalent object in "getState().members"
+                    .then(keyUpdates=>{
+                        // If there are updates stored under local key
+                        
+                        if(keyUpdates && Object.keys(keyUpdates).length){
+                        
+                            return updateSchedule(activeSchedId, key, keyUpdates)
+                            .then(success=>{
+                                return resetLocalKey(key)
+                            })
+                        }
+                        return true;
                     })
-                }
-            })
-        }
-    )
+                    .catch(err=>{
+                        console.log("Couldn't push updates", err);
+                        reject(`Couldn't push update under ${key}`)
+                    })
+                )
+            )
+        )
+        .then(success=>{
+            resolve(true);
+        })
+    })
 }

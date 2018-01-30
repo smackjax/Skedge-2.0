@@ -12,18 +12,57 @@ import './select-data-list-page.style.css';
 import { saveDateRange } from '../../api';
 
 import { genNewDateRange } from '../../../../../brains/sched-api';
+import { objToArr } from '../../../functions';
+import { FullScreenSpinner } from '../../../generic-components';
 
 
+const checkForAssigned=(stateObj, sublistKey)=>{
+    // Checks if at least one value
+    // is in at least one item sublist
+    let atLeastOneAssigned = false;
+    const stateIds = Object.keys(stateObj);
+    for(let i = 0; i < stateIds.length; i++){
+        const stateId = stateIds[i];
+        const item = stateObj[stateId];
+        if(item[sublistKey] && item[sublistKey].length){
+            atLeastOneAssigned = true;
+            break;
+        }
+    }
+    return atLeastOneAssigned;
+}
 
 class SelectDataListPage extends React.Component{
     
     state={
         generateModalOpen: false,
+        loading: true,
         errorMsg: "",
     }
 
     componentDidMount(){
-        /* TODO Calculate empty items, give error message */
+        // This will run through every item, 
+        // but trimming it to stop on error will only matter
+        // if there are errors
+        // TODO revisit if page is slow
+        const membersNumb = Object.keys(this.props.members);
+        const groupsNumb = Object.keys(this.props.groups);
+        const tasksNumb = Object.keys(this.props.tasks);
+        const membersAssigned = checkForAssigned(this.props.members, 'groups');
+        const groupsAssigned = checkForAssigned(this.props.tasks, 'groups');
+        const tasksAssigned = checkForAssigned(this.props.days, 'tasks');
+        const errorMsg = 
+            !membersNumb.length ? "No members" :
+            !tasksNumb.length ? 'No tasks' :
+            !groupsNumb.length ? "No groups" : 
+            !membersAssigned ? "No members assigned to a group" : 
+            !groupsAssigned ? "No groups assigned to a task" :
+            !tasksAssigned ? "No tasks assigned to a day" :
+            "";
+        this.setState({
+            loading: false,
+            errorMsg
+        })
     }
 
     handleGenerate = async (startDate, endDate, makeActiveRange)=>{
@@ -38,8 +77,8 @@ class SelectDataListPage extends React.Component{
         try{
             const dateRangeData = await genNewDateRange(startDate, endDate, currentState);
             console.log("Date range gen success: ", dateRangeData)
-            this.props.handleBottomSpinner(false);
             this.props.saveDateRange(dateRangeData);
+            this.props.handleBottomSpinner(false);
             this.props.history.push('/dashboard');
             
         } catch (err){
@@ -54,22 +93,45 @@ class SelectDataListPage extends React.Component{
         });
     }
 
+    setErrorMsg=(errorMsg)=>{
+        this.setState({
+            errorMsg
+        })
+    }
+
+
     render(){
         const errorMsg = this.state.errorMsg;
 
         return (
             <div className="data-page">
+                {this.state.loading && (
+                    <FullScreenSpinner />
+                )}
+
                 <Navbar />
 
+                <GenerateSchedBtn 
+                disabled={errorMsg ? true : false }
+                onClick={this.handleModalToggle}/>
+
+            
                 { errorMsg && (
-                    <div>
+                    <div
+                    style={{
+                        width: "95%",
+                        maxWidth: "400px",
+                        margin: "10px auto 5px",
+                        backgroundColor: "fff",
+                        padding: "10px",
+                        textAlign: "center"
+                    }}
+                    className="action-btn text-danger"
+                    >
                         {errorMsg}
                     </div>
                 )}
                 
-
-            <GenerateSchedBtn 
-            onClick={this.handleModalToggle}/>
 
             <div className="select-data-cards-wrapper">
                 <CardBlock>

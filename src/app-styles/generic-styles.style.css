@@ -10,7 +10,7 @@ hr {
 
 }
 button, .btn{
-    transition: background-color 200ms ease-out;
+    transition: all 200ms ease-out ;
     border: 0px;
     background-color: #eee;
     color: #333;

@@ -95,10 +95,13 @@ export const saveItemAndSync=(store, savedObjKey, savedObj, syncedListKey )=>{
     // Loop through each group object
     groups.forEach(
         group=>{
+            if(!savedObj[syncedListKey]) savedObj[syncedListKey] = [];
+            if(!group[savedObjKey]) group[savedObjKey] = [];
+
             // Get state of id arrays on 
             // both new member and current group
             const inNewSavedList = 
-                savedObj[syncedListKey].includes(group.id);
+                savedObj[syncedListKey].includes(group.id)
             const inSyncedList =
                 group[savedObjKey].includes(savedObj.id);
 

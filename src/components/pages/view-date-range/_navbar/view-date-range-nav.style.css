@@ -1,0 +1,26 @@
+.date-range-view-navbar{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 350px;
+    margin: 5px auto;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(150,150,150,.5);
+}
+.meta-info-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 15px;
+}
+.schedule-name-meta{
+    font-size: 14px;
+    margin-left: 5px;
+}
+.dates-meta{
+    font-size: 17px
+}
+.delete-date-range-btn{
+    min-width: 40px;
+    margin: 5px 5px;
+}

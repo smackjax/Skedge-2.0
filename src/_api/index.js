@@ -15,9 +15,10 @@ export {
     // Schedule
     getSchedulesByUserId,
     createNewSchedule,
-    deleteScheduleById,
+
     
     // User
     createAccountOrSignIn,
     getUser,
+    signOut
 } from './database';

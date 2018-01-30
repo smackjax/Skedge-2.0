@@ -48,7 +48,7 @@ const MemberPage = (props)=>{
         props.saveMember(cleanedItem);
     }
     const handleDelete=(itemId)=>{
-        props.deleteMember(itemId);
+        props.deleteMemberById(itemId);
         props.handleClearEdit();
     }
 
