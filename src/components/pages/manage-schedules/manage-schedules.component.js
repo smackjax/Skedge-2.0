@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { changeActiveSchedule } from '../master-api';
+import { changeActiveSchedule, signOut } from '../master-api';
 
 import { 
     getSchedulesByUserId, 
@@ -85,6 +85,13 @@ class ManageSchedules extends React.Component{
             )
         })
     }
+    
+    // Used if no active schedule
+    signOutAndDash=()=>{
+        this.props.signOut();
+        this.props.history.push('/dashboard');
+    }
+
 
     createNewSchedule=(scheduleName)=>{
         this.closeNewModal();
@@ -96,7 +103,7 @@ class ManageSchedules extends React.Component{
             const schedules = [...this.state.schedules, newSchedule];
             return this.setSchedules(schedules)
             .then(success=>{
-                this.changeSchedule(newSchedule.id)
+                return this.changeSchedule(newSchedule.id)
             })
         })
     }
@@ -137,7 +144,10 @@ class ManageSchedules extends React.Component{
         const selectedSchedule = this.state.schedules.filter(
             schedule=>(schedule.id === scheduleId)
         )[0];
-        this.props.changeActiveSchedule(selectedSchedule);
+        return this.props.changeActiveSchedule(selectedSchedule)
+        .then(scheduleChanged=>{
+            this.props.history.push("/dashboard")
+        })
     }
 
     render(){
@@ -150,6 +160,7 @@ class ManageSchedules extends React.Component{
             <div>
                 <Navbar 
                 isActiveSched={isActiveSched}
+                signOut={this.signOutAndDash}
                 />
 
                 <NewScheduleBtn
@@ -194,6 +205,7 @@ ManageSchedules.propTypes={
 const mapDispatch = {
     changeActiveSchedule,
     deleteScheduleById,
+    signOut
 }
 
 export default withRouter(

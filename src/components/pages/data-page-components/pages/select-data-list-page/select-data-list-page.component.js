@@ -12,7 +12,6 @@ import './select-data-list-page.style.css';
 import { saveDateRange } from '../../api';
 
 import { genNewDateRange } from '../../../../../brains/sched-api';
-import { objToArr } from '../../../functions';
 import { FullScreenSpinner } from '../../../generic-components';
 
 

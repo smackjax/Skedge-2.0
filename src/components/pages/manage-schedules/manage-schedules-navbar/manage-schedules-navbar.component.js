@@ -46,12 +46,29 @@ const ManageSchedulesNavbar = (props)=>{
                 {props.isActiveSched ? "Manage Schedules" : "! No active schedule"}
             </span>
 
+            { // If no sched is active, dash btn disappears
+            !props.isActiveSched && (
+                <button
+                style={{
+                    marginLeft: "auto",
+                    marginRight: "10px",
+                    padding: "5px 15px",
+                    fontSize: "22px",
+                }}
+                className=" text-danger"
+                onClick={props.signOut}
+                >
+                    {icons.signOut}
+                </button>
+            )}
+
         </nav>
     )
 }
 
 ManageSchedulesNavbar.propTypes={
-    isActiveSched: PropTypes.bool.isRequired
+    isActiveSched: PropTypes.bool.isRequired,
+    signOut: PropTypes.func.isRequired
 }
 
 export default ManageSchedulesNavbar;

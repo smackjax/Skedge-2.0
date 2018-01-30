@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { icons } from '../../generic-components';
 const ScheduleItem = (props)=>{
     const changeSchedule=()=>{
@@ -15,7 +16,7 @@ const ScheduleItem = (props)=>{
         style={{
             display: "flex",
             flexDirection: "row",
-            width: "100%",
+            width: "95%",
             maxWidth: "400px",
             margin: "10px auto",
         }}

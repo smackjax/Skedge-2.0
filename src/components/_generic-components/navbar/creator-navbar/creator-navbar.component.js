@@ -5,8 +5,6 @@ import * as icons from '../../icons';
 import './creator-navbar.style.css';
 
 const CreatorNavbar  = (props)=>{
-    
-    
     return (
         <nav
         className="creator-navbar"

@@ -1,5 +1,7 @@
 import {auth} from './_firebase';
-
+import {
+    LOAD_REDUX_STATE
+} from '../../_action-types';
 export const getUser = ()=>{
     return auth().currentUser
 }
@@ -28,21 +30,38 @@ export const createAccountOrSignIn=(isNewAccount, email, password, displayName, 
         // Sets error message, if any
         const msg = 
         code === "auth/user-not-found" ? 
-            "Could not find user with that email" :
+            "Couldn't find account" :
         code === "auth/invalid-email" ? 
-            "Email address is invalid" :
+            "Invalid email" :
         code === "auth/email-already-in-use" ?
-           "Email already has an account" :
+           "Account already exists" :
         code === "auth/wrong-password" ? 
-            "Please check your password" : 
+            "Password incorrect" : 
         "Sorry, something went wrong. Please try again.";
         handleErrorMsg(msg); 
     })
 }
 
-export const signOut=()=>{
-    return auth().signOut()
+const GoogleProvider = new auth.GoogleAuthProvider();
+GoogleProvider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+
+export const signInWithGoogle=()=>{
+    return auth().signInWithRedirect(GoogleProvider)
 }
+
+export const signOut=()=>(
+    (dispatch)=>{
+
+        return auth().signOut()
+        .then(success=>{
+            // Dispatching empty state object resets store
+            dispatch({
+                type: LOAD_REDUX_STATE,
+                payload: {}
+            })
+        })
+    }
+)
 // On hold...
 // const switchUserType=(userId)=>{}
 // const changeDisplayName=(newDisplayName)=>{}

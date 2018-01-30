@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { signOut } from '../api';
 import { Navbar, icons } from '../generic-components';
@@ -6,7 +8,7 @@ import { Navbar, icons } from '../generic-components';
 
 const SettingsPage = (props)=>{
     const signOutAndDash=()=>{
-        signOut();
+        props.dispatch(signOut());
         props.history.push('/dashboard');
     }
     return (
@@ -41,7 +43,8 @@ const SettingsPage = (props)=>{
                 <span
                 style={{
                     fontSize: "25px",
-                    marginBottom: "10px"
+                    marginBottom: "10px",
+                    textAlign: "center"
                 }}
                 >{icons.cog}</span>
                 <span>Under development</span>
@@ -50,4 +53,12 @@ const SettingsPage = (props)=>{
     )
 }
 
-export default withRouter(SettingsPage);
+SettingsPage.propTypes= { 
+    history: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
+}
+
+
+export default connect()(
+    withRouter(SettingsPage)
+);

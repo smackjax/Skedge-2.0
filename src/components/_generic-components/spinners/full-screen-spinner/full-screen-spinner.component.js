@@ -26,7 +26,7 @@ export default (props)=>{
                 padding: "15px",
                 margin: "50px auto"
             }}
-            className="text-sched"
+            className="text-creator"
             >
                 {gearSpinner}
             </div>

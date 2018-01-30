@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { createAccountOrSignIn } from '../api';
+import { createAccountOrSignIn, signInWithGoogle } from '../api';
+import { icons, PageBackground} from '../generic-components';
+import { logo } from '../../resources';
 import './login-page.style.css';
 
 
 class LoginPage extends React.Component {
     state={
         isNewAccount: false,
-        errorMsg: "",
+        errorMsg: '',
         loading: false,
 
         email: "",
@@ -91,31 +93,43 @@ class LoginPage extends React.Component {
     }
 
     render(){
+        const newAccount = this.state.isNewAccount;
+
         return (
         <div className="login-page">
+            <PageBackground 
+            color="#d8d7d7"
+            />
+            
             <div className="logo"
             >
+                <img src={logo} alt="emmets-logo" />
             </div>
 
             {this.state.errorMsg && (
-                <div className="error-message">
+                <div 
+                className="error-message-wrapper border-danger text-danger bg-light">
                     {this.state.errorMsg}                
                 </div>
             )}
 
-            <form onSubmit={this.signIn}>
+            <form 
+            className="login-form"
+            onSubmit={this.signIn}>
                 <input type="text" 
                 placeholder="email"
                 onChange={this.handleEmail}
                 value={this.state.email}
                 required
+                className="action-btn login-input"
                 />
-                { this.state.isNewAccount && (
+                { newAccount && (
                     <input type="text" 
                     placeholder="Display Name"
                     onChange={this.handleDisplayName}
                     value={this.state.displayName}
-                    required={this.state.isNewAccount}
+                    required={newAccount}
+                    className="action-btn login-input"
                     />
                 )}
 
@@ -124,35 +138,54 @@ class LoginPage extends React.Component {
                 onChange={this.handlePassword}
                 value={this.state.password}
                 required
+                className="action-btn login-input"
                 />
 
-                { this.state.isNewAccount && (
+                { newAccount && (
                     <input type="password" 
                     placeholder="Confirm Password"
                     onChange={this.handlePasswordConfirm}
                     value={this.state.passwordConfirm}
-                    required={this.state.isNewAccount}
+                    required={newAccount}
+                    className="action-btn login-input"
                     />
                 )}
 
                 <button 
-                type="submit">
-                    Submit
+                type="submit"
+                className="action-btn bg-creator text-light login-btn"
+                >
+                    {newAccount ? (
+                        <span>{icons.check} CREATE</span>
+                    ) : (
+                        <span>{icons.signIn} SIGN IN</span>
+                    )}
                 </button>
                 
                 <button
+                className="text-creator border-creator switch-account-type-btn"
                 onClick={this.changeSignInType}
                 >
-                {this.state.isNewAccount ? "Already have an account" : "New account"}
+                    {newAccount ? "Have an account?" : "New account?"}
                 </button>
 
             </form>
-            <hr />
+
+            <hr  className="login-form-divider border-creator"/>
 
             <button 
-            
-            className="sign-in-with-google">
-                Sign in with google
+            onClick={signInWithGoogle}
+            className="sign-in-with-google-btn action-btn">
+                <div
+                className="g-container"
+                >
+                    <i className="fa fa-google" />
+                </div>
+                <div
+                className="text-container"
+                >
+                    SIGN IN WITH GOOGLE
+                </div>
             </button>
 
         </div>

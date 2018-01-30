@@ -1,0 +1,61 @@
+.login-page{}
+.login-page .logo{
+    max-width: 150px;
+    margin: 20px auto;
+}
+
+.error-message-wrapper {
+    width: 95%;
+    max-width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px auto;
+}
+.login-input{
+    background-color: #fff;
+    color: rgb(26, 4, 19);
+    border: 0px solid rgba(255,255,255,0); 
+    width: 250px;
+    margin: 4px auto;
+    padding: 10px ;
+}
+.login-btn{
+    margin: 10px auto;
+    padding: 7px 10px;
+}
+.switch-account-type-btn{
+    background-color: rgba(255,255,255,0);
+
+}
+.login-form-divider{
+    margin: 15px auto 10px;
+    border-top-width: 0px;
+}
+
+.sign-in-with-google-btn{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: auto;
+    padding: 8px;
+    background-color: #4885ed;
+    color: rgb(255,255,255);
+}
+
+.g-container{
+    font-size: 28px;
+    padding-right: 5px;
+    margin-right: 5px;
+    border-right: 1px solid rgba(255,255,255,.4);
+}
+.text-container{
+
+}

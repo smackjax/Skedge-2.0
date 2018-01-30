@@ -13,12 +13,6 @@ const DateRangeList = (props)=>{
         objToArr(dateRanges);
     return (
         <div className="date-range-list-wrapper">
-            
-            <h4
-            className="text-day border-day"
-            >
-                Generated Dates
-            </h4>
 
             { !dateRangeArray.length && (
                 <div style={{

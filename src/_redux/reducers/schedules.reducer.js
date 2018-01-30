@@ -5,7 +5,8 @@ import {
 import * as ACTIONS from '../../_action-types';
 import {
     updateByObject,
-    deleteIdsByObject
+    deleteIdsByObject,
+    overwriteByObject
 } from './GENERIC_REDUCERS';
 
 export default (state={
@@ -141,7 +142,7 @@ export default (state={
     switch(action.type){
         
         case ACTIONS.LOAD_REDUX_STATE: {
-            return updateByObject(state, payload, 'schedules')
+            return overwriteByObject(state, payload, 'schedules')
         }
 
         default: return state

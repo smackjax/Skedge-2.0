@@ -1,24 +1,28 @@
 import * as ACTIONS from '../../_action-types';
 import {
-    updateByObject
+    updateByObject, overwriteByObject
 } from './GENERIC_REDUCERS';
 
-export default (state={
-    // Holds interface type
+const initialState={
     userType: "creator",
     syncedWithRemote: true,
     activeSchedId: '',
-    activeSchedName: "schedNameTest",
+    activeSchedName: "",
     activeDateRangeId: "",
-    connectedToInternet: false
+    connectedToInternet: true
+}
+
+export default (state={
+    // Holds interface type
+    ...initialState
 }, action)=>{
-    
     const payload = action.payload;
     
     switch(action.type){
 
-        case ACTIONS.LOAD_REDUX_STATE: 
-            return updateByObject(state, payload, 'meta');
+        case ACTIONS.LOAD_REDUX_STATE: {
+            return overwriteByObject(state, payload, 'meta', initialState);
+        }   
 
         case ACTIONS.UPDATE_ACTIVE_SCHED_ID:
             return updateByObject(state, payload, 'meta');

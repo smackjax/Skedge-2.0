@@ -9,10 +9,6 @@ const DateRangeItem = (props)=>{
     const {data, isActive} = props;
     const startDate = hydrateDate(data.startDate);
     const endDate = hydrateDate(data.endDate);
-    
-    const deleteDateRange=()=>{
-        props.handleDelete(data.id);
-    }
 
     return (
         <div className="action-btn date-range-item-wrapper bg-day">

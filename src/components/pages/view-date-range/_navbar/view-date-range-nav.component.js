@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { icons } from '../generic-components';
-import { deleteDateRangeById } from '../api';
 import './view-date-range-nav.style.css';
 
 const ViewDateRangeNavbar = (props)=>{
-    const goToDash=()=>{
-        props.history.push("/dashboard");
-    }
 
     const dateFormat = "MMM DD";
     const prettyStart = moment(props.startDate, "YYYY-MM-DD").format(dateFormat);

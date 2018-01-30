@@ -12,7 +12,7 @@ const NewScheduleBtn = (props)=>{
         className="action-btn bg-sched text-light"
         onClick={props.onClick}
         >
-            Create New {icons.plus} 
+            Create schedule {icons.plus} 
         </button>
     )
 }

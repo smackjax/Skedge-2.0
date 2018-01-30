@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-
 import CreatorNavbar from './creator-navbar/creator-navbar.component';
-
-import * as icons from '../icons/';
 import './navbar.style.css';
 
-
+// Acts as navbar switch for current user type
 const NavBar = (props)=>{
     return (
     <CreatorNavbar 

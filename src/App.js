@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import firebase from './_firebase/';
 
-import { Switch, Route, Redirect, withRouter} from 'react-router-dom';
+import { Switch, Route, Redirect} from 'react-router-dom';
 import {BottomSpinner} from './components/_generic-components/spinners';
 
-import { loadAppState, changeActiveSchedule, changeConnectedStatus } from './components/api';
+import { loadAppState, changeConnectedStatus } from './components/api';
 
 import { FullScreenSpinner } from './components/_generic-components/spinners';
 

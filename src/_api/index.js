@@ -10,15 +10,9 @@ can call api functions for other places.
 
 // Current data actions
 export * from './actions';
-
+export * from './database/users';
 export {
     // Schedule
     getSchedulesByUserId,
     createNewSchedule,
-
-    
-    // User
-    createAccountOrSignIn,
-    getUser,
-    signOut
 } from './database';

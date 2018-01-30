@@ -15,7 +15,6 @@ let reduxStore = createStore(
 // Overwrites last object each time
 reduxStore.subscribe(()=>{
     const currentState = reduxStore.getState();
-    console.log("Saved state: ", currentState);
     saveAppState(currentState);
 })
 

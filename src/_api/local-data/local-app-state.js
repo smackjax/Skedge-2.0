@@ -11,7 +11,7 @@ export const saveState = async (state)=>{
 }
 
 // Load redux state on app load
-export const loadState =  ()=>{
+export const loadState =  (stateToLoad)=>{
     return localForage.getItem(appStateKey)
     .then(loadedState=>{
         if(loadedState){
