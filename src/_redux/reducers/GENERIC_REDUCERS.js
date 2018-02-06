@@ -147,19 +147,34 @@ export const deleteIdsByObject = (state, updatesObj, updateKey)=>{
 }
 
 export const updateByObject = (state, updatesObj, updateKey, cleanSlate)=>{
+    
+    const updates =  updatesObj[updateKey];
     // If there is an object for this slice of state
-    if(updatesObj[updateKey]){
-        const ids = Object.keys(updatesObj[updateKey]);
+    if(updates){
+        const ids = Object.keys(updates);
         // and there are ids to update
         if(ids.length > 0){
+            const newState = {...state};
+            // Check if item was deleted
+            ids.forEach(
+                id=>{
+                    // If yes, delete item from state and updates
+                    if(updates[id] === null){
+                        delete newState[id];
+                        delete updates[id];
+                    }
+                }
+            )
+
+            // Update any items not deleted
             return {
-                ...state,
-                ...updatesObj[updateKey]
+                ...newState,
+                ...updates
             }
         }
     } 
 
-    // Otherwise
+    // If there is no corresponding object key to this state
     return cleanSlate ? 
         // Clear everything (if flag is set)
         {} : 

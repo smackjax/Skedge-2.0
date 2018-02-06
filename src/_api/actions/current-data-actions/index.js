@@ -30,22 +30,18 @@
 
 // Members data actions
 export * from './members';
-
 // Groups
 export * from './groups';
-
 // Tasks
 export * from './tasks';
-
 // Days
 export * from './days';
-
 // Meta
 export * from './meta';
-
 // Date ranges
 export * from './date-ranges';
-
-
 // Schedules
 export * from './schedules';
+
+// Followed Schedules 
+export * from './followed-schedules';

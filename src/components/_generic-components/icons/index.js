@@ -1,7 +1,7 @@
 import React from 'react';
 export const member = <i className="fa fa-user"></i>
 export const group = <i className="fa fa-group"></i>
-export const task = <i className="fa fa-sticky-note"></i>
+export const task = <i className="fa fa-paperclip"></i>
 export const day = <i className="fa fa-clock-o"></i>
 export const sched = <i className="fa fa-calendar-o"></i>
 export const dateRange = <i className="fa fa-clock-o" />
@@ -10,6 +10,7 @@ export const settings = <i className="fa fa-gear"></i>
 
 export const pencil = <i className="fa fa-pencil"></i>
 export const trash = <i className="fa fa-trash"></i>
+export const exclamation = <i className="fa fa-exclamation" />
 
 export const chevRight = <i className="fa fa-angle-right" />
 export const chevLeft = <i className="fa fa-angle-left" />

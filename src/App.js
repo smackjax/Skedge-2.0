@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import firebase from './_firebase/';
 
 import { Switch, Route, Redirect} from 'react-router-dom';
 import {BottomSpinner} from './components/_generic-components/spinners';
 
-import { loadAppState, changeConnectedStatus } from './components/api';
+import { 
+  loadAppState, 
+  changeConnectedStatus,
+  updateFollowedSchedules
+} from './components/api';
 
 import { FullScreenSpinner } from './components/_generic-components/spinners';
 
@@ -27,13 +32,10 @@ import {
   DaysPage
 } from './components/pages/data-page-components/pages/';
 
-
 // App-wide styles 
 import 'sanitize.css/sanitize.css';
 import './app-styles/generic-styles.style.css';
 import './app-styles/colors.style.css';
-
-
 
 class App extends Component {
   state={
@@ -76,12 +78,21 @@ class App extends Component {
     firebase.database().ref('.info/connected')
     .on('value', (snapshot)=> {
       const connected = snapshot.val();
+
+      // If online, check for updated schedules
+      if(connected){
+        this.props.dispatch(
+          updateFollowedSchedules()
+        )
+      }
+
+      // Update App component state and Redux
       this.setState(
-        {
-          connected
-        },
+        { connected },
         ()=>{
-          this.props.dispatch( changeConnectedStatus( connected ) )
+          this.props.dispatch(
+            changeConnectedStatus( connected ) 
+          )
         }
       )
     });
@@ -90,7 +101,6 @@ class App extends Component {
   handleBottomSpinner=(status)=>{
     this.setState({generating: status})
   }
-
 
   handleFullscreenSpinner=(loading)=>{
     this.setState({
@@ -201,5 +211,9 @@ class App extends Component {
   }
 }
 
+App.propTypes={
+  dispatch: PropTypes.func.isRequired,
+  getState: PropTypes.func.isRequired
+}
 
 export default App;

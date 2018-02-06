@@ -18,8 +18,21 @@ import NewScheduleBtn from './new-schedule-btn/new-schedule-btn.component';
 import ScheduleItem from './schedule-item/schedule-item.component';
 
 import NewScheduleModal from './new-schedule-modal/new-schedule-modal.component';
+import FollowingModal from './following-modal/wrapper/wrapper.component';
 import DeleteScheduleModal from './delete-schedule-modal/delete-schedule-modal';
 
+const checkPending=(followersObj)=>{
+    let hasPending = false;
+    const followerIds = Object.keys(followersObj);
+    
+    followerIds.forEach(
+        id=>{
+            if(followersObj[id].confirmed) hasPending = true;
+        }
+    )
+    
+    return hasPending;
+}
 
 class ManageSchedules extends React.Component{
     state={
@@ -31,7 +44,10 @@ class ManageSchedules extends React.Component{
 
         deleteName: "",
         deleteId: "",
-        deleteModalOpen: false
+        deleteModalOpen: false,
+
+        followingModalOpen: false,
+        followingModalSchedId: ""
     }
     
     componentDidMount(){
@@ -120,11 +136,12 @@ class ManageSchedules extends React.Component{
     }
     closeNewModal=()=>{
         this.setState({
-            newModalOpen: false
+            newModalOpen: false,
+            followingModalSchedId: false
         })
     }
 
-    openDeleteModal=(deleteName, deleteId)=>{
+    openDeleteModal=(deleteId, deleteName)=>{
         this.setState({
             deleteModalOpen: true,
             deleteName,
@@ -150,6 +167,26 @@ class ManageSchedules extends React.Component{
         })
     }
 
+    openFollowingModal=(scheduleId)=>{
+        this.setState({
+            followingModalOpen: true,
+            followingModalSchedId: scheduleId
+        })
+    }
+
+    closeFollowingModal=()=>{
+        this.setState({
+            followingModalOpen: false
+        })
+    }
+
+    confirmFollowingChanges=(authorizedIds, deletedPendingIds, deletedConfirmedIds)=>{
+        console.log("Confirmed ids: ", authorizedIds);
+        console.log("Deleted pending: ", deletedPendingIds);
+        console.log("Deleted confirmed: ", deletedConfirmedIds);
+
+    }
+
     render(){
         const isActiveSched = this.props.scheduleId !== "";
         if(!this.props.connected){
@@ -167,21 +204,39 @@ class ManageSchedules extends React.Component{
                 onClick={this.toggleNewModal}
                 />
 
-                {this.state.schedules.map(schedule=>(
-                    <ScheduleItem
-                    key={schedule.id} 
-                    id={schedule.id}
-                    isCurrent={schedule.id === this.props.scheduleId}
-                    name={schedule.name}
-                    handleDelete={this.openDeleteModal}
-                    handleChangeSchedule={this.changeSchedule}
-                    />
-                ))}
+                {this.state.schedules.map(schedule=>{
+                    const hasPending = 
+                        (schedule.followers) ?
+                        checkPending(schedule.followers) :
+                            false;
+                        
+                    return (
+                        <ScheduleItem
+                        key={schedule.id} 
+                        id={schedule.id}
+                        isCurrent={schedule.id === this.props.scheduleId}
+                        hasPending={hasPending}
+                        name={schedule.name}
+                        handleOpenDelete={this.openDeleteModal}
+                        handleOpenFollowers={this.openFollowingModal}
+                        handleChangeSchedule={this.changeSchedule}
+                        />
+                    )
+                })}
+
+
 
                 <NewScheduleModal 
                 open={this.state.newModalOpen}
                 handleNewSched={this.createNewSchedule}
                 closeNewModal={this.closeNewModal}
+                />
+
+                <FollowingModal 
+                open={this.state.followingModalOpen}
+                scheduleId={this.state.followingModalSchedId}
+                handleConfirm={this.confirmFollowingChanges}
+                handleClose={this.closeFollowingModal}
                 />
 
                 <DeleteScheduleModal 

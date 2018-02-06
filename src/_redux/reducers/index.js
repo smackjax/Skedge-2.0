@@ -6,11 +6,16 @@ import tasks from './tasks.reducer';
 import days from './days.reducer';
 import meta from './meta.reducer';
 
+import followedSchedules from './followed-schedules.reducer';
+
 export default combineReducers({
     meta,
     dateRanges,
     members,
     groups,
     tasks,
-    days
+    days,
+
+    // Used for 'worker' account
+    followedSchedules,
 });

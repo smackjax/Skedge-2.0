@@ -52,8 +52,8 @@ class SelectDataListPage extends React.Component{
         const tasksAssigned = checkForAssigned(this.props.days, 'tasks');
         const errorMsg = 
             !membersNumb.length ? "No members" :
+            !groupsNumb.length ? "No groups" :
             !tasksNumb.length ? 'No tasks' :
-            !groupsNumb.length ? "No groups" : 
             !membersAssigned ? "No members assigned to a group" : 
             !groupsAssigned ? "No groups assigned to a task" :
             !tasksAssigned ? "No tasks assigned to a day" :
@@ -139,7 +139,7 @@ class SelectDataListPage extends React.Component{
                     className="bg-member"
                     >
                         {icons.member}
-                        <span>WORKERS</span>
+                        <span>MEMBERS</span>
                     </SelectDataListCard>
 
                     <SelectDataListCard 

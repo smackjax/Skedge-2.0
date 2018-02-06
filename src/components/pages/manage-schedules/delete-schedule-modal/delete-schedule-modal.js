@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, ModalHeader, ModalBody, ModalContent, ModalFooterBtns } from '../../data-page-components/_modals/_generic-modal-components/index';
+import { Modal, ModalHeader, ModalBody, ModalContent, ModalFooterBtns } from '../../modal-generics';
 import { icons } from '../../generic-components';
 
 const DeleteScheduleModal = (props)=>{
@@ -49,7 +49,8 @@ const DeleteScheduleModal = (props)=>{
                         textAlign: "center",
                         margin: "10px 0"
                     }}
-                    > This schedule will be gone for good. Continue?
+                    > 
+                        This schedule will be gone for good. Continue?
                     </p>
                 </ModalContent>
 

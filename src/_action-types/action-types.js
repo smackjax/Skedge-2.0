@@ -32,3 +32,6 @@ export const CHANGE_ACTIVE_SCHEDULE = "change_active_schedule";
 export const SAVE_NEW_DATE_RANGE = "save_new_date_range";
 export const DELETE_DATE_RANGE = "delete_date_range";
 
+// Follower
+export const UPDATE_FOLLOWED_SCHEDULES = "update_followed_schedules";
+export const DELETE_FOLLOWED_SCHEDULE = "delete_followed_schedule";
