@@ -2,15 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { signOut } from '../api';
+import { signOut, changeUserType } from '../api';
 import { Navbar, icons } from '../generic-components';
 
 
 const SettingsPage = (props)=>{
+    const isMember = (props.userType === "member");
+
     const signOutAndDash=()=>{
         props.dispatch(signOut());
         props.history.push('/dashboard');
     }
+
+    const changeAccountType=()=>{
+        const changeToType = isMember ? "creator" : "member";
+    
+        props.dispatch(
+            changeUserType(changeToType)
+        )
+    }
+
+    const switchAccountBtnClasses =
+        "action-btn text-light " + 
+            (isMember ? "bg-creator" : "bg-member");
+
     return (
         <div>
             
@@ -29,13 +44,27 @@ const SettingsPage = (props)=>{
                 {icons.signOut} SIGN OUT
             </button>
 
+            <button
+            onClick={changeAccountType}
+            style={{
+                display: "block",
+                maxWidth: "150px",
+                margin: "20px auto",
+                padding: '15px'
+            }}
+            className={ switchAccountBtnClasses }
+            >
+                Switch account type
+            </button>
+
             <div
             style={{
                 display: "flex",
                 flexDirection: "column",
-                width: "200px",
+                width: "250px",
+                textAlign: "center",
                 margin: "30px auto",
-                padding: "15px",
+                padding: "10px",
                 backgroundColor: "#fff"
             }}
             className="action-btn"
@@ -44,7 +73,7 @@ const SettingsPage = (props)=>{
                 style={{
                     fontSize: "25px",
                     marginBottom: "10px",
-                    textAlign: "center"
+
                 }}
                 >{icons.cog}</span>
                 <span>Under development</span>
@@ -55,10 +84,15 @@ const SettingsPage = (props)=>{
 
 SettingsPage.propTypes= { 
     history: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    userType: PropTypes.string.isRequired
 }
 
 
-export default connect()(
+export default connect(
+    (store)=>({
+        userType: store.meta.userType
+    })
+)(
     withRouter(SettingsPage)
 );

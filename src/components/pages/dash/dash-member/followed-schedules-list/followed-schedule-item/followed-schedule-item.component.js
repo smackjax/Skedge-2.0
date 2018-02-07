@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { icons } from '../../../../generic-components';
 
 const FollowedScheduleItem = (props)=>{
-    const linkRoute = `/followed-schedules/${props.scheduleId}`
+    const linkRoute = `/followed-schedule/${props.scheduleId}`
     
     return (
         <Link

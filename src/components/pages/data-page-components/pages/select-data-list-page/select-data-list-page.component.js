@@ -9,7 +9,10 @@ import CardBlock from './select-data-list-card-block/select-data-list-card-block
 import SelectDataListCard from './select-data-list-card/select-data-list-card.component';
 import './select-data-list-page.style.css';
 
-import { saveDateRange } from '../../api';
+import {
+    saveDateRange,
+    changeActiveDateRangeId
+} from '../../api';
 
 import { genNewDateRange } from '../../../../../brains/sched-api';
 import { FullScreenSpinner } from '../../../generic-components';
@@ -71,15 +74,23 @@ class SelectDataListPage extends React.Component{
             tasks: this.props.tasks,
             days: this.props.days
         };
-
         this.props.handleBottomSpinner(true);
+
+        
         try{
             const dateRangeData = await genNewDateRange(startDate, endDate, currentState);
-            console.log("Date range gen success: ", dateRangeData)
             this.props.saveDateRange(dateRangeData);
+
+            
+            if(makeActiveRange){
+                // Get new date range id
+                const newId = Object.keys(dateRangeData.dateRanges)[0];
+                // Make new date range id active
+                this.props.changeActiveDateRangeId(newId);
+            }
+
             this.props.handleBottomSpinner(false);
             this.props.history.push('/dashboard');
-            
         } catch (err){
             console.log("Error generating schedule", err);
             this.props.handleBottomSpinner(false);
@@ -193,7 +204,8 @@ SelectDataListPage.propTypes={
 }
 
 const mapDispatch = {
-    saveDateRange
+    saveDateRange,
+    changeActiveDateRangeId
 }
 
 export default connect(store=>({

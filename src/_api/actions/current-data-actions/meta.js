@@ -33,25 +33,26 @@ export const changeActiveScheduleId = (scheduleId)=>(
 export const changeActiveDateRangeId = (dateRangeId)=>(
     (dispatch, getState)=>{
         const state = getState();
-        const metaUpdates = {
-            activeDateRangeId: dateRangeId
+        const updates={
+            meta: {
+                activeDateRangeId: dateRangeId
+            }
         }
 
         dispatch({
             type: CHANGE_ACTIVE_DATE_RANGE_ID,
-            payload: {
-                meta: metaUpdates
-            }
+            payload: updates
         })
 
         const activeSchedId = getActiveSchedId(state);
-        saveUpdatesAndPush(activeSchedId, metaUpdates)
+        saveUpdatesAndPush(activeSchedId, updates, dispatch)
     }
 )
 
-export const switchUserType = (newUserType)=>(
+export const changeUserType = (newUserType)=>(
     (dispatch, getState)=>{
         const state = getState();
+
         const metaUpdates = {
             userType: newUserType
         }
@@ -64,7 +65,7 @@ export const switchUserType = (newUserType)=>(
         })
         
         const activeSchedId = getActiveSchedId(state);
-        saveUpdatesAndPush(activeSchedId, metaUpdates)
+        saveUpdatesAndPush(activeSchedId, metaUpdates, dispatch)
     }
 )
 

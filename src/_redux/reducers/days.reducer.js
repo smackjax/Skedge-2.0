@@ -47,8 +47,8 @@ export default (state={
     const payload = action.payload;
     switch(action.type){
 
-        case ACTIONS.LOAD_REDUX_STATE: 
-            return overwriteByObject(state, payload, 'days', initialState);
+        case ACTIONS.LOAD_REDUX_STATE:
+            return updateByObject(state, payload, 'days');
 
         case ACTIONS.CHANGE_ACTIVE_SCHEDULE: 
             return overwriteByObject(state, payload, 'days', initialState);

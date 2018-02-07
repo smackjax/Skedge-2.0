@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { icons } from '../generic-components';
 import './view-date-range-nav.style.css';
 
 const ViewDateRangeNavbar = (props)=>{
-
     const dateFormat = "MMM DD";
     const prettyStart = moment(props.startDate, "YYYY-MM-DD").format(dateFormat);
     const prettyEnd = moment(props.endDate, "YYYY-MM-DD").format(dateFormat);
@@ -42,13 +41,15 @@ const ViewDateRangeNavbar = (props)=>{
                 </div>
             </div>
 
-            <button
-            onClick={props.deleteDateRange}
-            className="action-btn bg-danger text-light delete-date-range-btn"
-            >
-                {icons.trash}
-            </button>
 
+            { props.handleDelete ? (
+                <button
+                onClick={props.handleDelete}
+                className="action-btn bg-danger text-light delete-date-range-btn"
+                >
+                    {icons.trash}
+                </button>
+            ) : "" }
 
         </nav>
     )
@@ -58,9 +59,8 @@ ViewDateRangeNavbar.propTypes={
     scheduleName: PropTypes.string.isRequired,
     startDate: PropTypes.string.isRequired,
     endDate: PropTypes.string.isRequired,
-    history: PropTypes.object.isRequired,
-    deleteDateRange: PropTypes.func.isRequired
+    handleDelete: PropTypes.func
 }
 
-export default withRouter(ViewDateRangeNavbar);
+export default ViewDateRangeNavbar;
 

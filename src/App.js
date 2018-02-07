@@ -20,6 +20,7 @@ import {
   MainDash,
   ManageSchedules,
   ViewDateRange,
+  ViewFollowedSchedule,
   SettingsPage,
 } from './components/pages';
 
@@ -201,7 +202,10 @@ class App extends Component {
 
           <Route path="/manage-schedules" component={ManageSchedules} />
           <Route path="/schedule-data" render={PreloadDataSelect} />
+
           <Route path="/date-range/:dateRangeId" component={ViewDateRange} />
+          <Route path="/followed-schedule/:followedSchedId" component={ViewFollowedSchedule} />
+
           <Route path="/dashboard" component={MainDash} />
           <Route path="/settings" component={SettingsPage} />
           <Route component={RedirectToHome } />

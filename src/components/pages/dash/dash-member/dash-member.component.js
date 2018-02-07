@@ -2,14 +2,13 @@ import React from 'react';
 import { Navbar } from '../../generic-components';
 import FollowedScheduleList from './followed-schedules-list/followed-schedules-list.component';
 
-const DashWorker = (props)=>{
+const DashMember = (props)=>{
     return (
-        <div className="worker-dash-page">
+        <div className="member-dash-page">
             <Navbar />
             <FollowedScheduleList />
         </div>
     )
 }
 
-
-export default DashWorker;
+export default DashMember;

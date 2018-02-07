@@ -13,7 +13,7 @@ import { hydrateDate } from '../../functions';
 const ViewSchedByDate = (props)=>{
     const arrayData = 
         formatSchedByDate(props.schedule);
-    console.log("Array Data", arrayData)
+
     return (
         <div>
             {// Day items
