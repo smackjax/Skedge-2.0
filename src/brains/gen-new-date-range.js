@@ -18,9 +18,47 @@ import idGen from 'uniqid';
 */
 
 
+const cleanStatePiece=(statePiece, idSublistKey, existingIds)=>{
+    // StatePiece would be, for example state.members
+    const ids = Object.keys(statePiece);
+    const newState={...statePiece};
+    ids.forEach( id=>{
+        const currentList = newState[id][idSublistKey];
+        newState[id][idSublistKey] = currentList.filter(
+            dirtyId=>existingIds.includes(dirtyId)
+        )
+    } )
+    return newState;
+}
+
+const shakeTree=(state)=>{
+    // Gets rid of item ids that don't correspond to an existing item
+    const memberIds = Object.keys(state.members);
+    const groupIds  = Object.keys(state.groups);
+    const taskIds   = Object.keys(state.tasks);
+
+    // members.groups
+    const members = cleanStatePiece(state.members, 'groups', groupIds);
+    // groups.members
+    const groups = cleanStatePiece(state.groups, 'members', memberIds);
+    // tasks.groups
+    const tasks = cleanStatePiece(state.tasks, 'groups', groupIds);
+    // days.tasks
+    const days = cleanStatePiece(state.days, 'tasks', taskIds);
+
+    return {
+        ...state,
+        members,
+        groups,
+        tasks,
+        days
+    }
+}
+
+
 export default (startDateString, endDateString, currentState)=>{
     // TODO shake the tree. Eliminate object ids that don't exist in their parents 
-    const state = currentState;
+    const state = shakeTree(currentState);
     
     // Initialize data for sched
     const daysOfWeek = {...state.days};
@@ -70,6 +108,7 @@ export default (startDateString, endDateString, currentState)=>{
 
     // Builds sched data object for each day
     const finishedDaysArray = daysToGen.map(
+
         (momentObj)=>{
             const newDay = {
                 // Turns date into consistent string
@@ -84,7 +123,7 @@ export default (startDateString, endDateString, currentState)=>{
 
 
             /*  The main loop is: 
-                get task ids !taskIdsAssignedToday.includes(taskId)
+                get task ids ( !taskIdsAssignedToday.includes(taskId) )
                 sort tasks by lowest available members
                 choose lowest membered task to work with this iteration
                 sort members by lowest times assigned total + times performing this task
@@ -92,16 +131,26 @@ export default (startDateString, endDateString, currentState)=>{
                 update info with times assigned, times assigned to task, and 
                 assign task under it's id to newDay for the schedule info 
             */
-            const tasksOnDay = daysOfWeek[momentObj.day()].tasks;
+            const dayIndex = momentObj.day();
+
+            const tasksOnDay = daysOfWeek[dayIndex].tasks;
             for(let ti = 0; ti < tasksOnDay.length; ti++){
 
-            // 'day' returns int that corresponds to daysOfWeek key with task list
-            const tasksToGen = 
-            daysOfWeek[momentObj.day()].tasks.map(
-                // Returns array, so grabs only value
-                taskId=>tasks.filter(task=>task.id === taskId)[0]
+            // Gets all tasks to be built on this day of the week
+            const totalTasksOnDay =                // day.tasks holds task ids
+
+                daysOfWeek[dayIndex].tasks.map(
+                    // .filter returns array, so grabs only value
+                    taskId=>tasks.filter(task=>task.id === taskId)[0]
+                )
+            
             // Filters tasks that have been assigned
-            ).filter(task=>!taskIdsAssignedToday.includes(task.id));
+            const tasksToGen = totalTasksOnDay.filter(
+                task=>(
+                    !taskIdsAssignedToday.includes(task.id)
+                )
+            );
+
 
             // Gets array of tasks with total available members,
                 // filters out already assigned to exclusive task
@@ -120,10 +169,10 @@ export default (startDateString, endDateString, currentState)=>{
                 
                 ).filter( // <- Filter members assigned to exclusive task
                     // If task is exclusive, don't return a member that's assigned
-                        // if not exclusive, don't return a member that's assigned to task that is
+                        // if not exclusive, don't return a member assigned to task that is
                     membId=>task.isExclusive ? 
-                    !membsAssignedToday.includes(membId) :
-                        !membsAssignedExclusive.includes(membId)
+                        !membsAssignedToday.includes(membId) :
+                            !membsAssignedExclusive.includes(membId)
 
                 ).filter(membId=>{ // <- filter members unavailable
                     // Get member
@@ -157,7 +206,11 @@ export default (startDateString, endDateString, currentState)=>{
 
             // Makes makes task with least available members the task to work with
             const taskToAssign = tasksByAvailableMembs[0];          
-            
+            // Initialize object to hold times member has been assigned to task
+            if(!taskToAssign.timesAssigned){
+                taskToAssign.timesAssigned = {};
+            }
+
             // Sort available members by times assigned
             const sortedMemberIds = taskToAssign.availableMemberIds.sort(
                 (membId, nextMembId)=>{

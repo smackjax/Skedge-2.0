@@ -4,9 +4,10 @@ import { icons } from '../../../../generic-components';
 
 import './pending-follower.style.css';
 
-const PendingFollower = (props)=>{    
+const PendingFollower = (props)=>{   
+     
     const authorize=()=>{
-        props.handleAuthorize(props.id)
+        props.handleAuthorize(props.follower)
     }
 
     return (
@@ -14,14 +15,14 @@ const PendingFollower = (props)=>{
         className="pending-follower-item"
         >            
             <span
-            className={"pending-follower-name "}
+            className="pending-follower-name "
             >
-                {props.name}
+                {props.follower.name}
             </span>
 
             <button
             onClick={authorize}
-            className="action-btn"
+            className="action-btn bg-sched text-light pending-follower-confirm-btn"
             >
             {icons.check}
             </button>
@@ -30,8 +31,10 @@ const PendingFollower = (props)=>{
 }
 
 PendingFollower.propTypes = {
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    follower:PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired
+    }),
     handleAuthorize: PropTypes.func.isRequired
 }
 

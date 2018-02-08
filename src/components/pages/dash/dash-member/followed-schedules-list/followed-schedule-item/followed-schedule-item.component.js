@@ -1,21 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { icons } from '../../../../generic-components';
+import './followed-schedule-item.style.css';
 
 const FollowedScheduleItem = (props)=>{
     const linkRoute = `/followed-schedule/${props.scheduleId}`
-    
+
+    const prettyFormat = "MM/DD/YY"
+    const start = moment(props.startDate).format(prettyFormat);
+    const end = moment(props.endDate).format(prettyFormat);
     return (
         <Link
         to={linkRoute}
-        className="followed-schedule-item"
+        style={{
+            textDecoration: "none"
+        }}
+        className="action-btn bg-sched text-light followed-schedule-item "
         >
         
             <div 
             className="icon-wrapper"
             > 
-                {icons.sched} 
+                {icons.sched}
             </div>
 
             <div 
@@ -26,7 +34,7 @@ const FollowedScheduleItem = (props)=>{
                 </div>
                 
                 <div className="from-to-dates">
-                    {props.startDate}-{props.endDate}
+                    {start} - {end}
                 </div>
             </div>
 

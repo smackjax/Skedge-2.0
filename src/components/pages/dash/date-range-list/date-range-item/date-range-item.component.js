@@ -11,7 +11,7 @@ const DateRangeItem = (props)=>{
     const endDate = hydrateDate(data.endDate);
 
     return (
-        <div className="action-btn date-range-item-wrapper bg-day">
+        <div className="action-btn date-range-item-wrapper">
             <Link 
             to={'/date-range/' + data.id}
             className="view-date-range-btn bg-day text-light">
@@ -20,7 +20,11 @@ const DateRangeItem = (props)=>{
                 <span className="dates-display">{`${startDate.format("MMM DD")} - ${endDate.format("MMM DD")}`}</span>
 
                 {isActive && (
-                    <span className="is-active">
+                    <span 
+                    style={{
+                        marginLeft: "20px"
+                    }}
+                    className="is-active">
                         {icons.star}
                     </span>
                 )}

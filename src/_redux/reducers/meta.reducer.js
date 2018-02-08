@@ -4,7 +4,7 @@ import {
 } from './GENERIC_REDUCERS';
 
 const initialState={
-    userType: "creator",
+    userType: "member",
     syncedWithRemote: true,
     activeSchedId: '',
     activeSchedName: "",

@@ -50,10 +50,10 @@ export default function(state={
     switch(action.type){
 
         case ACTIONS.LOAD_REDUX_STATE: 
-            return overwriteByObject(state, payload, 'tasks');
+            return updateByObject(state, payload, 'tasks', true);
 
         case ACTIONS.CHANGE_ACTIVE_SCHEDULE:
-            return overwriteByObject(state, payload, 'tasks', true);
+            return overwriteByObject(state, payload, 'tasks');
 
         case ACTIONS.SAVE_TASK:
             return updateByObject(state, payload, 'tasks');

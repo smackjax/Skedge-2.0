@@ -3,6 +3,15 @@ import { getUser } from './users';
 const schedules = database().ref().child("schedules");
 const users = database().ref().child("users");
 
+export const searchForScheduleToFollow =( scheduleName) => {
+    return schedules
+    .orderByChild("name")
+    .equalTo(scheduleName)
+    .once("value")
+    // Will return 'null' if not found
+    .then(snap=>snap.val())    
+}
+
 // Schedules update the users 
 export const getFollowedSchedulesFromDatabase=()=>{
     // Get database reference

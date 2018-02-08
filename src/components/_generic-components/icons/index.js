@@ -35,3 +35,4 @@ export const signOut = <i className="fa fa-sign-out" />
 
 export const cog = <i className="fa fa-cogs" />
 export const gearSpinner = <i className="fa fa-cog fa-spin fa-3x fa-fw" />
+export const search = <i className="fa fa-search"/>

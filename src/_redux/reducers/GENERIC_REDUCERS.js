@@ -186,10 +186,16 @@ export const updateByObject = (state, updatesObj, updateKey, cleanSlate)=>{
 export const overwriteByObject = (state, updatesObj, updateKey, baseState)=>{
     const newVals = updatesObj[updateKey];
             // Check for new values
-    return  (newVals && Object.keys(newVals).length > 0) ? 
-                { ...newVals } : 
-            // Check for base state
-            baseState ? {...baseState} :
-            // Default to empty state
-            {};
+            
+    return  (newVals && Object.keys(newVals).length > 0) ?  
+                { 
+                    ...baseState,
+                    ...newVals 
+                } : 
+            // If no new data, check for base state
+            baseState ? 
+                // If base state, return that
+                {...baseState} :
+                // Default to empty state
+                {};
 }

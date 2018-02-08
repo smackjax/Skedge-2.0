@@ -1,0 +1,17 @@
+.pending-follower-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+} 
+
+.pending-follower-name {
+
+}
+
+.pending-follower-confirm-btn{
+    min-width: 40px
+}

@@ -1,7 +1,11 @@
-import {auth} from './_firebase';
+import {auth, database} from './_firebase';
 import {
     LOAD_REDUX_STATE
 } from '../../_action-types';
+
+const users = database().ref().child('users');
+
+
 export const getUser = ()=>{
     return auth().currentUser
 }
@@ -62,6 +66,15 @@ export const signOut=()=>(
         })
     }
 )
+
+export const updateUserInDatabase=(key, userType)=>{
+    const userId = getUser().uid;
+    return users.child(userId)
+    .update({
+        [key]: userType
+    })
+}
+
 // On hold...
 // const switchUserType=(userId)=>{}
 // const changeDisplayName=(newDisplayName)=>{}

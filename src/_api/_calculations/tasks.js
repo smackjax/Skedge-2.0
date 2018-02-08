@@ -21,4 +21,4 @@ export const addTaskIdsToDayIds=(store, taskIds, dayIds)=>{
 }
 export const removeTaskIdsFromDayIds=(store, taskIds, dayIds)=>{
     return deleteIdsFromStoreItems( store, 'days', dayIds, 'tasks', taskIds, false);
-}
+} 

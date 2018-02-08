@@ -15,6 +15,8 @@ export * from   './database/scheduleFollowers';
 
 export {
     // Schedule
+    // Selectivly exported to keep api a bit cleaner, but might not be worth it
     getSchedulesByUserId,
     createNewSchedule,
+    checkIfScheduleIdExists
 } from './database';

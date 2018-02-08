@@ -12,32 +12,34 @@ export const getSchedulesByUserId=(userId)=>{
     .then(schedulesSnap=>{
         return schedulesSnap.val()
     })
+    
 }
 
 export const deleteScheduleById=(schedId)=>{
     return schedules.child(schedId).set(null)
 }
 
-export const createNewSchedule=(userId, newSchedName)=>{
-    const newKey = schedules.push().key;
+export const createNewSchedule=(userId, newSchedName, newScheduleId)=>{
+    return checkIfScheduleIdExists(newScheduleId)
+    .then(schedule=>{
+        if(schedule) throw Error("Schedule Id exists. Nice try.")
+            if(!newScheduleId) throw Error("No schedule id passed to creation");
 
-    const newSchedule = {
-            "id": newKey,
-            "name" : newSchedName,
-            "pendingViewerIds": [],
-            "authenticatedViewers": [],
-            "ownerId": userId,
-            "activeDateRangeId" : "",
-            
-            "dateRanges": {},
-            "members": {},
-            "groups" : {},
-            "tasks": {},
-            "days" : {}
-    }
+        const newKey = newScheduleId;
+        const newSchedule = {
+                "id": newKey,
+                "name" : newSchedName,
+                "ownerId": userId,
+        }
+        
+        return schedules
+        .child(newKey)
+        .set(newSchedule)
+        .then(success=>newSchedule)
+    })
+    
+}
 
-    return schedules
-    .child(newKey)
-    .set(newSchedule)
-    .then(success=>newSchedule)
+export const checkIfScheduleIdExists = (scheduleId)=>{
+    return schedules.child(scheduleId).once('value').then( snap=>snap.exists() )
 }

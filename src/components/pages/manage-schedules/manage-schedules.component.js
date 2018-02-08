@@ -6,7 +6,8 @@ import { changeActiveSchedule, signOut } from '../master-api';
 
 import { 
     getSchedulesByUserId, 
-    createNewSchedule, 
+    createNewSchedule,
+    checkIfScheduleIdExists,
     getUser, 
     deleteScheduleById
 } from '../api';
@@ -106,15 +107,14 @@ class ManageSchedules extends React.Component{
     signOutAndDash=()=>{
         this.props.signOut();
         this.props.history.push('/dashboard');
-    }
+    } 
 
 
-    createNewSchedule=(scheduleName)=>{
+    makeNewSchedule=(scheduleName, scheduleId)=>{
         this.closeNewModal();
-
-        // Create new schedule with provided name
+        // Create new schedule with provided name and id
         const userId = getUser().uid;
-        createNewSchedule(userId, scheduleName)
+        createNewSchedule(userId, scheduleName, scheduleId)
         .then(newSchedule=>{
             const schedules = [...this.state.schedules, newSchedule];
             return this.setSchedules(schedules)
@@ -184,8 +184,8 @@ class ManageSchedules extends React.Component{
         console.log("Confirmed ids: ", authorizedIds);
         console.log("Deleted pending: ", deletedPendingIds);
         console.log("Deleted confirmed: ", deletedConfirmedIds);
-
     }
+    
 
     render(){
         const isActiveSched = this.props.scheduleId !== "";
@@ -228,8 +228,9 @@ class ManageSchedules extends React.Component{
 
                 <NewScheduleModal 
                 open={this.state.newModalOpen}
-                handleNewSched={this.createNewSchedule}
                 closeNewModal={this.closeNewModal}
+                handleNewSched={this.makeNewSchedule}
+                searchScheduleIds={checkIfScheduleIdExists}
                 />
 
                 <FollowingModal 

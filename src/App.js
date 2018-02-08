@@ -59,6 +59,7 @@ class App extends Component {
             this.props.dispatch( loadAppState() )
             .catch(err=>{
               console.log("Error loading data in main app. That's bad. ", err);
+              // TODO Sign out, clear all data, prompt for retry
             })
             .then(success=>{
               this.handleFullscreenSpinner(false);
@@ -111,7 +112,11 @@ class App extends Component {
 
 
   render() {
-    const activeSchedId = this.props.getState().meta.activeSchedId;
+    // TODO I don't like this. 
+    // It calls getState each time, need to look into how much it slows down the app
+    const currentState = this.props.getState();
+    const activeSchedId = currentState.meta.activeSchedId;
+    const userType = currentState.meta.userType;
 
     if(this.state.loading){
       return (
@@ -170,9 +175,8 @@ class App extends Component {
       )
     }
     
-    // TODO I don't like this. 
-    // It calls getState each time, need to look into how much it slows down the app
-    if(!activeSchedId){
+
+    if(!activeSchedId && userType === "creator"){
       return <ManageSchedules />
     }
     

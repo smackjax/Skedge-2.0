@@ -8,14 +8,13 @@ const PendingFollowersList = (props)=>{
     return (
         <div 
         className="pending-followers-wrapper">
-            <h4>Pending</h4>
+            <h3>Pending</h3>
             { props.users.map(
                 item=>{
                     return (
                         <PendingFollower 
                         key={"p-" + item.id}
-                        id={item.id}
-                        name={item.name}
+                        follower={item}
                         handleAuthorize={props.handleAuthorize}
                         />
                     )

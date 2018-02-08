@@ -8,6 +8,7 @@ import {
     ViewByDate
 } from '../views-by-data/';
 import Navbar from '../_navbar/view-date-range-nav.component';
+import { icons } from '../generic-components';
 
 class SchedViewSwitch extends React.Component{
     state={
@@ -50,7 +51,7 @@ class SchedViewSwitch extends React.Component{
                     }}
                     className="action-btn text-day border-day"
                     >
-                        Make active
+                       {icons.star} Make active
                     </button>
                 ) : "" }
 

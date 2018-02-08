@@ -9,6 +9,36 @@ import './followed-schedules-list.style.css';
 const FollowedSchedulesList = (props)=>{
     const schedulesArray = objToArr(props.followedSchedules);
 
+    if(!schedulesArray.length){
+        return (
+            <div
+            style={{
+                width: "98%",
+                maxWidth: "500px",
+                margin: "20px auto",
+                padding: "15px",
+                borderWidth: "1px",
+                borderStyle: "solid",
+                textAlign: "center"
+            }}
+            className="border-sched text-sched"
+            >
+                <h4>No schedules to show</h4>
+
+                {!props.isConnected ? (
+                    <div
+                    style={{
+                        marginTop: "15px",
+                        fontSize: "16px"
+                    }}
+                    >
+                        If there should be, please go online
+                    </div>
+                ) : ""}
+            </div>
+        )
+    }
+
     return (
         <div className="followed-schedules-list">
             { schedulesArray.map( schedule => (
@@ -25,11 +55,13 @@ const FollowedSchedulesList = (props)=>{
 }
 
 FollowedSchedulesList.propTypes = {
-    followedSchedules: PropTypes.object.isRequired
+    followedSchedules: PropTypes.object.isRequired,
+    isConnected: PropTypes.bool.isRequired
 }
 
 export default connect((store)=>({  
-    followedSchedules: store.followedSchedules
+    followedSchedules: store.followedSchedules,
+    isConnected: store.meta.connectedToInternet
 }))( 
     FollowedSchedulesList 
 );

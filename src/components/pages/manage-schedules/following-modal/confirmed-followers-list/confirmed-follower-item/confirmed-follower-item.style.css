@@ -1,0 +1,17 @@
+.confirmed-follower-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px 5px;
+    padding-bottom: 5px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.confirmed-follower-name{
+    margin-left: 15px;
+}
+
+.delete-confirmed-follower-btn{
+    width: 40px;
+}

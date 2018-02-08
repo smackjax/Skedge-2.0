@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ConfirmedFollower from './confirmed-follower-item/confirmed-follower-item.component';
+import { icons } from '../../../generic-components';
 import './confirmed-followers-list.style.css';
 
-const PendingFollowersList = (props)=>{
+const ConfirmedFollowersList = (props)=>{
     return (
         <div 
         className="confirmed-followers-wrapper">
-            <h4>Confirmed</h4>
+            <h4
+            className="text-member"
+            >
+                {icons.member} Confirmed
+            </h4>
+            
             {props.users.map(
                 item=>{
                     return (
@@ -24,7 +30,7 @@ const PendingFollowersList = (props)=>{
     )
 }
 
-PendingFollowersList.propTypes = {
+ConfirmedFollowersList.propTypes = {
     users: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired
@@ -32,4 +38,4 @@ PendingFollowersList.propTypes = {
     handleDelete: PropTypes.func.isRequired
 }
 
-export default PendingFollowersList;
+export default ConfirmedFollowersList;

@@ -8,31 +8,31 @@ import {
 } from './GENERIC_REDUCERS';
 
 export default function(state={
-    membId1: {
-        id: 'membId1',
-        name: 'Smackjax',
-        // Date strings by dehydrated date format
-        unavailableDates: [['2017-09-15','2017-09-16','2017-09-17','2017-09-18']],
-        // Times assigned gets added to 
-        totalTimesAssigned: 0,
-        groups: []    
-    },
-    membId2: {
-        id: 'membId2',
-        name: 'The Kid',
-         // Date strings by dehydrated date format
-        unavailableDates: [],
-        totalTimesAssigned: 0,
-        groups: []  
-    },
-    membId3: {
-        id: 'membId3',
-        name: 'TJ',
-         // Date strings by dehydrated date format
-        unavailableDates: [],
-        totalTimesAssigned: 6,
-        groups: []  
-    },
+    // membId1: {
+    //     id: 'membId1',
+    //     name: 'Smackjax',
+    //     // Date strings by dehydrated date format
+    //     unavailableDates: [['2017-09-15','2017-09-16','2017-09-17','2017-09-18']],
+    //     // Times assigned gets added to 
+    //     totalTimesAssigned: 0,
+    //     groups: []    
+    // },
+    // membId2: {
+    //     id: 'membId2',
+    //     name: 'The Kid',
+    //      // Date strings by dehydrated date format
+    //     unavailableDates: [],
+    //     totalTimesAssigned: 0,
+    //     groups: []  
+    // },
+    // membId3: {
+    //     id: 'membId3',
+    //     name: 'TJ',
+    //      // Date strings by dehydrated date format
+    //     unavailableDates: [],
+    //     totalTimesAssigned: 6,
+    //     groups: []  
+    // },
 }, action){
     const payload = action.payload;
 
@@ -48,11 +48,11 @@ export default function(state={
     switch(action.type){
         case ACTIONS.LOAD_REDUX_STATE: 
             // Returns current state if no data
-            return overwriteByObject(state, payload, 'members');
+            return updateByObject(state, payload, 'members', true);
 
         case ACTIONS.CHANGE_ACTIVE_SCHEDULE: 
             // Returns empty object if no data
-            return overwriteByObject(state, payload, 'members', true);  
+            return overwriteByObject(state, payload, 'members');  
 
         case ACTIONS.SAVE_MEMBER: 
             return updateByObject(state, payload, 'members');
@@ -71,11 +71,11 @@ export default function(state={
         case ACTIONS.SAVE_GROUP: 
             return updateByObject(state, payload, 'members');
 
-        // payload: <groupId>
         case ACTIONS.DELETE_GROUP_BY_ID: 
             return updateByObject(state, payload, 'members');
 
-        // TODO switch to update object
+
+        // Update with new member's timesAssigned
         case ACTIONS.SAVE_NEW_DATE_RANGE: 
             return updateByObject(state, payload, 'members');
         

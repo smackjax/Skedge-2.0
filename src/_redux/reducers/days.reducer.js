@@ -47,8 +47,9 @@ export default (state={
     const payload = action.payload;
     switch(action.type){
 
+        // There's a set amount of days, so update instead of overwrite 
         case ACTIONS.LOAD_REDUX_STATE:
-            return updateByObject(state, payload, 'days');
+            return overwriteByObject(state, payload, 'days', initialState);
 
         case ACTIONS.CHANGE_ACTIVE_SCHEDULE: 
             return overwriteByObject(state, payload, 'days', initialState);

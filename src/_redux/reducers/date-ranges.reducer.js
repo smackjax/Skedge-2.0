@@ -54,10 +54,11 @@ export default (state={
 }, action)=>{
     const payload = action.payload;
     const stateKey = 'dateRanges';
+    
     switch(action.type){
         
         case ACTIONS.LOAD_REDUX_STATE: 
-            return overwriteByObject(state, payload, stateKey, {});
+            return updateByObject(state, payload, stateKey, true);
 
         case ACTIONS.CHANGE_ACTIVE_SCHEDULE:
             return overwriteByObject(state, payload, stateKey);

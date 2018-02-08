@@ -7,6 +7,8 @@ const ConfirmedFollowerItem = (props)=>{
     const deleteFollower=()=>{
         props.handleDelete(props.id);
     }
+
+    const deleteBtnClass = "action-btn bg-danger text-light";
     
     return (
         <div 
@@ -14,11 +16,7 @@ const ConfirmedFollowerItem = (props)=>{
         >
             <button
             onClick={deleteFollower}
-            className={"action-btn " +
-                ( props.selected ? 
-                    "bg-danger text-light" :
-                    "text-danger text-light" )
-            }
+            className={`${deleteBtnClass} delete-confirmed-follower-btn`}
             >
                 { icons.trash }
             </button>
@@ -27,12 +25,6 @@ const ConfirmedFollowerItem = (props)=>{
             className="confirmed-follower-name "
             >
                 {props.name}
-            </span>
-            
-            <span
-            className="text-member"
-            >
-                { icons.member }
             </span>
         </div>
     )

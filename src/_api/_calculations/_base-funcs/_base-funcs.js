@@ -55,6 +55,11 @@ export const deleteIdsFromStoreItems=(store, itemsStoreKey, itemIds, deleteSubli
         itemId=>{
             const item = items[itemId];
 
+            // Initialize array to compare, if not there
+            if(!item[deleteSublistKey]){
+                item[deleteSublistKey] = [];
+            }
+
             // Checks if array includes any values of another aray
             if(includesAny(item[deleteSublistKey], idsToDelete)){
                 const newSublist = item[deleteSublistKey].filter(

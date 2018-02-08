@@ -3,6 +3,7 @@ import {
 } from '../action-types';
 
 import { 
+    searchForScheduleToFollow,
     getFollowedSchedulesFromDatabase, 
     getFollowedScheduleData 
 } from '../database';
@@ -53,5 +54,13 @@ export const updateFollowedSchedules=()=>(
             })
         })
         
+    }
+)
+
+
+export const findAndRequestToFollow=(scheduleName)=>(
+    (dispatch, getState)=>{
+        return searchForScheduleToFollow(scheduleName)
+
     }
 )

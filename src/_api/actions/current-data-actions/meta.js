@@ -10,6 +10,8 @@ import {
     CHANGE_CONNECTED_STATUS
 } from '../action-types';
 
+import { updateUserInDatabase } from '../database';
+
 // Meta data is stored directly on schedule object,
 // so the update object needs a little modifying
 
@@ -64,8 +66,7 @@ export const changeUserType = (newUserType)=>(
             }
         })
         
-        const activeSchedId = getActiveSchedId(state);
-        saveUpdatesAndPush(activeSchedId, metaUpdates, dispatch)
+        updateUserInDatabase('userType', newUserType)
     }
 )
 

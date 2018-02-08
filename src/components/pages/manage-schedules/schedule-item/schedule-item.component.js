@@ -68,13 +68,31 @@ class ScheduleItem extends React.Component{
                         { this.props.isCurrent ? icons.star : icons.sched }
                     </span>
             
-                    <span 
+                    <div
                     style={{
-                        fontSize: "16px"
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "flex-start"
                     }}
                     >
-                        {this.props.name}
-                    </span>
+                        <span 
+                        style={{
+                            fontSize: "12px",
+                            color: "#eee"
+                        }}
+                        >
+                            {this.props.name}
+                        </span>
+
+                        <span
+                        style={{
+                            fontSize: "17px",
+                            color: "#fff"
+                        }}
+                        >
+                            {this.props.id}
+                        </span>
+                    </div>
                     
                     {this.props.hasPending ? (
                         <span

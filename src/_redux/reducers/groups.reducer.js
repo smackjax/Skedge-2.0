@@ -7,30 +7,30 @@ import {
 import * as ACTIONS from '../../_action-types';
 
 export default function(state={
-    groupId1: {
-        id: 'groupId1',
-        name: 'Cannoneers',
-        members: [],      
-    },
-    groupId2: {
-        id: 'groupId2',
-        name: 'Crewmen',
-        members: []  
-    },
-    groupId3: {
-        id: 'groupId3',
-        name: 'Captains',
-        members: []  
-    },
+    // groupId1: {
+    //     id: 'groupId1',
+    //     name: 'Cannoneers',
+    //     members: [],      
+    // },
+    // groupId2: {
+    //     id: 'groupId2',
+    //     name: 'Crewmen',
+    //     members: []  
+    // },
+    // groupId3: {
+    //     id: 'groupId3',
+    //     name: 'Captains',
+    //     members: []  
+    // },
 }, action){
     const payload = action.payload;
 
     switch(action.type){
         case ACTIONS.LOAD_REDUX_STATE: 
-            return overwriteByObject(state, payload, 'groups');
+            return updateByObject(state, payload, 'groups', true);
 
         case ACTIONS.CHANGE_ACTIVE_SCHEDULE: 
-            return overwriteByObject(state, payload, 'groups', true);
+            return overwriteByObject(state, payload, 'groups');
 
         case ACTIONS.SAVE_GROUP: 
             return updateByObject(state, payload, 'groups');

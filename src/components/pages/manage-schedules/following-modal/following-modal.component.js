@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { objToArr } from '../../functions';
 
 import { 
     listenToAllFollowers,
@@ -26,29 +27,17 @@ class FollowingModal extends React.Component {
         confirmedFollowers: [],
     }
 
-
     componentDidMount(){
         const scheduleId = this.props.scheduleId;       
         if(scheduleId && scheduleId.length){
             // updates on each 'followers' change
             listenToAllFollowers(scheduleId, 
                 followersFromSched=>{
-                    console.log(followersFromSched);
+                    console.log("Followers from callback", followersFromSched);
+                    
                     const followersObj = followersFromSched || {};
-                    const followerIds = Object.keys(followersObj);
-                    const confirmedFollowers = [];
-                    const pendingFollowers = [];
-
-                    followerIds.forEach(
-                        id=>{
-                            const follower = followersObj[id];
-                            if(follower.confirmed){
-                                confirmedFollowers.push(follower);
-                            } else {
-                                pendingFollowers.push(follower);
-                            }
-                        }
-                    );
+                    const confirmedFollowers = objToArr(followersObj.confirmed);
+                    const pendingFollowers = objToArr(followersObj.pending);
 
                     this.setState({
                         pendingFollowers,
@@ -64,8 +53,8 @@ class FollowingModal extends React.Component {
         stopListeningToFollowers(scheduleId)
     }
 
-    handleAuthorize=(followerId)=>{
-        authorizeFollower(this.props.scheduleId, followerId)
+    handleAuthorize=(follower)=>{
+        authorizeFollower(this.props.scheduleId, follower)
     }
 
     handleDelete=(followerId)=>{

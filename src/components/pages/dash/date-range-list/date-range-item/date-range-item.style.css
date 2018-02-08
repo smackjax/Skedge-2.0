@@ -2,14 +2,19 @@
     display: flex;
     flex-direction: row;    
     justify-content: flex-start;
-    width: 100%;
+    width: 85%;
     max-width: 400px;
     margin: 10px auto;
 }
 .view-date-range-btn{
-    width: 85%;
+    width: 100%;
     text-align: left;
     padding: 15px 10px;
+    text-decoration: none;
+}
+.dates-display{
+    margin-left: 10px;
+    text-decoration: underline;
 }
 .item-options-btn{
     width: 15%;
