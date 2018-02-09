@@ -4,7 +4,6 @@ import { CHANGE_SYNC_STATUS } from '../action-types';
 export const getActiveSchedId = (state)=>(state.meta.activeSchedId);
 
 export const saveUpdatesAndPush = (activeSchedId, updates, dispatch)=>{
-    console.log("Save and push object: ", updates);
     return localData.saveUpdatesToLocal(updates)
     .then(success=>{
         localData.pushUpdates(activeSchedId)

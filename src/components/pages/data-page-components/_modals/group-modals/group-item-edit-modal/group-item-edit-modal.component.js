@@ -73,9 +73,13 @@ class GroupItemEditModal extends React.Component{
                     </ModalHeader>
                     
                     <ModalContent>
-                        <DeleteItemBtn 
-                        onClick={this.handleDelete.bind(this)}
-                        />
+                        
+                        { this.state.originalName ? (
+                            <DeleteItemBtn 
+                            onClick={this.handleDelete.bind(this)}
+                            />
+                        ) : ""}
+
                         <EditItemName
                         placeholder={"Group name"}
                         value={group.name}

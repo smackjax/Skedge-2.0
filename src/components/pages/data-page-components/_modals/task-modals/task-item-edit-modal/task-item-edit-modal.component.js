@@ -92,9 +92,12 @@ class TaskItemEditModal extends React.Component{
                     </ModalHeader>
                     
                     <ModalContent>
-                        <DeleteItemBtn 
-                        onClick={this.handleDelete.bind(this)}
-                        />
+
+                        { this.state.originalName ? (
+                            <DeleteItemBtn 
+                            onClick={this.handleDelete.bind(this)}
+                            />
+                        ) : ""}
 
                         <EditItemName
                         placeholder={"Task name"}

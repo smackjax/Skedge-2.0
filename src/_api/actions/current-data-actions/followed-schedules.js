@@ -26,7 +26,6 @@ export const updateFollowedSchedules=()=>(
                         getFollowedScheduleData(scheduleId)
                         // Note that freshScheduleData could be null
                         .then(freshScheduleData=>{
-                            console.log("Schedule data: ", freshScheduleData);
                             const updates = {
                                 followedSchedules: {
                                     [scheduleId] : freshScheduleData

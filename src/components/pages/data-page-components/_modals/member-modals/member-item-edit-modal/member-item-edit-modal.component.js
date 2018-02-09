@@ -63,6 +63,7 @@ class MemberItemEditModal extends React.Component{
         
         const member = this.state.member || {};
         const headerText = this.state.originalName || "New Member";
+
         return (
             <Modal open={this.props.open}>
                 <ModalBody>
@@ -76,9 +77,11 @@ class MemberItemEditModal extends React.Component{
                     <ModalContent>
 
                             <div>
-                                <DeleteItemBtn 
-                                onClick={this.handleDelete.bind(this)}
-                                />
+                                { this.state.originalName ? (
+                                    <DeleteItemBtn  
+                                    onClick={this.handleDelete.bind(this)}
+                                    />
+                                ) : ""}
 
                                 <EditItemName
                                 placeholder={"Member name"}
