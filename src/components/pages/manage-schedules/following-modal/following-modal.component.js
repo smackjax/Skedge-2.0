@@ -77,7 +77,12 @@ class FollowingModal extends React.Component {
 
                 <ModalContent>
                     {(!arePending && !areConfirmed) && (
-                        <div>
+                        <div
+                        style={{
+                            margin: "20px auto",
+                            textAlign: "center"
+                        }}
+                        >
                             No followers to manage
                         </div>
                     )}
@@ -97,12 +102,20 @@ class FollowingModal extends React.Component {
                     ): ""}
                 </ModalContent>
 
-                <ModalFooterBtns 
-                    bgClassName="bg-sched text-light"
-                    saveText={"SAVE"}
-                    handleSave={this.saveUsers}
-                    handleCancel={this.props.handleClose}
-                />
+
+                <button 
+                onClick={this.props.handleClose}
+                style={{
+                    width: "95%",
+                    maxWidth: "200px",
+                    margin: "10px auto",
+                    padding: "5px",
+                    textAlign: "center",
+                }}
+                className="action-btn bg-member text-light"
+                >
+                   {icons.check} CLOSE
+                </button>
             </ModalBody>
         )
     }

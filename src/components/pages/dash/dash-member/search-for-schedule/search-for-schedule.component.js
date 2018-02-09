@@ -15,18 +15,17 @@ class SearchForSchedule extends React.Component{
         searchSuccess: true,
     }
 
-    searchForSchedule=(e)=>{
+    requestToFollow=(e)=>{
         this.setSearching(true);
         e.preventDefault();
-        const scheduleName = e.target.scheduleName.value;
+        const scheduleId = e.target.scheduleId.value;
         e.target.reset();
         
-        this.props.findAndRequestToFollow(scheduleName)
-        .then(schedule=>{
-            console.log("hello?")
-            if(schedule){
-                console.log("Found: ", schedule);
-                this.setMessage("Success. Requested to follow.", true);
+        this.props.findAndRequestToFollow(scheduleId)
+        .then(success=>{
+            console.log("Success result: ", success);
+            if(success){
+                this.setMessage("Request successful.", true);
             } else {
                 console.log("Schedule not found")
                 this.setMessage("Schedule not found", false);
@@ -65,35 +64,36 @@ class SearchForSchedule extends React.Component{
     render(){
         const {message, searchSuccess, searching} = this.state;
 
-        return (
+        return this.props.connected ?  (
             <div 
             style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                width: "98%",
-                maxWidth: "400px",
+                width: "95%",
+                maxWidth: "300px",
                 margin: "10px auto",
             }}
             >
-                
 
                 <form 
                 style={{
                     display: "flex",
                     flexDirection: "row",
                     justifyContent:"center",
-                    textAlign: "center"
+                    textAlign: "center",
+                    width: "100%"
                 }}
                 className="border-sched action-btn"
-                onSubmit={this.searchForSchedule}>
+                onSubmit={this.requestToFollow}>
                 
                     <input 
                     type="text"
-                    name="scheduleName"
-                    placeholder="Search by name"
+                    name="scheduleId"
+                    placeholder="Sched id (case sensitive)"
                     autoComplete={"off"}
                     onChange={this.handleSearchInput}
+                    style={{ width: "100%" }}
                     className="search-for-schedule-input"
                     />
                     
@@ -143,6 +143,19 @@ class SearchForSchedule extends React.Component{
                 ) : "" }
                 
             </div>
+        ) : (
+        <div
+        style={{
+            textAlign: "center",
+            maxWidth: "250px",
+            margin: "auto",
+            padding: "10px",
+            fontSize: "16px"
+        }}
+        className="text-danger"
+        >
+            {icons.times} No connection
+        </div>
         )
     }
 }
@@ -151,6 +164,8 @@ SearchForSchedule.propTypes = {
     findAndRequestToFollow: PropTypes.func.isRequired
 }
 
-export default connect(null,{
+export default connect(store=>({
+    connected: store.meta.connectedToInternet
+}),{
     findAndRequestToFollow
 })(SearchForSchedule);

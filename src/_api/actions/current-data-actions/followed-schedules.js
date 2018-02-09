@@ -2,8 +2,9 @@ import {
     UPDATE_FOLLOWED_SCHEDULES
 } from '../action-types';
 
-import { 
-    searchForScheduleToFollow,
+import {
+    requestToFollowSchedule,
+    checkIfScheduleIdExists,
     getFollowedSchedulesFromDatabase, 
     getFollowedScheduleData 
 } from '../database';
@@ -16,14 +17,8 @@ export const updateFollowedSchedules=()=>(
             return getFollowedSchedulesFromDatabase()
             .then(followedSchedules=>{
                 // Check if there is data
-            
                 if(!followedSchedules){
-                    resolve(
-                            dispatch({
-                            type: UPDATE_FOLLOWED_SCHEDULES,
-                            payload: {}
-                        })
-                    )
+                    resolve( {} )
                 } else {
                     // Get current data for each schedule
                     const followedIds = Object.keys(followedSchedules);
@@ -31,6 +26,7 @@ export const updateFollowedSchedules=()=>(
                         getFollowedScheduleData(scheduleId)
                         // Note that freshScheduleData could be null
                         .then(freshScheduleData=>{
+                            console.log("Schedule data: ", freshScheduleData);
                             const updates = {
                                 followedSchedules: {
                                     [scheduleId] : freshScheduleData
@@ -58,9 +54,15 @@ export const updateFollowedSchedules=()=>(
 )
 
 
-export const findAndRequestToFollow=(scheduleName)=>(
+export const findAndRequestToFollow=(scheduleId)=>(
     (dispatch, getState)=>{
-        return searchForScheduleToFollow(scheduleName)
-
+        return checkIfScheduleIdExists(scheduleId)
+        .then(exists=>{
+            if(!exists){ return false }
+            else {
+                return requestToFollowSchedule(scheduleId)
+            }
+        })
     }
 )
+

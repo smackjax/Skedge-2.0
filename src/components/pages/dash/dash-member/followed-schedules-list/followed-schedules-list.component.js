@@ -14,7 +14,8 @@ const FollowedSchedulesList = (props)=>{
             <div
             style={{
                 width: "98%",
-                maxWidth: "500px",
+
+                maxWidth: "350px",
                 margin: "20px auto",
                 padding: "15px",
                 borderWidth: "1px",

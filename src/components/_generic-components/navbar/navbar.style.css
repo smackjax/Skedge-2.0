@@ -1,29 +1,34 @@
-.main-navbar{
-    width: 100%;
-    background-color: #6746ad;
-    box-shadow:  0 1px 4px -1px #111;
-    z-index: 200;
-    margin-bottom: 14px;
-}
-.nav-btns-wrapper{
-    display: flex; 
+.main-navbar {
+    display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-around;
-    width: 90%;
-    margin: 0 auto;
-    max-width: 300px;
-    padding: 3px 0;
+    margin: 3px auto 20px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    width: 100%;
 }
 
-.main-nav-btn{
-    font-size: 20px;
-    color: #efefef;
-    padding: 7px;
-    min-width: 20%;
-    text-align: center;
-    border-radius: 2px;
+.main-navbar .manage-schedules{
+    max-width: 45%;
+    display: flex;
+    flex-direction: column; 
+    text-decoration: none;
 }
-.main-nav-btn.active{
-    background-color: #efefef;
-    color: #6746ad;
+.schedule-name{
+    color: #333;
+}
+.change-sched-link{
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.main-navbar .action-btn{
+   width: 46px;
+   height: 40px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-decoration: none;
 }

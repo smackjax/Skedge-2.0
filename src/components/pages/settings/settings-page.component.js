@@ -10,16 +10,14 @@ const SettingsPage = (props)=>{
     const isMember = (props.userType === "member");
 
     const signOutAndDash=()=>{
-        props.dispatch(signOut());
+        props.signOut();
         props.history.push('/dashboard');
     }
 
     const changeAccountType=()=>{
         const changeToType = isMember ? "creator" : "member";
-    
-        props.dispatch(
-            changeUserType(changeToType)
-        )
+        props.changeUserType(changeToType)
+        props.history.push('/dashboard');
     }
 
     const switchAccountBtnClasses =
@@ -84,15 +82,18 @@ const SettingsPage = (props)=>{
 
 SettingsPage.propTypes= { 
     history: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
     userType: PropTypes.string.isRequired
 }
 
+const mapDispatch={
+    changeUserType,
+    signOut
+}
 
 export default connect(
     (store)=>({
         userType: store.meta.userType
-    })
+    }), mapDispatch
 )(
     withRouter(SettingsPage)
 );

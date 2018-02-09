@@ -224,20 +224,18 @@ class ManageSchedules extends React.Component{
                     )
                 })}
 
-
-
                 <NewScheduleModal 
-                open={this.state.newModalOpen}
-                closeNewModal={this.closeNewModal}
-                handleNewSched={this.makeNewSchedule}
-                searchScheduleIds={checkIfScheduleIdExists}
+                    open={this.state.newModalOpen}
+                    closeNewModal={this.closeNewModal}
+                    handleNewSched={this.makeNewSchedule}
+                    searchScheduleIds={checkIfScheduleIdExists}
                 />
 
                 <FollowingModal 
-                open={this.state.followingModalOpen}
-                scheduleId={this.state.followingModalSchedId}
-                handleConfirm={this.confirmFollowingChanges}
-                handleClose={this.closeFollowingModal}
+                    open={this.state.followingModalOpen}
+                    scheduleId={this.state.followingModalSchedId}
+                    handleConfirm={this.confirmFollowingChanges}
+                    handleClose={this.closeFollowingModal}
                 />
 
                 <DeleteScheduleModal 
@@ -247,7 +245,6 @@ class ManageSchedules extends React.Component{
                     handleDelete={this.deleteSchedule}
                     handleClose={this.closeDeleteModal}
                 />
-
             </div>
         )
     }

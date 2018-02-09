@@ -1,0 +1,16 @@
+.member-navbar{
+    max-width: 200px;
+}
+
+.member-navbar .action-btn {
+    background-color: #5B6AAD;
+    border: 1px solid rgba(255,255,255,0);
+    color: #fff;
+}
+
+.member-navbar .action-btn.active.bg-creator{
+    background-color: rgba(255,255,255, 0);
+    box-shadow: 0 0 0 0 rgba(255,255,255,.1);
+    border: 1px solid rgba(0,0,0,.2);
+    color: #222;
+}

@@ -7,7 +7,7 @@ import './creator-navbar.style.css';
 const CreatorNavbar  = (props)=>{
     return (
         <nav
-        className="creator-navbar"
+        className="main-navbar creator-navbar"
         >
             { props.connected ? 
             <Link

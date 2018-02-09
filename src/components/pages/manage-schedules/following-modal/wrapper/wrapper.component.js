@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
     Modal
 } from '../../../modal-generics';
+
 // This is crap. TODO just restructure
 import FollowingModal from '../following-modal.component';
 

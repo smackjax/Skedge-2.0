@@ -66,7 +66,7 @@ export const changeUserType = (newUserType)=>(
             }
         })
         
-        updateUserInDatabase('userType', newUserType)
+        return updateUserInDatabase('userType', newUserType)
     }
 )
 

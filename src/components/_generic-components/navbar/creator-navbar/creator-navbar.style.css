@@ -1,12 +1,4 @@
-.creator-navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    margin: 3px auto 30px;
-    padding: 10px;
-    border-bottom: 1px solid rgba(0,0,0,.1);
-    width: 100%;
+.creator-navbar{
     max-width: 400px;
 }
 
@@ -16,6 +8,7 @@
     flex-direction: column; 
     text-decoration: none;
 }
+
 .schedule-name{
     color: #333;
 }
@@ -23,15 +16,6 @@
     font-size: 14px;
     font-weight: bold;
     text-decoration: underline;
-}
-
-.creator-navbar .action-btn{
-   width: 46px;
-   height: 40px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   text-decoration: none;
 }
 
 .creator-navbar .action-btn {

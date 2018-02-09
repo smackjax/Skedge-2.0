@@ -26,7 +26,7 @@ const ScheduleControls = (props)=>{
             <button
             style={{
                 width: "20%",
-                margin: "3px 10px"
+                margin: "8px 10px"
             }}
             onClick={props.handleDelete}
             className="action-btn bg-danger text-light delete-schedule-btn"
@@ -37,7 +37,7 @@ const ScheduleControls = (props)=>{
             <button
             style={{
                 width: "20%",
-                margin: "3px 10px"
+                margin: "8px 10px"
             }}
             onClick={props.handleFollowers}
             className="action-btn bg-member text-light manage-followers-btn "
