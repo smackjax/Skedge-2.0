@@ -8,13 +8,26 @@ import {
     SelectableSublistItemsWrapper,
     SelectableSublistItem
 } from '../_generic-selectable-sublist-components';
-import { task as taskIcon } from '../../_icons';
+import { task as taskIcon, exclamation } from '../../_icons';
 import './tasks-selectable-sublist.style.css';
 
 
 
 const TasksSelectableList = (props)=>{
-
+    if(!props.itemArray.length) return (
+        <div
+        style={{
+            margin: "7px auto",
+            textAlign: "center",
+            padding: "5px",
+            borderWidth: "1px",
+            borderStyle: "solid"
+        }}
+        className="text-danger border-danger"
+        >
+            {exclamation}{taskIcon} No Tasks
+        </div>
+    )
     return (
         <SelectableSublistWrapper>
             <SelectableSublistHeader

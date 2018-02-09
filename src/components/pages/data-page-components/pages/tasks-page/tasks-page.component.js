@@ -5,6 +5,9 @@ import {
     WithBulkModalControls,
     WithItemArrayControls
 } from '../../_HOCIndex';
+
+import { sort } from '../../functions';
+
 import {
     ListPage,
     ListPageHeader,
@@ -48,14 +51,28 @@ const TasksPage = (props)=>{
         props.deleteTaskById(itemId);
         props.handleClearEdit();
     }
+    
     const handleAddTo=(dayIds)=>{
-        props.addTaskIdsToDays(props.selectedIds, dayIds)
+        props.addTaskIdsToDays(
+            props.selectedIds, 
+            dayIds
+        )
+
+        // Fakes checkbox event
+        props.handleSelectAll({ 
+            target: { checked: false } 
+        })
     }
     const handleRemoveFrom=(dayIds)=>{
         props.removeTaskIdsFromDays(
             props.selectedIds,
             dayIds
         )
+
+        // Fakes checkbox event
+        props.handleSelectAll({ 
+            target: { checked: false } 
+        })
     }
 
     const handleOpenAddTo=()=>{ 
@@ -65,6 +82,10 @@ const TasksPage = (props)=>{
     const handleOpenRemoveFrom=()=>{
         props.handleOpenRemoveFrom(handleRemoveFrom);
     }
+
+    const selectedIds = props.selectedIds;
+
+    const alphabetizedItems = sort(props.itemArray, "name");
 
     return (
         <ListPage className={pageClass}>
@@ -77,7 +98,7 @@ const TasksPage = (props)=>{
             </ListPageHeader>            
 
             <ListItemsWrapper>
-                {props.itemArray.map(
+                {alphabetizedItems.map(
                     (task, index)=>{
                     const selected=
                         props.selectedIds.includes(task.id);
@@ -95,6 +116,7 @@ const TasksPage = (props)=>{
             <ListControlsWrapper>         
                 <BulkRemoveFromBtn
                 className={bulkBgClass}
+                disabled={selectedIds.length ? false : true}
                 onClick={handleOpenRemoveFrom}
                 >   
                     {icons.minus}
@@ -103,6 +125,7 @@ const TasksPage = (props)=>{
 
                 <BulkAddToBtn
                 className={bulkBgClass}
+                disabled={selectedIds.length ? false : true}
                 onClick={handleOpenAddTo}
                 >
                     {icons.plus}

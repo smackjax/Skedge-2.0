@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { 
     WithBulkModalControls,
     WithItemArrayControls
 } from '../../_HOCIndex';
+
+import { sort } from '../../functions';
+
 import {
     ListPage,
     ListPageHeader,
@@ -58,12 +62,21 @@ const MemberPage = (props)=>{
             props.selectedIds,
             groupIds
         );
+        // Fakes checkbox event
+        props.handleSelectAll({ 
+            target: { checked: false } 
+        })
     }
     const handleRemoveFrom=(groupIds)=>{
         props.removeMemberIdsFromGroupIds(
             props.selectedIds,
             groupIds
         );
+
+        // Fakes checkbox event
+        props.handleSelectAll({ 
+            target: { checked: false } 
+        })
     }
 
     const handleOpenAddTo=()=>{ 
@@ -73,6 +86,10 @@ const MemberPage = (props)=>{
     const handleOpenRemoveFrom=()=>{
         props.handleOpenRemoveFrom(handleRemoveFrom);
     }
+
+    const selectedIds = props.selectedIds;
+
+    const alphabetizedItems = sort(props.itemArray, "name");
 
     return (
         <ListPage className={pageClass}>
@@ -85,10 +102,10 @@ const MemberPage = (props)=>{
             </ListPageHeader>            
 
             <ListItemsWrapper>
-                {props.itemArray.map(
+                { alphabetizedItems.map(
                     (member, index)=>{
                     const selected=
-                        props.selectedIds.includes(member.id);
+                        selectedIds.includes(member.id);
                     return <ItemToList
                         key={"item"+index}
                         member={member}
@@ -103,6 +120,7 @@ const MemberPage = (props)=>{
             <ListControlsWrapper>         
                 <BulkRemoveFromBtn
                 className={bulkBgClass}
+                disabled={selectedIds.length ? false : true}
                 onClick={handleOpenRemoveFrom}
                 >   
                     {icons.minus}
@@ -111,6 +129,7 @@ const MemberPage = (props)=>{
 
                 <BulkAddToBtn
                 className={bulkBgClass}
+                disabled={selectedIds.length ? false : true}
                 onClick={handleOpenAddTo}
                 >
                     {icons.plus}
@@ -135,7 +154,7 @@ const MemberPage = (props)=>{
             <BulkSelectModal
                 open={props.bulkModalOpen}
                 actionIcon={props.bulkActionIcon}
-                numOfItems={props.selectedIds.length}
+                numOfItems={selectedIds.length}
                 handleConfirm={props.handleBulkConfirm}
                 handleCancel={props.handleCloseBulkModal}
             />

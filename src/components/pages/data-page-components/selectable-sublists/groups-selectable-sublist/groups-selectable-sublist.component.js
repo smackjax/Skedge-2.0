@@ -8,12 +8,27 @@ import {
     SelectableSublistItemsWrapper,
     SelectableSublistItem
 } from '../_generic-selectable-sublist-components';
-import { group as groupIcon } from '../../_icons';
+import { group as groupIcon, exclamation } from '../../_icons';
 import './groups-selectable-sublist.style.css';
 
 
 
 const GroupsSelectableList = (props)=>{
+    
+    if(!props.itemArray.length) return(
+        <div
+        style={{
+            margin: "7px auto",
+            textAlign: "center",
+            padding: "5px",
+            borderWidth: "1px",
+            borderStyle: "solid"
+        }}
+        className="text-danger border-danger"
+        >
+            {exclamation}{groupIcon} No Groups
+        </div>
+    )
 
     return (
         <SelectableSublistWrapper>

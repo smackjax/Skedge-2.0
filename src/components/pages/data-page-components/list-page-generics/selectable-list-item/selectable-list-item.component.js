@@ -14,6 +14,9 @@ const SelectableListItem = (props)=>{
         className="selectable-list-item"
         bgColorClassName={bgColor}>
             <label 
+            style={{
+                fontWeight: props.selected ? "bold" : ""
+            }}
             className="item-info">
                 <input 
                 type="radio" 

@@ -8,10 +8,24 @@ import {
     SelectableSublistItemsWrapper,
     SelectableSublistItem
 } from '../_generic-selectable-sublist-components';
-import { member as memberIcon } from '../../_icons';
+import { member as memberIcon, exclamation } from '../../_icons';
 import './members-selectable-sublist.style.css';
 
 const MembersSelectableList = (props)=>{
+    if(!props.itemArray.length) return (
+        <div
+        style={{
+            margin: "7px auto",
+            textAlign: "center",
+            padding: "5px",
+            borderWidth: "1px",
+            borderStyle: "solid"
+        }}
+        className="text-danger border-danger"
+        >
+            {exclamation}{memberIcon} No Members
+        </div>
+    )
     return (
         <SelectableSublistWrapper>
             <SelectableSublistHeader

@@ -5,6 +5,9 @@ import {
     WithBulkModalControls,
     WithItemArrayControls
 } from '../../_HOCIndex';
+
+import { sort } from '../../functions';
+
 import {
     ListPage,
     ListPageHeader,
@@ -56,12 +59,22 @@ const GroupsPage = (props)=>{
             props.selectedIds,
             taskIds
         );
+        
+        // Fakes checkbox event
+        props.handleSelectAll({ 
+            target: { checked: false } 
+        })
     }
     const handleRemoveFrom=(taskIds)=>{
         props.removeGroupIdsFromTaskIds(
             props.selectedIds,
             taskIds
         );
+
+        // Fakes checkbox event
+        props.handleSelectAll({ 
+            target: { checked: false } 
+        })
     }
 
 
@@ -73,6 +86,9 @@ const GroupsPage = (props)=>{
         props.handleOpenRemoveFrom(handleRemoveFrom);
     }
 
+    const selectedIds = props.selectedIds;
+    
+    const alphabetizedItems = sort(props.itemArray, "name");
 
     return (
         <ListPage className={pageClass}>
@@ -85,7 +101,7 @@ const GroupsPage = (props)=>{
             </ListPageHeader>            
 
             <ListItemsWrapper>
-                {props.itemArray.map(
+                {alphabetizedItems.map(
                     (group, index)=>{
                     const selected=
                         props.selectedIds.includes(group.id);
@@ -103,6 +119,7 @@ const GroupsPage = (props)=>{
             <ListControlsWrapper>         
                 <BulkRemoveFromBtn
                 className={bulkBgClass}
+                disabled={selectedIds.length ? false : true}
                 onClick={handleOpenRemoveFrom}
                 >   
                     {icons.minus}
@@ -111,6 +128,7 @@ const GroupsPage = (props)=>{
 
                 <BulkAddToBtn
                 className={bulkBgClass}
+                disabled={selectedIds.length ? false : true}
                 onClick={handleOpenAddTo}
                 >
                     {icons.plus}

@@ -7,19 +7,20 @@ import {
 const BulkModalHeader = (props)=>{
     return (
         <ModalHeader className={props.bgClassName}>
-            <Badge className={props.bulkTextClass}>
-                {props.bulkIcon}
-                {props.bulkCount}
+            <Badge className={props.primaryTextClass}>
+                {props.primaryIcon}
+                {props.primaryCount}
             </Badge>
 
             <Badge className={props.bulkTextClass}>
                 {props.actionIcon}
             </Badge>
 
-            <Badge className={props.primaryTextClass}>
-                {props.primaryIcon}
-                {props.primaryCount}
+            <Badge className={props.bulkTextClass}>
+                {props.bulkIcon}
+                {props.bulkCount}
             </Badge>
+
         </ModalHeader>
     )
 }

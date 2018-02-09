@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin: 5px auto;
+    margin: 15px auto 5px;
 }
 .modal-footer-btns-wrapper button{
     margin-top: 2px;
