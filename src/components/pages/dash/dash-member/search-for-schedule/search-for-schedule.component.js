@@ -106,7 +106,7 @@ class SearchForSchedule extends React.Component{
                     <input 
                     type="text"
                     name="scheduleId"
-                    placeholder="Search schedule ids"
+                    placeholder="Search schedule id"
                     autoComplete={"off"}
                     onChange={this.handleSearchInput}
                     style={{ 
@@ -156,7 +156,7 @@ class SearchForSchedule extends React.Component{
                         <span className="text-sched">
                             {icons.check} {this.state.successMsg}
                         </span> 
-                    ): "Search for schedule" 
+                    ): "(case sensitive)" 
                     }
                 </div>
 

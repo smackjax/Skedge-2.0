@@ -17,21 +17,26 @@ class ViewSchedByDate extends React.Component{
     }
 
     componentDidMount(){
-            formatSchedByDate(this.props.schedule)
-            .then(formattedData=>{      
-                this.setState({ 
-                    formattedData
+        // Make schedule formattting async
+        setTimeout(
+            ()=>{
+                formatSchedByDate(this.props.schedule)
+                .then(formattedData=>{      
+                    this.setState({ 
+                        formattedData
+                    })
                 })
-            })
-            .catch(err=>{
-                console.log("Error formatting schedule by date ", err);
-            })
-            .then(always=>{
-                // Stop spinner
-                this.setState({
-                    loading: false
+                .catch(err=>{
+                    console.log("Error formatting schedule by date ", err);
                 })
-            })
+                .then(always=>{
+                    // Stop spinner
+                    this.setState({
+                        loading: false
+                    })
+                })
+            }
+        , 1)
     }
 
     render(){
@@ -40,13 +45,37 @@ class ViewSchedByDate extends React.Component{
         // Loading spinner
         if(loading){
             return (
-                <FullScreenSpinner />
+                 <div
+                 style={{
+                     display: "flex",
+                     flexDirection: "column",
+                     textAlign: "center",
+                 }}
+                 >
+                    <span className="text-sched">Formatting...</span>
+                    <span className="text-sched">{ icons.gearSpinner }</span>
+                 </div>
             )    
         }
 
         if(!formattedData){
-            console.log("No data")
-        }
+            return ( 
+                 <div
+                 style={{
+                     textAlign: "center",
+                 }}
+                 className="text-danger"
+                 >
+                     No data to show. <br /> 
+                     Might be an error. <br /> 
+                     Might not be.<br /> <br /> 
+                     The world is just a crazy place sometimes.<br /> <br /> <br /> 
+                     If it keeps happening, send me an email: <br /> 
+                     <a href="mailto:smackjax@gmail.com">smackjax@gmail.com</a>
+ 
+                 </div>
+             )
+         }
 
         return (
             <div>

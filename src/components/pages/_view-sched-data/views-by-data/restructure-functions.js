@@ -38,9 +38,9 @@ export const formatSchedByMember = (dateRange)=>{
         if(dateObj.tasks){
             const tasksArray = objToArr(dateObj.tasks);
             tasksArray.forEach((task)=>{
-    
+
                 const memberArray = objToArr(task.assigned);
-    
+
                 memberArray.forEach((member)=>{
                     // Initialize name, 'dates', and 'tasks' if not on list yet
                     if(!memberSched[member.id]){ 
@@ -51,7 +51,7 @@ export const formatSchedByMember = (dateRange)=>{
                         memberSched[member.id].dates[dateObj.id] = {id: dateObj.id}; }
                     if(!memberSched[member.id].dates[dateObj.id].tasks){
                         memberSched[member.id].dates[dateObj.id].tasks = {}; }
-    
+
                     // Since this is dealing with an object and bracket notation,
                     // Each unique value will automatically go where it's supposed to
                     memberSched[member.id]["dates"][dateObj.id]["tasks"][task.id]=
@@ -66,7 +66,7 @@ export const formatSchedByMember = (dateRange)=>{
     // Create arrays from data
     const arrayMemberSched = toArrays(memberSched, 'dates', 'tasks');
 
-  
+
     // Wraps member sched with meta info
     const mainSched = {
         id: dateRange.id,
@@ -74,21 +74,21 @@ export const formatSchedByMember = (dateRange)=>{
         endDate: dateRange.endDate,
         sched: arrayMemberSched
     };
-  
-    return mainSched;
-  }
 
-  export const formatSchedByDate = (dateRange)=>{
-        const arrayDateSched = 
-            toArrays(dateRange.dates, 'tasks', 'assigned');
+    return Promise.resolve(mainSched);
+}
 
-        // Wraps member sched with meta info
-        const mainSched = {
-            id: dateRange.id,
-            startDate: dateRange.startDate,
-            endDate: dateRange.endDate,
-            sched: arrayDateSched
-        };
-      
-        return Promise.resolve(mainSched);
-  }
+export const formatSchedByDate = (dateRange)=>{
+    const arrayDateSched = 
+    toArrays(dateRange.dates, 'tasks', 'assigned');
+
+    // Wraps member sched with meta info
+    const mainSched = {
+        id: dateRange.id,
+        startDate: dateRange.startDate,
+        endDate: dateRange.endDate,
+        sched: arrayDateSched
+    };
+    
+    return Promise.resolve(mainSched);
+}
