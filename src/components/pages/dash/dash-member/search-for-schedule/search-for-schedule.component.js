@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import {
     findAndRequestToFollow
 } from '../../../api';
 
+import { isValidDatabasePath } from '../../../regex-path-types';
+ 
 import {icons, SpinnerBottomScreen} from '../../../generic-components';
 import './search-for-schedule.style.css';
 
 class SearchForSchedule extends React.Component{
     state={
         searching: false,
-        message: "",
-        searchSuccess: true,
+        successMsg: "",
+        errorMsg: "",
+
+        validSearch: false,
     }
 
     requestToFollow=(e)=>{
@@ -23,46 +28,57 @@ class SearchForSchedule extends React.Component{
         
         this.props.findAndRequestToFollow(scheduleId)
         .then(success=>{
-            console.log("Success result: ", success);
             if(success){
-                this.setMessage("Request successful.", true);
+                this.setSuccessMsg("Requested to follow");
             } else {
-                console.log("Schedule not found")
-                this.setMessage("Schedule not found", false);
+                this.setErrorMsg("Schedule not found");
             }
         })
         .catch(err=>{
             console.log("Problem searching for schedule to follow: ", err);
-            this.setMessage("Failed. Please try again.", false);
+            this.setErrorMsg("Failed. Please try again.");
         })
-        
+        .then(always=>{
+            this.setSearching(false);
+        })        
+    }
+
+
+    handleSearchInput=(e)=>{
+        const searchId = e.target.value;
+        const isValidPath = isValidDatabasePath(searchId);
+
+        const errorMsg = (isValidPath || !searchId) ? "" :
+            "Only A-z 1-9 - _ allowed";
+        const isValid = (searchId.length && isValidPath);
 
         this.setSearching(false);
+        this.setSuccessMsg("");
+        this.setValid(isValid);
+        this.setErrorMsg(errorMsg);
     }
-
     setSearching=(searching)=>{
-        this.setState({
-            searching
-        })
+        this.setState({ searching })
+    }
+    setErrorMsg=(errorMsg)=>{
+        this.setState({ errorMsg })
     }
 
-    setMessage=(message, searchSuccess)=>{
-        this.setState({
-            message, 
-            searchSuccess
-        })
+    setSuccessMsg=(successMsg)=>{
+        this.setState({ successMsg })
+    }
+    setValid=(validSearch)=>{
+        this.setState({ validSearch })
     }
 
-    handleSearchInput=()=>{
-      this.setState({
-          message: "",
-          searching: false,
-          searchSuccess: null
-      })  
-    }
 
     render(){
-        const {message, searchSuccess, searching} = this.state;
+        const {
+            searching,
+            errorMsg,
+            successMsg,
+            validSearch
+        } = this.state;
 
         return this.props.connected ?  (
             <div 
@@ -72,7 +88,7 @@ class SearchForSchedule extends React.Component{
                 alignItems: "center",
                 width: "95%",
                 maxWidth: "300px",
-                margin: "10px auto",
+                margin: "10px auto 5px",
             }}
             >
 
@@ -93,13 +109,16 @@ class SearchForSchedule extends React.Component{
                     placeholder="Search schedule ids"
                     autoComplete={"off"}
                     onChange={this.handleSearchInput}
-                    style={{ width: "100%" }}
+                    style={{ 
+                        width: "100%",
+                        color: "#111"
+                    }}
                     className="search-for-schedule-input"
                     />
                     
                     <button 
                     type="submit"
-                    disabled={searching}
+                    disabled={searching || !validSearch}
                     className="bg-sched text-light submit-schedule-search-btn"
                     >
                         {icons.search}
@@ -107,40 +126,40 @@ class SearchForSchedule extends React.Component{
                 </form>
     
 
-                { searching ? (
-                    <div 
-                    style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        padding: "10px",
-                        width: "100%",
-                        textAlign: "center"
-                    }}
-                    className={"schedule-search-info-wrapper border-sched " + ( searchSuccess ? "text-sched" : "text-danger" )}
-                    >
-                        <div
-                        className="schedule-search-spinner"
-                        >   
-                            { icons.gearSpinner }
-                        </div>
-                        Searching...
-                    </div>
-                ) : "" }
 
-                { message ?( 
-                    <div 
-                    style={{
-                        padding: "10px",
-                        width: "100%",
-                        textAlign: "center"
-                    }}
-                    className={"border-sched " + ( searchSuccess ? "text-sched" : "text-danger" )}
-                    >
-                    { searchSuccess ? icons.check : icons.times } { message }
-                    </div>
-                ) : "" }
+                <div 
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    padding: "10px",
+                    width: "100%",
+                    textAlign: "center",
+                    color: "#999",
+                    fontSize: "16px"
+                }}
+                className="schedule-search-info-wrapper"
+                >
+                    { // Sets message
+                    searching ? (
+                        <span className="schedule-search-spinner">
+                            { icons.gearSpinner } Searching...
+                        </span>
+                    ):
+                    errorMsg ? (
+                        <span className="text-danger">
+                            { icons.times } {this.state.errorMsg}
+                        </span> 
+                    ):
+                    successMsg ? (
+                        <span className="text-sched">
+                            {icons.check} {this.state.successMsg}
+                        </span> 
+                    ): "Search for schedule" 
+                    }
+                </div>
+
                 
             </div>
         ) : (

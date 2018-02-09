@@ -90,5 +90,5 @@ export const formatSchedByMember = (dateRange)=>{
             sched: arrayDateSched
         };
       
-        return mainSched;
+        return Promise.resolve(mainSched);
   }

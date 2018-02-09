@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, ModalBody, ModalHeader, ModalFooterBtns} from '../../../_generic-components/modal';
+import { isValidDatabasePath } from '../../regex-path-types';
 import { icons } from '../../generic-components';
 import IdSearchResults from './id-search-results/id-search-results.component';
 
@@ -41,7 +42,17 @@ class NewScheduleModal extends React.Component {
         // Cancels previous search
         this.clearSearch();
         const newId = e.target.value.trim();
-        if(newId){
+
+        // Makes sure path won't break Firebase
+        const validPath = isValidDatabasePath(newId);
+
+        if(newId && !validPath){
+            this.setState({ 
+                searchErrorMsg: "Only A-z 1-9 - _ allowed" 
+            })
+        }
+
+        if(newId && validPath ){
             this.searchForId( newId );
         } 
         this.setState({  newId })
@@ -51,7 +62,7 @@ class NewScheduleModal extends React.Component {
     clearSearch=()=>{
         clearTimeout(this.searchToExecute);
         this.setState({
-            errorMsg: "",
+            searchErrorMsg: "",
             idTaken: null,
             searching: false
         })
@@ -74,7 +85,7 @@ class NewScheduleModal extends React.Component {
             .catch(err=>{
                 console.log("Couldn't search for schedules ", err);
                 this.setState({
-                    searchErrorMsg: "Couldn't search for schedules"
+                    searchErrorMsg: "Error. Please try again."
                 })
             })
             .then(always=>{
@@ -131,7 +142,7 @@ class NewScheduleModal extends React.Component {
                                 margin: "5px 0",
                                 backgroundColor: "#fff"
                             }}
-                            placeholder="(How people find it)"
+                            placeholder="How people find it"
                             required
                             value={this.state.newId}
                             onChange={this.handleId}
@@ -175,7 +186,7 @@ class NewScheduleModal extends React.Component {
                                 margin: "5px 0",
                                 backgroundColor: "#fff"
                             }}
-                            placeholder="(Nice name people see)"
+                            placeholder="Nice name people see"
                             required
                             value={this.state.newName}
                             onChange={this.handleName}

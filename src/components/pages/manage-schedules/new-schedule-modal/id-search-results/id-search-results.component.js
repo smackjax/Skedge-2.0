@@ -12,21 +12,23 @@ const IdSearchResults = (props)=>{
             fontSize: "16px"
         }}
         >
-            { // If searching ids
+            { 
+                // If there's an error msg
+                errorMsg ? 
+                    <span
+                    className="text-danger"
+                    >
+                        {icons.times} {errorMsg}
+                    </span> 
+                :
+                // If searching ids
                 searching ? 
                     <span
                     className="searching-schedule-ids-icon"
                     >    
                     {icons.gearSpinner }
                     </span>
-                    // Not searching ids && is an error message
-                : errorMsg ? 
-                    <span
-                    className="text-danger"
-                    >
-                        {icons.times} Error. Please try again.
-                    </span> 
-                    // No error message and idTaken has a result
+                // If idTaken has a result(not null)
                 : idTaken !== null ?
                         // Name is taken
                         idTaken ?
