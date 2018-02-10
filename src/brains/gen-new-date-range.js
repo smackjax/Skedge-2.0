@@ -4,11 +4,21 @@ import moment from 'moment';
 import {
     dehydrateDate,
     objToArr,
-    arrToObj
+    arrToObj,
+    findLowestNumber
 } from '../_FUNCTIONS/';
+
+
 
 import idGen from 'uniqid';
 
+// functions specific to generation
+import {
+    cleanMemberTimesAssigned,
+    equalizeTimesAssigned,
+    equalizeMembersAssignedToTasks,
+    shakeTree
+} from './generation-utility-funcs';
 
 // Moment docs: 
 /*
@@ -16,46 +26,6 @@ import idGen from 'uniqid';
 
 
 */
-
-
-const cleanStatePiece=(statePiece, idSublistKey, existingIds)=>{
-    // StatePiece would be, for example state.members
-    const ids = Object.keys(statePiece);
-    const newState={...statePiece};
-    ids.forEach( id=>{
-        const currentList = newState[id][idSublistKey];
-        newState[id][idSublistKey] = currentList.filter(
-            dirtyId=>existingIds.includes(dirtyId)
-        )
-    } )
-    return newState;
-}
-
-const shakeTree=(state)=>{
-    // Gets rid of item ids that don't correspond to an existing item
-    const memberIds = Object.keys(state.members);
-    const groupIds  = Object.keys(state.groups);
-    const taskIds   = Object.keys(state.tasks);
-
-    // members.groups
-    const members = cleanStatePiece(state.members, 'groups', groupIds);
-    // groups.members
-    const groups = cleanStatePiece(state.groups, 'members', memberIds);
-    // tasks.groups
-    const tasks = cleanStatePiece(state.tasks, 'groups', groupIds);
-    // days.tasks
-    const days = cleanStatePiece(state.days, 'tasks', taskIds);
-
-    return {
-        ...state,
-        members,
-        groups,
-        tasks,
-        days
-    }
-}
-
-
 export default (startDateString, endDateString, currentState)=>{
     // TODO shake the tree. Eliminate object ids that don't exist in their parents 
     const state = shakeTree(currentState);
@@ -117,9 +87,16 @@ export default (startDateString, endDateString, currentState)=>{
                 tasks: {}
             }
 
+            /* 
+            These work is tandem. 
+            If someone is assigned today, they cannot be assigned an exclusive task.
+            If someone is assigned an exclusive task, they cannot be assigned today.
+            */
+
             const membsAssignedToday = []; // TODO
             const membsAssignedExclusive = []; // TODO
-            const taskIdsAssignedToday = []; // TODO
+
+            const taskIdsAssignedToday = []; 
 
 
             /*  The main loop is: 
@@ -288,8 +265,6 @@ export default (startDateString, endDateString, currentState)=>{
                         }
                         : task
                 );
-
-
                 // Reset sources of truth with updated values for next task iteration
                 members = newMembers;
                 tasks = newTasks;
@@ -309,9 +284,12 @@ export default (startDateString, endDateString, currentState)=>{
     });
 
     // TODO subtract greatest difference possible from member assigned most to member assigned least, on both members and tasks
-
-    const newMembVals = arrToObj(members);
-    const newTaskVals = arrToObj(tasks);
+    const lowestTimesMemberAssigned = findLowestNumber(members, 'totalTimesAssigned');
+    const equalizedMembers = equalizeTimesAssigned(members, lowestTimesMemberAssigned);
+    const equalizedTasks = equalizeMembersAssignedToTasks(tasks);
+    
+    const newMembVals = arrToObj(equalizedMembers);
+    const newTaskVals = arrToObj(equalizedTasks);
     
     return {
         members: newMembVals,

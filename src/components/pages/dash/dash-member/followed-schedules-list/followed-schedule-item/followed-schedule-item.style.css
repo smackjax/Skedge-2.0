@@ -8,11 +8,6 @@
     padding: 10px 15px;
 }
 
-.followed-schedule-item .icon-wrapper{
-
-}
-.followed-schedule-item .meta-wrapper{
-}
 .followed-schedule-item .schedule-name{
     
     color: rgb(255,255,255);
@@ -21,8 +16,4 @@
     text-decoration: none;
     font-size: 16px;
     color: rgba(255,255,255,.7);
-}
-
-.followed-schedule-item .chev-right-icon{
-
 }

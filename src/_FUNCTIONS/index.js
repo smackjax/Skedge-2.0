@@ -1,6 +1,7 @@
 import objToArr from './objToArr';
 import arrToObj from './arrToObj';
 import sort from './sort';
+import findLowestNumber from './findLowestNumber';
 import * as dateFunctions from './dateFunctions';
 
 const hydrateDate = dateFunctions.hydrateDate;
@@ -14,5 +15,6 @@ export {
     arrToObj,
     hydrateDate,
     dehydrateDate,
-    genDatesArray
+    genDatesArray,
+    findLowestNumber
 }
