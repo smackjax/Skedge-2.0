@@ -12,8 +12,7 @@ import {
 import {
     ModalBody,
     ModalHeader,
-    ModalContent,
-    ModalFooterBtns
+    ModalContent
 } from '../../modal-generics';
 import { icons } from '../../generic-components';
 

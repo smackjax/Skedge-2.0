@@ -4,7 +4,7 @@ import {
     ExpandableViewListItem as ExpandableItem,
     ViewListItem as ListItem
 } from '../../_view-list-generics';
-import { icons, FullScreenSpinner } from '../../generic-components';
+import { icons } from '../../generic-components';
 import { formatSchedByDate } from '../restructure-functions';
 import { hydrateDate } from '../../functions';
 

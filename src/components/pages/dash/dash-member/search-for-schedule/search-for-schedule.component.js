@@ -8,7 +8,7 @@ import {
 
 import { isValidDatabasePath } from '../../../regex-path-types';
  
-import {icons, SpinnerBottomScreen} from '../../../generic-components';
+import {icons} from '../../../generic-components';
 import './search-for-schedule.style.css';
 
 class SearchForSchedule extends React.Component{

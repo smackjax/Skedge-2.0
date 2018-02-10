@@ -15,7 +15,6 @@ export default (dirtyTasks)=>{
             const task = {...tasks[id]};
             // Find lowest times member has been assigned
             const amountToSubtract = findLowestNumber(task.timesAssigned);
-            console.log(`Lowest times for ${task.name}: ${amountToSubtract}`)
             // Initialize
             const newAssignedMembers = task.timesAssigned || {};
             // Get member Ids that have been assigned

@@ -14,7 +14,6 @@ import idGen from 'uniqid';
 
 // functions specific to generation
 import {
-    cleanMemberTimesAssigned,
     equalizeTimesAssigned,
     equalizeMembersAssignedToTasks,
     shakeTree
@@ -87,7 +86,7 @@ export default (startDateString, endDateString, currentState)=>{
                 tasks: {}
             }
 
-            /* 
+            /* TODO
             These work is tandem. 
             If someone is assigned today, they cannot be assigned an exclusive task.
             If someone is assigned an exclusive task, they cannot be assigned today.
@@ -113,9 +112,11 @@ export default (startDateString, endDateString, currentState)=>{
             const tasksOnDay = daysOfWeek[dayIndex].tasks;
             for(let ti = 0; ti < tasksOnDay.length; ti++){
 
-            // Gets all tasks to be built on this day of the week
-            const totalTasksOnDay =                // day.tasks holds task ids
+            
 
+            // Gets all tasks to be built on this day of the week
+            // daysOfWeek[dayIndex].tasks holds task ids
+            const totalTasksOnDay =                
                 daysOfWeek[dayIndex].tasks.map(
                     // .filter returns array, so grabs only value
                     taskId=>tasks.filter(task=>task.id === taskId)[0]
@@ -127,39 +128,41 @@ export default (startDateString, endDateString, currentState)=>{
                     !taskIdsAssignedToday.includes(task.id)
                 )
             );
-
+            
+            // TODO crazyFunc = (task, groupsById, membsAssignedToday, membsAssignedExclusive)
 
             // Gets array of tasks with total available members,
                 // filters out already assigned to exclusive task
             const tasksWithAvailable = tasksToGen.map((task)=>{
-                const newAvailable = task.groups.map((groupId)=>{
-                    return groupsById[groupId].members;
-                }).reduce(
-                    // Concat all member lists
-                    (prevMembList, currentMembList)=>prevMembList.concat(
-                        // Filters duplicate ids
-                        currentMembList.filter(
-                            checkMembID=> !prevMembList.includes(checkMembID)
-                        )
-                    ), 
-                    [] // <-- Second argument acts as 'prevMemblist' for first iteration
-                
-                ).filter( // <- Filter members assigned to exclusive task
-                    // If task is exclusive, don't return a member that's assigned
-                        // if not exclusive, don't return a member assigned to task that is
-                    membId=>task.isExclusive ? 
-                        !membsAssignedToday.includes(membId) :
-                            !membsAssignedExclusive.includes(membId)
+                const newAvailable = 
+                    task.groups.map((groupId)=>{
+                        return groupsById[groupId].members;
+                    }).reduce(
+                        // Concat all member lists
+                        (prevMembList, currentMembList)=>prevMembList.concat(
+                            // Filters duplicate ids
+                            currentMembList.filter(
+                                checkMembID=> !prevMembList.includes(checkMembID)
+                            )
+                        ), 
+                        [] // <-- Second argument acts as 'prevMemblist' for first iteration
+                    
+                    ).filter( // <- Filter members assigned to exclusive task
+                        // If task is exclusive, don't return a member that's assigned
+                            // if not exclusive, don't return a member assigned to task that is
+                        membId=>task.isExclusive ? 
+                            !membsAssignedToday.includes(membId) :
+                                !membsAssignedExclusive.includes(membId)
 
-                ).filter(membId=>{ // <- filter members unavailable
-                    // Get member
-                    const member = members.filter(memb=>membId === memb.id)[0];
-                    // If unavailable on today's date string, return false
-                      // if no unavailableDates, member is available
-                    return member.unavailableDates ? 
-                        !member.unavailableDates.includes(dehydrateDate(momentObj)) :
-                         true;
-                });
+                    ).filter(membId=>{ // <- filter members unavailable
+                        // Get member
+                        const member = members.filter(memb=>membId === memb.id)[0];
+                        // If unavailable on today's date string, return false
+                        // if no unavailableDates, member is available
+                        return member.unavailableDates ? 
+                            !member.unavailableDates.includes(dehydrateDate(momentObj)) :
+                            true;
+                    });
 
                 // TODO if no one is on available list, right now only returns list with one empty 'member'.
                     // Decide if that's a good idea
@@ -213,18 +216,19 @@ export default (startDateString, endDateString, currentState)=>{
                 
                 // Checks if there are assigned members
                 const assignedMembers = sortedMemberIds.length > 0 ?
-                // Assign amount of members needed
-                 sortedMemberIds.filter(
-                    (membId, index)=> index<taskToAssign.numNeeded
-                ).map((membId)=>{
-                    // Creates new object with member values for each assigned id
-                    return {...members.filter(member=>{
-                        return membId !== 'no1' ? 
-                        member.id === membId ? true : false
-                        : false;
-                    })[0]}
-                    }
-                ): [];
+                    // Assign amount of members needed
+                    sortedMemberIds.filter(
+                        (membId, index)=> index < taskToAssign.numNeeded
+                    ).map((membId)=>{
+                        // Creates new object with member values for each assigned id
+                        return {...members.filter(member=>{
+                            return membId !== 'no1' ? 
+                            member.id === membId ? true : false
+                            : false;
+                        })[0]}
+                        }
+                    ): [];
+                // assignedMembers is an array
 
                 // If no one assigned, return empty object
                 const assignedForTask = assignedMembers.length > 0 ?

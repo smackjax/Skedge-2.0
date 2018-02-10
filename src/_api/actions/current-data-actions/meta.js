@@ -53,7 +53,6 @@ export const changeActiveDateRangeId = (dateRangeId)=>(
 
 export const changeUserType = (newUserType)=>(
     (dispatch, getState)=>{
-        const state = getState();
 
         const metaUpdates = {
             userType: newUserType

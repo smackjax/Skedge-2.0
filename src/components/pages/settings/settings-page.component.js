@@ -46,7 +46,7 @@ const SettingsPage = (props)=>{
             onClick={changeAccountType}
             style={{
                 display: "block",
-                maxWidth: "150px",
+                maxWidth: "250px",
                 margin: "20px auto",
                 padding: '15px'
             }}
