@@ -5,6 +5,11 @@ import { withRouter } from 'react-router-dom';
 import { signOut, changeUserType } from '../api';
 import { Navbar, icons } from '../generic-components';
 
+const capitalize = (word)=>{
+    const firstLetter = word.charAt(0).toUpperCase();
+    const restOfWord = word.substr(1);
+    return firstLetter + restOfWord;
+};
 
 const SettingsPage = (props)=>{
     const isMember = (props.userType === "member");
@@ -20,34 +25,39 @@ const SettingsPage = (props)=>{
         props.history.push('/dashboard');
     }
 
+    const userTypeClasses = isMember ? "text-creator" : "text-member";
     const switchAccountBtnClasses =
         "action-btn text-light " + 
             (isMember ? "bg-creator" : "bg-member");
+    
 
     return (
         <div>
             
             <Navbar />
 
-            <button
-            onClick={signOutAndDash}
+            <div
             style={{
-                display: "block",
-                maxWidth: "150px",
-                margin: "20px auto",
-                padding: '15px'
+                textAlign: 'center',
+                marginTop: "10px"
             }}
-            className="action-btn bg-member text-light"
             >
-                {icons.signOut} SIGN OUT
-            </button>
-
+                Current User Type: 
+                <span 
+                style={{
+                    marginLeft: '10px'
+                }}
+                className={userTypeClasses}
+                >
+                    {capitalize(props.userType)}
+                </span>
+            </div>
             <button
             onClick={changeAccountType}
             style={{
                 display: "block",
                 maxWidth: "250px",
-                margin: "20px auto",
+                margin: "15px auto",
                 padding: '15px'
             }}
             className={ switchAccountBtnClasses }
@@ -55,27 +65,19 @@ const SettingsPage = (props)=>{
                 Switch account type
             </button>
 
-            <div
+                        <button
+            onClick={signOutAndDash}
             style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "250px",
-                textAlign: "center",
-                margin: "30px auto",
-                padding: "10px",
-                backgroundColor: "#fff"
+                display: "block",
+                maxWidth: "150px",
+                margin: "40px auto 0px",
+                padding: '15px'
             }}
-            className="action-btn"
-            > 
-                <span
-                style={{
-                    fontSize: "25px",
-                    marginBottom: "10px",
+            className="action-btn bg-danger text-light"
+            >
+                {icons.signOut} SIGN OUT
+            </button>
 
-                }}
-                >{icons.cog}</span>
-                <span>Under development</span>
-            </div>
         </div>
     )
 }
